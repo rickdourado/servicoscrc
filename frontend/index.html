@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizador de Serviços</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1>Organizador Lúdico de Serviços</h1>
+        <div class="tabs">
+            <button class="tab-btn active" data-target="view-organizer">Organizador</button>
+            <button class="tab-btn" data-target="view-structure">Visualizador</button>
+        </div>
+        <button id="save-btn" class="primary-btn">Salvar Estrutura</button>
+    </header>
+
+    <main class="app-main">
+        <!-- Tab 1: Organizador -->
+        <section id="view-organizer" class="view-section active">
+            <div class="organizer-container">
+                <!-- Dropzone agora atua como Cesta de Itens Selecionados via Click -->
+                <div class="upper-area">
+                    <h2>Estrutura Principal</h2>
+                    <p class="subtitle">Itens selecionados aparecerão aqui na ordem dos seus cliques (clique para remover)</p>
+                    <div id="dropzone" class="bubble-container added-zone"></div>
+                </div>
+
+                <div class="lower-area-wrapper">
+                    <!-- Pool SGRC -->
+                    <div class="lower-area pool-section">
+                        <h2>SGRC Disponíveis</h2>
+                        <p class="subtitle">Clique para adicionar à estrutura</p>
+                        <div id="pool-sgrc" class="bubble-container"></div>
+                    </div>
+
+                    <!-- Pool Prefrio -->
+                    <div class="lower-area pool-section">
+                        <h2>Prefrio Disponíveis</h2>
+                        <p class="subtitle">Clique para adicionar à estrutura</p>
+                        <div id="pool-prefrio" class="bubble-container"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 2: Visualizador Struturado -->
+        <section id="view-structure" class="view-section">
+            <div class="structure-container">
+                <h2>Visualização da Estrutura</h2>
+                <div id="structure-content">
+                    <p>Adicione elementos no organizador para ver a estrutura aqui.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

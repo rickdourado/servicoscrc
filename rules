@@ -1,0 +1,373 @@
+---
+description: regras do chatbot
+globs:
+alwaysApply: true
+---
+
+# 🤖 Regras para o Chatbot
+
+**Descrição**: Regras obrigatórias para desenvolvimento do Chatbot SEI
+
+**Auto-attach**: Sempre aplicar em arquivos relacionados ao projeto
+
+## 🚨 APLICAÇÃO AUTOMÁTICA DAS REGRAS
+
+**IMPORTANTE**: Estas regras devem ser aplicadas AUTOMATICAMENTE em TODAS as interações com este projeto. O assistente deve:
+
+1. **SEMPRE** seguir a estrutura de arquivos definida abaixo
+2. **SEMPRE** seguir as convenções de nomenclatura e organização
+3. **SEMPRE** aplicar as regras de desenvolvimento sem exceção
+4. **SEMPRE** usar o comando uv para ativar o ambiente de desenvolvimento
+5. **SEMPRE** unifique os changelogs na pasta documentacao/changelogs/ usando primeiramente o dia em que foram feitos, mantendo o padrão AAAA-MM-DD.md
+6. **SEMPRE** que precisar criar um script para uma tarefa temporária, delete-o depois
+
+**Quando aplicar**: Em qualquer modificação, criação de arquivos, refatoração ou desenvolvimento relacionado ao projeto.
+
+**Como aplicar**: Verificar se o código/projeto está em conformidade com estas regras e corrigir automaticamente qualquer desvio.
+
+---
+
+## 1. 📋 Função Primária
+
+O **Chatbot SEI v3.0** é um assistente inteligente especializado no Sistema Eletrônico de Informações (SEI) da Prefeitura do Rio de Janeiro. Ele combina **base de conhecimento estruturada** com **sistema de aprendizado automático** para fornecer respostas precisas e contextualizadas sobre o SEI.
+
+## 2. 🎯 Limites e Escopo de Conhecimento
+
+### Perguntas SEI (Contexto Principal)
+
+- **Autenticação**: Login, senhas, acesso ao sistema
+- **Processos**: Criação, consulta, tramitação
+- **Documentos**: Upload, assinatura, visualização
+- **Usuários**: Gestão de usuários e permissões
+- **Configurações**: Personalização do sistema
+
+### Perguntas Fora de Contexto
+
+Para perguntas irrelevantes ao SEI, o sistema utiliza **fallback inteligente** com Google Gemini, informando claramente ao usuário que a pergunta está fora do escopo.
+
+## 4. 📝 Estrutura das Respostas
+
+### Precisão
+
+Respostas baseadas na base de conhecimento estruturada do SEI, com referências específicas quando possível.
+
+### Clareza
+
+Linguagem simples e direta, evitando jargões técnicos desnecessários.
+
+### Contexto
+
+Referências claras aos tópicos do SEI, permitindo que o usuário aprofunde a pesquisa.
+
+## 5. 💬 Fluxo de Conversa Inteligente
+
+### Detecção de Intenção
+
+- **"Como faço X?"** → Resposta procedural
+- **"Onde encontro Y?"** → Localização de funcionalidades
+- **"Preciso de ajuda com Z"** → Assistência específica
+
+### Resolução de Ambiguidade
+
+Sistema pede esclarecimentos quando necessário, mas tenta inferir intenção através do contexto.
+
+## 6. 🔄 Arquitetura de Processamento
+
+### Base de Conhecimento Estruturada
+
+```json
+{
+  "categories": {
+    "autenticacao": {
+      "name": "Autenticação e Acesso",
+      "entries": [
+        {
+          "id": "auth_001",
+          "question": "Como fazer login no SEI?",
+          "variations": ["Como entrar no SEI?", "como faço login?"],
+          "keywords": ["login", "entrar", "acesso"],
+          "confidence": 0.95
+        }
+      ]
+    }
+  }
+}
+```
+
+### Pipeline de Processamento
+
+1. **Recepção**: Pergunta do usuário via interface React
+2. **Análise**: Algoritmo de correspondência inteligente
+3. **Busca**: Consulta à base de conhecimento estruturada
+4. **Aprendizado**: Registro de correspondências bem-sucedidas
+5. **Resposta**: Retorno da resposta mais relevante
+6. **Fallback**: Gemini para perguntas fora de contexto
+7. **Expansão**: Atualização automática da base (quando necessário)
+
+---
+
+``
+
+## 📝 Regras de Desenvolvimento - Atualizadas
+
+### 🌍 Linguagem
+
+- Toda documentação, comentários e respostas do chatbot (quando aplicável) em **português brasileiro**
+- Todos os arquivos .md deverão ser armazenados em `documentacao/`, para evitar a confusão. Caso necessário crie uma pasta dentro.
+- O ambiente de desenvolvimento será chamado `chat`, utilizando o miniconda, sempre ativando-o.
+- Sempre execute um comando por vez, evitando o uso de `&&`, que acaba dando problemas na execução.
+
+### 📚 Controle de Versão
+
+- Commits devem ser claros e seguir um **padrão convencional**
+- Use prefixos como: `feat:`, `fix:`, `docs:`, `style:`, `refactor:`, `test:`, `chore:`
+
+### 📖 Documentação
+
+- Manter o **README.md** principal atualizado com as instruções de setup e funcionamento da API
+- **Changelog**: Alterações significativas na API ou no comportamento do bot devem ser documentadas
+- **Controle de Versão:** Verificar a data do sistema ao registrar mudanças
+- **Documentação:** Manter arquivos .md de documentação na pasta `documentacao/`
+- **Changelog:** Registrar alterações diárias em arquivos com formato `AAAA-MM-DD.md` na pasta `documentacao/changelogs/`
+- **Criação de Scripts** os scripts em python devem ficar armazenados na pasta `scripts/`
+
+### 🎯 Padrões - HTML5 + CSS3 + JavaScript
+
+- **HTML5**: Usar elementos semânticos e estrutura acessível
+- **CSS3**: Organizar estilos em arquivos separados, usar variáveis CSS
+- **JavaScript**: Seguir ES6+, usar async/await, modularizar código
+- **Responsive Design**: Usar media queries para layouts responsivos
+- **Python**: Seguir as convenções da **PEP 8**
+
+### 🔒 Segurança
+
+- Validar e sanitizar todos os dados recebidos pela API no backend
+- Implementar validação de entrada no frontend JavaScript
+- Prevenir injeções ou outros ataques
+- Usar HTTPS em produção
+
+## 🔄 Fluxo de Trabalho
+
+1. **Carregamento**: Usuário carrega a página HTML e os scripts JavaScript são executados
+
+2. **Input**: O usuário digita uma mensagem no campo de entrada e clica em "Enviar"
+
+3. **Processamento Frontend**: O JavaScript captura o texto, atualiza o DOM, exibe a mensagem do usuário na tela e envia o texto para a API do backend via `fetch()`
+
+4. **Processamento Backend**: O backend Flask recebe a requisição, processa a mensagem através da sua lógica interna e gera uma resposta
+
+5. **Resposta**: A API retorna a resposta do chatbot para o frontend em formato JSON
+
+6. **Exibição**: O JavaScript recebe a resposta e atualiza o DOM para exibir a resposta do bot na tela
+
+## ⚠️ Observações Importantes - Atualizadas
+
+### 🎯 Responsabilidades do Flask
+
+- O Flask é responsável **por toda a aplicação** (frontend + API)
+- Ele **serve as páginas HTML** e processa as requisições da API
+- Retorna tanto HTML quanto dados em formato JSON
+
+### 💻 Gerenciamento de Estado JavaScript
+
+- Todo o estado da interface é gerenciado pelo **JavaScript** usando variáveis e DOM
+- Use padrões de programação funcional quando apropriado
+- Organize o código em módulos para melhor manutenção
+
+### 🎨 Estilização com CSS3
+
+- Use CSS3 moderno com variáveis CSS e flexbox/grid
+- Organize estilos em arquivos separados por funcionalidade
+- Use media queries para responsividade
+- Implemente tema escuro/claro usando classes CSS condicionais
+
+### 🚀 Deploy - Arquitetura Monolítica
+
+- **Aplicação**: Uma única aplicação Flask servindo tudo
+- **Hospedagem**: Serviços como PythonAnywhere, Render, Heroku
+- **Configuração**: Aplicação web completa com frontend + API
+
+## 📦 Scripts de Desenvolvimento
+
+### Aplicação Completa (Flask)
+
+```bash
+# Ativar ambiente conda
+conda activate chat
+
+# Instalar dependências
+pip install -r requirements.txt
+
+# Executar servidor de desenvolvimento
+python backend/app.py
+
+# Executar testes
+python -m pytest
+
+# Executar scripts de gestão
+python Scripts/expand_knowledge_learning.py --stats
+python Scripts/configure_auto_expansion.py --threshold 15
+```
+
+## 🔧 Configurações Específicas
+
+### CSS3
+
+- Usar variáveis CSS para cores e espaçamentos
+- Implementar CSS Grid e Flexbox para layouts
+- Organizar estilos em arquivos modulares
+
+### JavaScript
+
+- Usar ES6+ features (arrow functions, destructuring, async/await)
+- Implementar tratamento de erros adequado
+- Modularizar código em arquivos separados
+
+### API Integration
+
+- Implementar retry logic para requisições falhadas
+- Usar fetch() para comunicação HTTP
+- Implementar loading states e error handling adequados
+
+## 🔍 VERIFICAÇÃO AUTOMÁTICA DE CONFORMIDADE
+
+### ✅ Checklist de Conformidade (SEMPRE VERIFICAR)
+
+**Estrutura de Arquivos:**
+
+- [ ] Pasta `backend/` contém código Flask (frontend + API)
+- [ ] Pasta `frontend/` contém arquivos HTML5 + CSS3 + JavaScript
+- [ ] Arquivo `backend/app.py` serve frontend + API
+- [ ] Arquivo `frontend/index.html` existe como página principal
+- [ ] Arquivos CSS organizados em `frontend/styles/`
+- [ ] Arquivos JavaScript organizados em `frontend/js/`
+
+**Frontend HTML5 + CSS3 + JavaScript:**
+
+- [ ] HTML semântico em `frontend/index.html`
+- [ ] Estilos CSS em `frontend/styles/`
+- [ ] JavaScript em `frontend/js/`
+- [ ] Uso de CSS3 moderno (não frameworks CSS)
+- [ ] JavaScript ES6+ (não bibliotecas externas)
+
+**Backend Flask:**
+
+- [ ] Endpoints de API funcionando
+- [ ] Servindo arquivos estáticos
+- [ ] Renderização de HTML
+- [ ] Estrutura modular em `backend/app/`
+- [ ] Sistema de aprendizado automático ativo
+- [ ] Logs de feedback funcionando
+
+**Sistema de Aprendizado:**
+
+- [ ] Arquivo `backend/logs/feedback.json` existe
+- [ ] Scripts de gestão em `Scripts/`
+- [ ] Expansão automática configurada
+- [ ] Base de conhecimento sendo atualizada
+
+**Documentação:**
+
+- [ ] README.md atualizado
+- [ ] Changelog em `documentacao/changelogs/`
+- [ ] Relatório completo em `documentacao/`
+- [ ] Scripts em `Scripts/`
+
+### 🚫 Violações Comuns (SEMPRE CORRIGIR)
+
+1. **Flask não servindo arquivos estáticos** → Configurar para servir estáticos
+2. **Uso de frameworks CSS** → Usar CSS3 puro
+3. **JavaScript com bibliotecas externas** → Usar JavaScript ES6+ puro
+4. **Arquivos fora da estrutura** → Mover para local correto
+5. **Comandos com `&&`** → Separar em comandos individuais
+6. **Documentação fora de `documentacao/`** → Mover para local correto
+7. **Sistema de aprendizado desativado** → Verificar `improved_chat_service_integrated.py`
+8. **Logs de feedback não funcionando** → Verificar `backend/logs/feedback.json`
+9. **Scripts de gestão não utilizados** → Executar scripts em `Scripts/`
+
+### 🔧 Ações Automáticas
+
+**Ao detectar violação:**
+
+1. **Identificar** o problema específico
+2. **Explicar** por que está fora das regras
+3. **Corrigir** automaticamente
+4. **Verificar** se a correção está conforme
+5. **Documentar** a mudança no changelog
+
+**Exemplo de correção automática:**
+
+```
+❌ Problema: Flask não servindo arquivos estáticos
+✅ Solução: Configurar Flask para servir HTML/CSS/JS
+✅ Verificação: Flask servindo frontend + API
+✅ Documentação: Atualizar changelog
+
+❌ Problema: Sistema de aprendizado não funcionando
+✅ Solução: Verificar `improved_chat_service_integrated.py`
+✅ Verificação: Logs de feedback sendo gerados
+✅ Documentação: Atualizar changelog
+```
+
+## 🤖 INSTRUÇÕES PARA O ASSISTENTE
+
+### 🎯 Comportamento Obrigatório
+
+**EM TODA INTERAÇÃO**, o assistente deve:
+
+1. **Verificar conformidade** com estas regras antes de qualquer ação
+2. **Aplicar correções** automaticamente quando detectar violações
+3. **Explicar** por que está fazendo cada correção
+4. **Documentar** mudanças no changelog apropriado
+5. **Manter** a arquitetura desacoplada sempre
+
+### 📋 Processo de Trabalho
+
+**Antes de qualquer modificação:**
+
+1. Ler estas regras completamente
+2. Verificar estrutura atual do projeto
+3. Identificar possíveis violações
+4. Planejar correções necessárias
+
+**Durante a modificação:**
+
+1. Seguir exatamente a estrutura definida
+2. Usar apenas tecnologias permitidas
+3. Aplicar convenções de nomenclatura
+4. Manter separação frontend/backend
+
+**Após a modificação:**
+
+1. Verificar se está conforme as regras
+2. Testar se funciona corretamente
+3. Atualizar documentação
+4. Registrar no changelog
+
+### 🚨 Alertas Automáticos
+
+**SEMPRE alertar quando:**
+
+- Detectar Flask não servindo arquivos estáticos
+- Encontrar frameworks CSS em vez de CSS3 puro
+- Ver bibliotecas JavaScript externas em vez de ES6+ puro
+- Identificar arquivos fora da estrutura correta
+- Notar comandos com `&&` em vez de separados
+- Sistema de aprendizado automático não estiver funcionando
+- Logs de feedback não estiverem sendo gerados
+- Base de conhecimento não estiver sendo expandida automaticamente
+
+### ✅ Confirmação de Conformidade
+
+**SEMPRE confirmar:**
+
+- ✅ Estrutura de arquivos correta
+- ✅ Tecnologias corretas (HTML5 + CSS3 + JavaScript + Flask)
+- ✅ Arquitetura monolítica mantida
+- ✅ Sistema de aprendizado automático ativo
+- ✅ Convenções seguidas
+- ✅ Documentação atualizada
+
+---
+
+**ESTAS REGRAS SÃO OBRIGATÓRIAS E DEVEM SER APLICADAS AUTOMATICAMENTE EM TODAS AS INTERAÇÕES COM ESTE PROJETO.**
