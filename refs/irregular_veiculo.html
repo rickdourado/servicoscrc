@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Novo Chamado — GM-RIO</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    background: #f0f0f0;
+    padding: 16px;
+  }
+
+  .form-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  fieldset {
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 10px 14px 14px;
+    margin-bottom: 14px;
+    background: #ebebeb;
+  }
+
+  legend {
+    font-size: 13px;
+    font-weight: bold;
+    color: #222;
+    padding: 0 6px;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    align-items: center;
+    gap: 5px 8px;
+    margin-bottom: 7px;
+  }
+
+  .row.top { align-items: flex-start; padding-top: 2px; }
+
+  label {
+    text-align: right;
+    font-size: 13px;
+    color: #222;
+    line-height: 1.4;
+  }
+
+  label.required { color: #cc0000; font-weight: bold; }
+  label.req-blue  { color: #0000cc; font-weight: bold; }
+
+  input[type=text],
+  input[type=number],
+  select,
+  textarea {
+    font-size: 13px;
+    border: 1px solid #888;
+    background: #fff;
+    padding: 2px 5px;
+    border-radius: 2px;
+    width: 100%;
+    height: 24px;
+    font-family: Arial, sans-serif;
+  }
+
+  textarea {
+    height: 80px;
+    resize: vertical;
+  }
+
+  .hint {
+    font-size: 11px;
+    color: #555;
+    font-style: italic;
+    margin-top: 2px;
+  }
+
+  .static-val { font-size: 13px; color: #222; }
+
+  .sub-info { font-size: 12px; color: #444; margin-top: 2px; }
+
+  .badge {
+    font-size: 11px;
+    background: #e0e0e0;
+    border: 1px solid #bbb;
+    border-radius: 2px;
+    padding: 2px 8px;
+    color: #444;
+    display: inline-block;
+  }
+
+  .field-with-btn {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .field-with-btn input { flex: 1; }
+
+  .btn-icon {
+    border: 1px solid #888;
+    background: #d4d4d4;
+    padding: 0 8px;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 2px;
+    height: 24px;
+    white-space: nowrap;
+  }
+
+  .btn-icon:hover { background: #c0c0c0; }
+
+  .btn-clear {
+    display: inline-block;
+    margin-top: 6px;
+    border: 1px solid #888;
+    background: #d4d4d4;
+    padding: 3px 12px;
+    font-size: 12px;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+
+  .btn-clear:hover { background: #c0c0c0; }
+
+  .listbox {
+    width: 100%;
+    border: 1px solid #888;
+    background: #fff;
+    height: 80px;
+    overflow-y: auto;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  .listbox option { padding: 3px 5px; }
+
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 4px 0 6px 188px;
+    font-size: 13px;
+    color: #222;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 180px 110px 50px 1fr;
+    align-items: center;
+    gap: 5px 8px;
+    margin-bottom: 7px;
+  }
+
+  .two-col label { text-align: right; }
+  .two-col .cep-label { font-size: 13px; color: #222; }
+
+  select[size] { height: auto; }
+</style>
+</head>
+<body>
+<div class="form-wrapper">
+
+  <!-- ══════════════════════════════════
+       SEÇÃO 1 — LOCALIZAÇÃO
+  ══════════════════════════════════ -->
+  <fieldset>
+    <legend>Localização</legend>
+
+    <div class="row">
+      <label class="req-blue" for="endereco">Endereço:</label>
+      <div class="field-with-btn">
+        <input type="text" id="endereco" />
+        <button class="btn-icon">🔍 Buscar</button>
+      </div>
+    </div>
+
+    <div class="row top">
+      <label></label>
+      <div>
+        <select class="listbox" size="4" id="endereco-lista">
+        </select>
+        <button class="btn-clear">Limpar Seleção</button>
+      </div>
+    </div>
+
+    <div class="checkbox-row">
+      <input type="checkbox" id="logradouro-inexistente" />
+      <label for="logradouro-inexistente" style="text-align:left; font-weight:normal;">Logradouro Inexistente</label>
+    </div>
+
+    <div class="two-col">
+      <label class="required" for="numero">Número:</label>
+      <input type="text" id="numero" />
+      <span class="cep-label" style="text-align:right;">CEP:</span>
+      <input type="text" id="cep" placeholder="__.___-___" />
+    </div>
+
+    <div class="row">
+      <label for="complemento">Complemento:</label>
+      <input type="text" id="complemento" />
+    </div>
+
+    <div class="row top">
+      <label for="ponto-ref">Ponto de Referência:</label>
+      <textarea id="ponto-ref" style="height:48px;"></textarea>
+    </div>
+  </fieldset>
+
+  <!-- ══════════════════════════════════
+       SEÇÃO 2 — CLASSIFICAÇÃO
+  ══════════════════════════════════ -->
+  <fieldset>
+    <legend>Classificação</legend>
+
+    <div class="row">
+      <label class="required" for="categoria">Categoria:</label>
+      <select id="categoria" style="width:260px;">
+        <option selected>Serviço</option>
+        <option>Informação</option>
+        <option>Solicitação</option>
+      </select>
+    </div>
+
+    <div class="row top">
+      <label class="required" for="tipo-subtipo">Tipo/Subtipo:</label>
+      <div>
+        <div class="field-with-btn">
+          <input type="text" id="tipo-subtipo" value="Fiscalização de estacionamento irregular de veículo" />
+          <button class="btn-icon">🔍 Buscar</button>
+        </div>
+        <select class="listbox" size="5" id="tipo-lista">
+          <option selected>Estacionamento irregular &gt;&gt; Fiscalização de estacionamento irregular de veículo</option>
+          <option>Fiscalização de Grande Gerador &gt;&gt; Fiscalização de estabelecimento comercial</option>
+          <option>Estacionamento &gt;&gt; Fiscalização da atuação do guardador de estacionamento</option>
+          <option>Veículo &gt;&gt; Remoção de veículo abandonado em via pública</option>
+          <option>Drenagem e Saneamento &gt;&gt; Fiscalização de drenagem irregular</option>
+        </select>
+        <button class="btn-clear">Limpar Seleção</button>
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- ══════════════════════════════════
+       SEÇÃO 3 — NOVO CHAMADO
+  ══════════════════════════════════ -->
+  <fieldset>
+    <legend>Novo Chamado</legend>
+
+    <div class="row">
+      <label>Prazo:</label>
+      <div><span class="badge">Prazo será exibido ao encaminhar o chamado</span></div>
+    </div>
+
+    <div class="row">
+      <label>Unidade Organizacional:</label>
+      <div>
+        <span class="static-val">GM-RIO — Guarda Municipal do Rio de Janeiro</span>
+        <div class="sub-info">A UO poderá ser alterada pela Distribuição de Endereço</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="tipo-solicitante">Tipo de solicitante:</label>
+      <select id="tipo-solicitante" style="width:260px;">
+        <option selected>Cidadão</option>
+        <option>Servidor</option>
+        <option>Colaborador Datamétrica</option>
+        <option>Pessoa Física</option>
+        <option>Contribuinte</option>
+        <option>Órgãos Públicos</option>
+        <option>Guarda Municipal</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <label for="origem-ocorrencia">Origem da Ocorrência:</label>
+      <select id="origem-ocorrencia" style="width:260px;">
+        <option selected>Teleatendimento</option>
+        <option>Presencial</option>
+        <option>Online</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <label for="desc-origem">Descrição da Origem:</label>
+      <input type="text" id="desc-origem" style="width:260px;" />
+    </div>
+
+    <div class="row">
+      <label for="prioridade">Prioridade:</label>
+      <select id="prioridade" style="width:260px;">
+        <option>Alta</option>
+        <option>Média</option>
+        <option selected>Baixa</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <label for="caminho-foto">Caminho da foto:</label>
+      <input type="text" id="caminho-foto" />
+    </div>
+  </fieldset>
+
+  <!-- ══════════════════════════════════
+       SEÇÃO 4 — ATRIBUTOS ESPECÍFICOS
+  ══════════════════════════════════ -->
+  <fieldset>
+    <legend>Atributos Específicos</legend>
+
+    <div class="row">
+      <label for="placa">Número da placa do veículo:</label>
+      <div>
+        <input type="text" id="placa" />
+        <div class="hint">Inserir a(s) placa(s): ABC1234; KVF2779</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <label class="required" for="local-estac">Local do estacionamento irregular:</label>
+      <div>
+        <select id="local-estac">
+          <option value="">Selecione</option>
+          <option>402 - Sobre a calçada</option>
+          <option>403 - Em via pública</option>
+          <option>405 - Em frente a portão de garagem</option>
+          <option>401 - Em local com placa de proibido estacionar</option>
+          <option>411 - Em ponto de táxi</option>
+          <option>404 - Em vaga de portadores de necessidades especiais</option>
+        </select>
+        <div class="hint">Selecione o local onde se encontra o veículo</div>
+      </div>
+    </div>
+
+    <div class="row top">
+      <label class="required" for="descricao">Descrição:</label>
+      <textarea id="descricao"></textarea>
+    </div>
+  </fieldset>
+
+
+
+</div>
+</body>
+</html>

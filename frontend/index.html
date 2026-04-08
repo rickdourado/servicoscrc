@@ -3,60 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organizador de Serviços</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <title>Automatização de Tarefas CRC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .home-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            gap: 3.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .home-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            text-shadow: 2px 2px 0px rgba(0, 74, 128, 0.15);
+            margin-bottom: 1rem;
+        }
+
+        .home-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .module-card {
+            background: var(--surface-color);
+            border: var(--border-main);
+            box-shadow: var(--shadow-brutal);
+            padding: 3rem 2rem;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            transition: all 0.15s ease;
+            color: var(--text-primary);
+        }
+
+        .module-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0px var(--accent-color);
+            background: var(--prefrio-bg);
+        }
+
+        .module-card:active {
+            transform: translate(2px, 2px);
+            box-shadow: none;
+        }
+
+        .module-icon {
+            font-size: 3.5rem;
+        }
+
+        .module-title {
+            font-size: 1.35rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--accent-color);
+        }
+
+        .module-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
-    <header class="app-header">
-        <h1>Organizador Lúdico de Serviços</h1>
-        <div class="tabs">
-            <button class="tab-btn active" data-target="view-organizer">Organizador</button>
-            <button class="tab-btn" data-target="view-structure">Visualizador</button>
-        </div>
-        <button id="save-btn" class="primary-btn">Salvar Estrutura</button>
-    </header>
-
     <main class="app-main">
-        <!-- Tab 1: Organizador -->
-        <section id="view-organizer" class="view-section active">
-            <div class="organizer-container">
-                <!-- Dropzone agora atua como Cesta de Itens Selecionados via Click -->
-                <div class="upper-area">
-                    <h2>Estrutura Principal</h2>
-                    <p class="subtitle">Itens selecionados aparecerão aqui na ordem dos seus cliques (clique para remover)</p>
-                    <div id="dropzone" class="bubble-container added-zone"></div>
-                </div>
-
-                <div class="lower-area-wrapper">
-                    <!-- Pool SGRC -->
-                    <div class="lower-area pool-section">
-                        <h2>SGRC Disponíveis</h2>
-                        <p class="subtitle">Clique para adicionar à estrutura</p>
-                        <div id="pool-sgrc" class="bubble-container"></div>
-                    </div>
-
-                    <!-- Pool Prefrio -->
-                    <div class="lower-area pool-section">
-                        <h2>Prefrio Disponíveis</h2>
-                        <p class="subtitle">Clique para adicionar à estrutura</p>
-                        <div id="pool-prefrio" class="bubble-container"></div>
-                    </div>
-                </div>
+        <div class="home-container">
+            <div>
+                <h1 class="home-title">Automatização de Tarefas CRC</h1>
+                <p class="home-subtitle">Selecione o módulo que deseja acessar no sistema</p>
             </div>
-        </section>
-
-        <!-- Tab 2: Visualizador Struturado -->
-        <section id="view-structure" class="view-section">
-            <div class="structure-container">
-                <h2>Visualização da Estrutura</h2>
-                <div id="structure-content">
-                    <p>Adicione elementos no organizador para ver a estrutura aqui.</p>
-                </div>
+            
+            <div class="modules-grid">
+                <a href="organizadorservicos.html" class="module-card">
+                    <div class="module-icon">📋</div>
+                    <h2 class="module-title">Organizador de Serviços</h2>
+                    <p class="module-desc">Organize, reestruture e gere planilhas consolidadas a partir do mapeamento de serviços SRGC e Prefrio.</p>
+                </a>
+                
+                <a href="analiseformulario.html" class="module-card">
+                    <div class="module-icon">📊</div>
+                    <h2 class="module-title">Análise de Formulários</h2>
+                    <p class="module-desc">Módulo em construção para análise, metrificação e processamento de formulários da Prefeitura.</p>
+                </a>
+                
+                <a href="analisecontrato.html" class="module-card">
+                    <div class="module-icon">📄</div>
+                    <h2 class="module-title">Análise de Contratos</h2>
+                    <p class="module-desc">Envie um PDF para extração e pré-análise inteligente de informações contratuais usando Inteligência Artificial.</p>
+                </a>
+                
+                <!-- Expanded possibility -->
+                <a href="#" class="module-card" style="opacity: 0.5; cursor: not-allowed; border-style: dashed;">
+                    <div class="module-icon" style="filter: grayscale(1);">➕</div>
+                    <h2 class="module-title">Novo Módulo</h2>
+                    <p class="module-desc">Futura funcionalidade reservada para a expansão do sistema CRC.</p>
+                </a>
             </div>
-        </section>
+        </div>
     </main>
-
-    <script src="script.js"></script>
 </body>
 </html>

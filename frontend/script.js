@@ -134,14 +134,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="source-badge">${item.source}</span>
                         ${item.name}
                     </h3>
-                    <ul>`;
+                    <ul class="dnd-list" data-parent-id="${item.id}" style="min-height: 40px; border-radius: 4px; transition: all 0.2sease;">`;
                 
                 if (item.level2 && item.level2.length > 0) {
-                    item.level2.forEach(n2 => {
-                        html += `<li>${n2}</li>`;
+                    item.level2.forEach((n2, idx) => {
+                        html += `<li draggable="true" style="cursor: grab;" data-parent-id="${item.id}" data-item-idx="${idx}" title="Arraste para outra estrutura">${n2}</li>`;
                     });
                 } else {
-                    html += `<li><em style="opacity:0.5">Sem serviços associados</em></li>`;
+                    html += `<li class="empty-placeholder"><em style="opacity:0.5">Vazio (Arraste itens para cá)</em></li>`;
                 }
                 
                 html += `</ul></div>`;
@@ -149,5 +149,60 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         structureContent.innerHTML = html;
+        attachDragAndDropHandlers();
+    }
+
+    let draggedInfo = null;
+
+    function attachDragAndDropHandlers() {
+        const lists = structureContent.querySelectorAll('.dnd-list');
+        const items = structureContent.querySelectorAll('li[draggable="true"]');
+
+        items.forEach(item => {
+            item.addEventListener('dragstart', (e) => {
+                draggedInfo = {
+                    parentId: item.dataset.parentId,
+                    itemIdx: parseInt(item.dataset.itemIdx, 10)
+                };
+                item.style.opacity = '0.4';
+                item.style.boxShadow = '0 0 10px rgba(0, 74, 128, 0.4)';
+            });
+            item.addEventListener('dragend', () => {
+                item.style.opacity = '1';
+                item.style.boxShadow = 'none';
+                draggedInfo = null;
+            });
+        });
+
+        lists.forEach(list => {
+            list.addEventListener('dragover', (e) => {
+                e.preventDefault(); 
+                list.style.background = 'rgba(0, 74, 128, 0.05)';
+                list.style.boxShadow = 'inset 0 0 0 2px rgba(0, 74, 128, 0.3)';
+            });
+            list.addEventListener('dragleave', () => {
+                list.style.background = '';
+                list.style.boxShadow = '';
+            });
+            list.addEventListener('drop', (e) => {
+                e.preventDefault();
+                list.style.background = '';
+                list.style.boxShadow = '';
+                const targetParentId = list.dataset.parentId;
+                
+                if (draggedInfo && targetParentId) {
+                    if (targetParentId === draggedInfo.parentId) return;
+                    
+                    const sourceItem = itemsData.find(i => i.id === draggedInfo.parentId);
+                    const targetItem = itemsData.find(i => i.id === targetParentId);
+                    
+                    if (sourceItem && targetItem) {
+                        const movedService = sourceItem.level2.splice(draggedInfo.itemIdx, 1)[0];
+                        targetItem.level2.push(movedService);
+                        updateStructureView();
+                    }
+                }
+            });
+        });
     }
 });

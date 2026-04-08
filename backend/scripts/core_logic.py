@@ -1,9 +1,13 @@
 import openpyxl
 from pydantic import BaseModel
 from typing import List
+from pathlib import Path
+from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
+from openpyxl.utils import get_column_letter
 
-EXCEL_PATH = '/Users/rickmac/Documents/dev/servicoscrc/refs/PlanilhaConsolidada.xlsx'
-OUTPUT_PATH = '/Users/rickmac/Documents/dev/servicoscrc/refs/PlanilhaGerada.xlsx'
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+EXCEL_PATH = str(BASE_DIR / 'refs' / 'PlanilhaConsolidada.xlsx')
+OUTPUT_PATH = str(BASE_DIR / 'refs' / 'PlanilhaGerada.xlsx')
 
 class Level1Item(BaseModel):
     id: str
@@ -58,26 +62,47 @@ def extract_data() -> List[Level1Item]:
 
 def save_new_order(ordered_items: List[Level1Item]):
     wb = openpyxl.Workbook()
-    # Remove default sheet
-    default_sheet = wb.active
-    wb.remove(default_sheet)
+    ws = wb.active
+    ws.title = "Serviços Consolidados"
     
-    # Split items
-    sgrc_items = [item for item in ordered_items if item.source == "SGRC"]
-    prefrio_items = [item for item in ordered_items if item.source == "Prefrio"]
+    headers = ['Origem', 'Nível 1 – Usuário', 'Nível 2 – Tipo de Serviço ou Informação']
+    ws.append(headers)
     
-    def write_to_sheet(sheet_name, items):
-        ws = wb.create_sheet(title=sheet_name)
-        ws.append(['Nível 1 – Usuário', 'Nível 2 – Tipo de Serviço ou Informação'])
-        for item in items:
-            if not item.level2:
-                ws.append([item.name, ""])
-            else:
-                for n2 in item.level2:
-                    ws.append([item.name, n2])
-                    
-    write_to_sheet("SRGC_Organizada", sgrc_items)
-    write_to_sheet("Prefrio_Organizada", prefrio_items)
+    header_font = Font(name='Arial', size=12, bold=True, color='FFFFFF')
+    header_fill = PatternFill(start_color='004080', end_color='004080', fill_type='solid') # Azul premium
+    header_align = Alignment(horizontal='center', vertical='center')
+    center_align = Alignment(horizontal='center', vertical='center')
+    left_align = Alignment(horizontal='left', vertical='center', wrap_text=True)
+    thin_border = Border(left=Side(style='thin'), right=Side(style='thin'), 
+                         top=Side(style='thin'), bottom=Side(style='thin'))
+
+    for col_num, header in enumerate(headers, 1):
+        cell = ws.cell(row=1, column=col_num)
+        cell.font = header_font
+        cell.fill = header_fill
+        cell.alignment = header_align
+        cell.border = thin_border
+    
+    row_num = 2
+    for item in ordered_items:
+        records = [(item.source, item.name, n2) for n2 in item.level2] if item.level2 else [(item.source, item.name, "")]
+        for record in records:
+            ws.append(record)
+            ws.cell(row=row_num, column=1).alignment = center_align
+            ws.cell(row=row_num, column=2).alignment = left_align
+            ws.cell(row=row_num, column=3).alignment = left_align
+            for col in range(1, 4):
+                ws.cell(row=row_num, column=col).border = thin_border
+            row_num += 1
+                
+    for col_num in range(1, len(headers) + 1):
+        column_target = get_column_letter(col_num)
+        max_length = max(len(str(ws.cell(row=r, column=col_num).value or "")) for r in range(1, row_num))
+        adjusted_width = min((max_length + 2) * 1.2, 80)
+        # O mínimo da largura de "Origem" deve ser confortável:
+        if col_num == 1 and adjusted_width < 12:
+             adjusted_width = 12
+        ws.column_dimensions[column_target].width = adjusted_width
                 
     wb.save(OUTPUT_PATH)
     return {"message": "Planilha gerada com sucesso", "path": OUTPUT_PATH}
