@@ -1,0 +1,5 @@
+.venv/
+__pycache__/
+*.pyc
+refs/PlanilhaGerada.xlsx
+.DS_Store
