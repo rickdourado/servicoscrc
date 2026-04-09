@@ -5,6 +5,12 @@ import backend.scripts.core_logic as core_logic
 from pydantic import BaseModel
 import os
 import google.generativeai as genai
+from dotenv import load_dotenv
+import backend.scripts.anonymizer as anonymizer
+from pypdf import PdfReader
+import io
+
+load_dotenv()
 
 app = FastAPI(title="App Lúdico API")
 
@@ -45,14 +51,34 @@ async def analyze_contract(file: UploadFile = File(...)):
     
     try:
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        model = genai.GenerativeModel('gemini-2.5-flash')
         
-        # O Gemini aceita application/pdf nativamente na SDK se passado dessa forma
-        if "pdf" in (file.content_type or "").lower():
-             response = model.generate_content([prompt, {"mime_type": "application/pdf", "data": file_bytes}])
+        raw_text = ""
+        is_pdf = "pdf" in (file.content_type or "").lower() or file.filename.lower().endswith(".pdf")
+        
+        if is_pdf:
+             reader = PdfReader(io.BytesIO(file_bytes))
+             for page in reader.pages:
+                 text_page = page.extract_text()
+                 if text_page:
+                     raw_text += text_page + "\n"
         else:
-             # Para outros arquivos textuais sem tratamento nativo da SDK
-             response = model.generate_content([prompt + f"\n\n(Aviso de sistema: O arquivo inserido é um formato textual DOC/DOCX. Como a SDK pura de bytes pede formatação nativa, em ambiente de prod realizaríamos parse extra do texto. Por enquanto, valide metadata).", "Nome: "+file.filename])
+             try:
+                 import docx
+                 doc = docx.Document(io.BytesIO(file_bytes))
+                 for para in doc.paragraphs:
+                     raw_text += para.text + "\n"
+             except Exception:
+                 raw_text = file_bytes.decode("utf-8", errors="ignore")
+
+        # Aplica a censura de PII localmente
+        masked_text = anonymizer.process_and_save(raw_text, file.filename)
+        
+        # Envia o prompt modificado e apenas a RAW string já mascarada (sem bytes de arquivo)
+        response = model.generate_content([
+            prompt + "\n\n(Aviso do sistema interno: o conteúdo a seguir foi lido localmente e nós ocultamos propositalmente os nomes reais da empresa e CNPJ substituindo por tags [OCULTO]. Aceite e considere como parte normal do documento.)\n\n--- INÍCIO DO TEXTO ---",
+            masked_text
+        ])
              
         return {"result": response.text}
     except Exception as e:
