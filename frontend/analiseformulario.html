@@ -7,25 +7,162 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
-        .working-container {
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: calc(100vh - 80px); /* Adjusting for header roughly */
+            padding: 1.5rem 2rem;
+            box-sizing: border-box;
+            gap: 1.5rem;
+        }
+
+        .controls-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 2rem;
+            background: var(--surface-color);
+            border: var(--border-main);
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+        }
+
+        .controls-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            text-transform: uppercase;
+        }
+
+        .form-select {
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            background: #fff;
+            color: var(--text-primary);
+            cursor: pointer;
+            outline: none;
+            min-width: 320px;
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
+
+        .form-select:hover {
+            border-color: var(--accent-color);
+        }
+
+        .form-select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(0, 74, 128, 0.2);
+        }
+
+        .split-view {
+            display: flex;
+            flex: 1;
+            gap: 2rem;
+            min-height: 0; /* Important for children scroll */
+        }
+
+        .split-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--surface-color);
+            border: var(--border-main);
+            box-shadow: var(--shadow-brutal);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .col-header {
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: var(--border-main);
+            background: var(--bg-color);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 1.1rem;
+        }
+
+        .col-header.as-is {
+            color: var(--text-primary);
+            background: #f0f0f0;
+        }
+
+        .col-header.to-be {
+            color: var(--accent-color);
+            background: var(--prefrio-bg);
+        }
+
+        .iframe-container {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .empty-state {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             flex: 1;
+            padding: 3rem;
             text-align: center;
-            gap: 2rem;
-            background: var(--surface-color);
-            border: var(--border-main);
-            box-shadow: var(--shadow-brutal);
-            padding: 5rem 3rem;
-            max-width: 600px;
-            margin: 4rem auto;
+            color: var(--text-secondary);
+            background: #fdfdfd;
+            gap: 1rem;
         }
 
-        .working-icon {
-            font-size: 5rem;
-            margin-bottom: -1rem;
+        .empty-icon {
+            font-size: 3.5rem;
+            opacity: 0.5;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+
+        /* Overlay loader for smooth transitions */
+        .loader-overlay {
+            position: absolute;
+            top: 55px; /* below header */
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--text-secondary);
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .loader-overlay.active {
+            opacity: 1;
+            pointer-events: all;
         }
     </style>
 </head>
@@ -37,12 +174,105 @@
         </div>
     </header>
 
-    <main class="app-main">
-        <div class="working-container">
-            <div class="working-icon">🚧</div>
-            <h2>Módulo em Construção</h2>
-            <p class="subtitle" style="border: none; margin-bottom: 0;">Esta área será definida com ferramentas de análise de formulários em breve.</p>
+    <main class="app-main" style="padding: 0; max-width: 100%;">
+        <div class="page-container">
+            <!-- Controls -->
+            <div class="controls-bar">
+                <div class="controls-title">Módulo de Comparação</div>
+                <select id="formSelector" class="form-select">
+                    <option value="" disabled selected>Selecione um formulário para analisar...</option>
+                    <option value="wireframes/wireframe_veiculo_abandonado.html">Remoção de Veículo Abandonado</option>
+                    <option value="wireframes/irregular_veiculo.html">Estacionamento Irregular</option>
+                    <option value="wireframes/wireframe_sossego.html">Poluição Sonora / Sossego</option>
+                    <option value="wireframes/wireframe_meio_ambiente.html">Infrações de Meio Ambiente</option>
+                </select>
+            </div>
+
+            <!-- Split Layout -->
+            <div class="split-view">
+                <!-- AS IS Column -->
+                <div class="split-col">
+                    <div class="col-header as-is">Versão AS IS (1746 Atual)</div>
+                    <div class="loader-overlay" id="loaderAsIs">Carregando...</div>
+                    <div class="iframe-container" id="containerAsIs">
+                        <div class="empty-state" id="emptyAsIs">
+                            <div class="empty-icon">📄</div>
+                            <div class="empty-text">Selecione um formulário acima para visualizar a versão atual.</div>
+                        </div>
+                        <iframe id="iframeAsIs" src="" style="display: none;" onload="hideLoader()"></iframe>
+                    </div>
+                </div>
+
+                <!-- TO BE Column -->
+                <div class="split-col">
+                    <div class="col-header to-be">Versão TO BE (Serviço CRC)</div>
+                    <div class="loader-overlay" id="loaderToBe">Carregando...</div>
+                    <div class="iframe-container" id="containerToBe">
+                        <div class="empty-state" id="emptyToBe">
+                            <div class="empty-icon">✨</div>
+                            <div class="empty-text">Aguardando especificações e estruturação para o novo formulário.</div>
+                        </div>
+                        <iframe id="iframeToBe" src="" style="display: none;" onload="hideLoaderToBe()"></iframe>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
+
+    <script>
+        const formSelector = document.getElementById('formSelector');
+        
+        const iframeAsIs = document.getElementById('iframeAsIs');
+        const emptyAsIs = document.getElementById('emptyAsIs');
+        const loaderAsIs = document.getElementById('loaderAsIs');
+
+        const iframeToBe = document.getElementById('iframeToBe');
+        const emptyToBe = document.getElementById('emptyToBe');
+        const loaderToBe = document.getElementById('loaderToBe');
+
+        function hideLoaderAsIs() {
+            loaderAsIs.classList.remove('active');
+        }
+
+        function hideLoaderToBe() {
+            loaderToBe.classList.remove('active');
+        }
+
+        // Mapping from AS IS URL to TO BE Wizard URL
+        const toBeMapping = {
+            "wireframes/wireframe_veiculo_abandonado.html": "wireframes/tobe_wizard_base.html",
+            "wireframes/irregular_veiculo.html": "wireframes/tobe_irregular_veiculo.html",
+            "wireframes/wireframe_sossego.html": "wireframes/tobe_sossego.html",
+            "wireframes/wireframe_meio_ambiente.html": "wireframes/tobe_meio_ambiente.html",
+        };
+
+        formSelector.addEventListener('change', function(e) {
+            const selectedUrl = e.target.value;
+            if (selectedUrl) {
+                // Show Loaders
+                loaderAsIs.classList.add('active');
+                loaderToBe.classList.add('active');
+                
+                // AS IS logic
+                emptyAsIs.style.display = 'none';
+                iframeAsIs.style.display = 'block';
+                iframeAsIs.onload = hideLoaderAsIs; // Attach loader hide
+                iframeAsIs.src = selectedUrl;
+
+                // TO BE logic
+                const toBeUrl = toBeMapping[selectedUrl];
+                if(toBeUrl) {
+                    emptyToBe.style.display = 'none';
+                    iframeToBe.style.display = 'block';
+                    iframeToBe.onload = hideLoaderToBe; // Attach loader hide
+                    iframeToBe.src = toBeUrl;
+                } else {
+                    iframeToBe.style.display = 'none';
+                    emptyToBe.style.display = 'flex';
+                    hideLoaderToBe();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
