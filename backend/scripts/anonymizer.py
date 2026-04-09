@@ -15,6 +15,14 @@ def mask_sensitive_data(text: str) -> str:
     cpf_pattern = r'\b\d{3}\.?\d{3}\.?\d{3}-?\d{2}\b'
     text = re.sub(cpf_pattern, '[CPF_OCULTO]', text)
     
+    # Mask specific PRO-YYYY/XXXX formats
+    pro_pattern = r'\bPRO-\d{4}/\d+\b'
+    text = re.sub(pro_pattern, '[PROCESSO_OCULTO]', text)
+    
+    # Mask specific gov secretariats
+    sec_pattern = r'(?i)\bsecretaria municipal da [áa]rea civil\b'
+    text = re.sub(sec_pattern, '[ÓRGÃO_OCULTO]', text)
+    
     # Mask process and contract numbers 
     contract_pattern = r'(?i)\b(contrato|processo|ata|termo|edital|pregão)(?:\s+administrativo)?(?:\s+n[oº°])?\s*[:\.-]*\s*([0-9/\.-]+)'
     # We replace the matched first group (the anchor word) and hide the second group (the identifier)
