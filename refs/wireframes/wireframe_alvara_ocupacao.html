@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Novo Chamado — Fiscalização de Ocupação Irregular</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    background: #f0f0f0;
+    padding: 0;
+  }
+
+  /* ── Abas ── */
+  .tabs {
+    display: flex;
+    background: #c8c8c8;
+    border-bottom: 2px solid #888;
+  }
+  .tab {
+    padding: 6px 18px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid #999;
+    border-bottom: none;
+    background: #d8d8d8;
+    color: #333;
+    margin-right: 2px;
+    border-radius: 3px 3px 0 0;
+  }
+  .tab.active {
+    background: #ebebeb;
+    color: #000;
+    border-bottom: 2px solid #ebebeb;
+    margin-bottom: -2px;
+  }
+
+  /* ── Wrapper ── */
+  .form-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 14px 14px 16px;
+  }
+
+  /* ── Fieldsets ── */
+  fieldset {
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 10px 14px 14px;
+    margin-bottom: 14px;
+    background: #ebebeb;
+  }
+  legend {
+    font-size: 13px;
+    font-weight: bold;
+    color: #222;
+    padding: 0 6px;
+  }
+
+  /* ── Grid de linha padrão ── */
+  .row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    align-items: center;
+    gap: 5px 8px;
+    margin-bottom: 7px;
+  }
+  .row.top { align-items: flex-start; padding-top: 2px; }
+
+  label {
+    text-align: right;
+    font-size: 13px;
+    color: #222;
+    line-height: 1.4;
+  }
+  label.req      { color: #cc0000; font-weight: bold; }
+  label.req-blue { color: #0000cc; font-weight: bold; }
+
+  /* ── Campos ── */
+  input[type=text], select, textarea {
+    font-size: 13px;
+    border: 1px solid #888;
+    background: #fff;
+    padding: 2px 5px;
+    border-radius: 2px;
+    width: 100%;
+    height: 24px;
+    font-family: Arial, sans-serif;
+  }
+  textarea    { height: 90px; resize: vertical; }
+  select[size]{ height: auto; }
+
+  /* ── Helpers ── */
+  .hint    { font-size: 11px; color: #555; font-style: italic; margin-top: 2px; }
+  .static  { font-size: 13px; color: #222; }
+  .subinfo { font-size: 12px; color: #444; margin-top: 2px; }
+  .badge   { font-size: 11px; background: #e0e0e0; border: 1px solid #bbb; border-radius: 2px; padding: 2px 8px; color: #444; display: inline-block; }
+
+  /* ── Field + botão ── */
+  .fwb { display: flex; gap: 4px; align-items: center; }
+  .fwb input { flex: 1; }
+  .btn-icon {
+    border: 1px solid #888; background: #3a6fbd; color: #fff;
+    padding: 0 8px; font-size: 13px; cursor: pointer;
+    border-radius: 2px; height: 24px;
+  }
+  .btn-icon:hover { background: #2f5ea0; }
+
+  /* ── Listbox ── */
+  .listbox {
+    width: 100%; border: 1px solid #888; background: #fff;
+    height: 82px; overflow-y: auto; font-size: 12px; margin-top: 4px;
+  }
+  .listbox option { padding: 3px 5px; }
+
+  /* ── Botões ── */
+  .btn-clear {
+    display: inline-block; margin-top: 6px;
+    border: 1px solid #888; background: #3a6fbd; color: #fff;
+    padding: 4px 14px; font-size: 12px; border-radius: 3px; cursor: pointer;
+  }
+  .btn-clear:hover { background: #2f5ea0; }
+
+  .btn-action {
+    border: 1px solid #888; background: #3a6fbd; color: #fff;
+    padding: 5px 14px; font-size: 13px; border-radius: 3px; cursor: pointer;
+  }
+  .btn-action:hover { background: #2f5ea0; }
+
+  /* ── Layout Localização: Número + Ponto de Referência lado a lado ── */
+  .loc-bottom {
+    display: grid;
+    grid-template-columns: 200px 140px 1fr 1fr;
+    align-items: flex-start;
+    gap: 5px 8px;
+    margin-bottom: 7px;
+  }
+  .loc-bottom label { text-align: right; }
+
+  /* ── Checkboxes de dias ── */
+  .chk-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .chk-group label {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: normal;
+    color: #222;
+    cursor: pointer;
+  }
+
+  /* ── Rodapé ── */
+  .footer-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0 8px;
+  }
+  .btn-cancel {
+    border: 1px solid #888; background: #3a6fbd; color: #fff;
+    padding: 5px 18px; font-size: 13px; border-radius: 3px; cursor: pointer;
+  }
+  .btn-cancel:hover { background: #2f5ea0; }
+  .btn-avancar {
+    border: 1px solid #888; background: #3a6fbd; color: #fff;
+    padding: 5px 18px; font-size: 13px; border-radius: 3px; cursor: pointer;
+    font-weight: bold;
+  }
+  .btn-avancar:hover { background: #2f5ea0; }
+</style>
+</head>
+<body>
+
+  <!-- ── Abas ── -->
+  <div class="tabs">
+    <div class="tab active">Pessoa</div>
+    <div class="tab">Chamado</div>
+  </div>
+
+  <div class="form-wrapper">
+
+    <!-- ══════════════════════════════════
+         SEÇÃO 1 — CLASSIFICAÇÃO
+    ══════════════════════════════════ -->
+    <fieldset>
+      <legend>Classificação</legend>
+
+      <div class="row">
+        <label class="req" for="categoria">Categoria:</label>
+        <select id="categoria" style="width:300px;">
+          <option selected>Serviço</option>
+          <option>Informação</option>
+          <option>Solicitação</option>
+        </select>
+      </div>
+
+      <div class="row top">
+        <label class="req" for="tipo-subtipo">Tipo/Subtipo:</label>
+        <div>
+          <div class="fwb">
+            <input type="text" id="tipo-subtipo" value="Alvará >> Fiscalização da ocupação irregular de área pública por e..." />
+            <button class="btn-icon">🔍</button>
+          </div>
+          <select class="listbox" size="5" id="tipo-lista">
+            <option selected>Alvará &gt;&gt; Fiscalização da ocupação irregular de área pública por e...</option>
+            <option>Outros estabelecimentos comerciais &gt;&gt; Fiscalização sanitária de e...</option>
+            <option>Outros estabelecimentos comerciais &gt;&gt; Fiscalização sanitária de fu...</option>
+            <option>Outros estabelecimentos comerciais &gt;&gt; Solicitação de desinterdiçã...</option>
+            <option>Estabelecimentos Veterinários ou de interesse a saúde animal &gt;&gt; F...</option>
+          </select>
+          <button class="btn-clear">Limpar Seleção</button>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ══════════════════════════════════
+         SEÇÃO 2 — LOCALIZAÇÃO
+    ══════════════════════════════════ -->
+    <fieldset>
+      <legend>Localização</legend>
+
+      <div class="row">
+        <label for="endereco">Endereço:</label>
+        <div class="fwb">
+          <input type="text" id="endereco" />
+          <button class="btn-icon">🔍</button>
+        </div>
+      </div>
+
+      <div class="row top">
+        <label></label>
+        <div>
+          <select class="listbox" size="4" id="endereco-lista"></select>
+          <button class="btn-clear">Limpar Seleção</button>
+        </div>
+      </div>
+
+      <!-- Número + Ponto de Referência lado a lado -->
+      <div class="loc-bottom">
+        <label for="numero">Número:</label>
+        <input type="text" id="numero" style="width:120px;" />
+        <label for="ponto-ref" style="text-align:right; padding-top:2px;">Ponto de Referência:</label>
+        <textarea id="ponto-ref" style="height:60px;"></textarea>
+      </div>
+    </fieldset>
+
+    <!-- ══════════════════════════════════
+         SEÇÃO 3 — CHAMADOS EQUIVALENTES
+    ══════════════════════════════════ -->
+    <fieldset>
+      <legend>Chamados Equivalentes</legend>
+      <button class="btn-action">Buscar Equivalentes</button>
+    </fieldset>
+
+    <!-- ══════════════════════════════════
+         SEÇÃO 4 — NOVO CHAMADO
+    ══════════════════════════════════ -->
+    <fieldset>
+      <legend>Novo Chamado</legend>
+
+      <div class="row">
+        <label>Prazo:</label>
+        <div><span class="badge">Prazo será exibido ao encaminhar o chamado</span></div>
+      </div>
+
+      <div class="row">
+        <label>Unidade Organizacional:</label>
+        <div>
+          <span class="static">CLF — Coordenadoria de Licenciamento e Fiscalização</span>
+          <div class="subinfo">A UO poderá ser alterada pela Distribuição de Endereço</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="caminho-foto">Caminho da foto:</label>
+        <input type="text" id="caminho-foto" />
+      </div>
+    </fieldset>
+
+    <!-- ══════════════════════════════════
+         SEÇÃO 5 — ATRIBUTOS ESPECÍFICOS
+    ══════════════════════════════════ -->
+    <fieldset>
+      <legend>Atributos Específicos</legend>
+
+      <div class="row">
+        <label class="req" for="atividades">Atividades exercidas no local:</label>
+        <input type="text" id="atividades" />
+      </div>
+
+      <div class="row">
+        <label class="req" for="indicacao-area">Indicação da área ocupada:</label>
+        <input type="text" id="indicacao-area" />
+      </div>
+
+      <div class="row">
+        <label class="req" for="tipo-ocupacao">Tipo de ocupação:</label>
+        <select id="tipo-ocupacao" style="width:300px;">
+          <option value="">Selecione</option>
+          <option>Banca de jornal</option>
+          <option>Barraca</option>
+          <option>Trailer / Food truck</option>
+          <option>Mesas e cadeiras</option>
+          <option>Equipamento / Máquina</option>
+          <option>Outros</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label class="req" for="nome-estabelecimento">Nome do estabelecimento:</label>
+        <div>
+          <input type="text" id="nome-estabelecimento" />
+          <div class="hint">(razão social (cupom ou nota fiscal) ou nome de fantasia (no letreiro))</div>
+        </div>
+      </div>
+
+      <div class="row top">
+        <label class="req">Dias da semana da ocorrência:</label>
+        <div class="chk-group">
+          <label><input type="checkbox" id="seg" /> Segunda</label>
+          <label><input type="checkbox" id="ter" /> Terça</label>
+          <label><input type="checkbox" id="qua" /> Quarta</label>
+          <label><input type="checkbox" id="qui" /> Quinta</label>
+          <label><input type="checkbox" id="sex" /> Sexta</label>
+          <label><input type="checkbox" id="sab" /> Sabado</label>
+          <label><input type="checkbox" id="dom" /> Domingo</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="req" for="horario">Horário em que ocorre:</label>
+        <input type="text" id="horario" />
+      </div>
+
+      <div class="row top">
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao"></textarea>
+      </div>
+    </fieldset>
+
+  </div>
+
+  <!-- ── Rodapé ── -->
+  <div class="form-wrapper" style="padding-top:0;">
+    <div class="footer-bar">
+      <button class="btn-cancel">Cancelar</button>
+      <button class="btn-avancar">Avançar</button>
+    </div>
+  </div>
+
+</body>
+</html>
