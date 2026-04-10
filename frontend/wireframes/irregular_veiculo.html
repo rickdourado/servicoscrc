@@ -176,6 +176,8 @@
       <label class="required" for="categoria">Categoria:</label>
       <select id="categoria" style="width:260px;">
         <option selected>Serviço</option>
+        <option>Informação</option>
+        <option>Solicitação</option>
       </select>
     </div>
 
@@ -263,6 +265,12 @@
       <label for="tipo-solicitante">Tipo de solicitante:</label>
       <select id="tipo-solicitante" style="width:260px;">
         <option selected>Cidadão</option>
+        <option>Servidor</option>
+        <option>Colaborador Datamétrica</option>
+        <option>Pessoa Física</option>
+        <option>Contribuinte</option>
+        <option>Órgãos Públicos</option>
+        <option>Guarda Municipal</option>
       </select>
     </div>
 
@@ -270,6 +278,8 @@
       <label for="origem-ocorrencia">Origem da Ocorrência:</label>
       <select id="origem-ocorrencia" style="width:260px;">
         <option selected>Teleatendimento</option>
+        <option>Presencial</option>
+        <option>Online</option>
       </select>
     </div>
 
@@ -281,6 +291,8 @@
     <div class="row">
       <label for="prioridade">Prioridade:</label>
       <select id="prioridade" style="width:260px;">
+        <option>Alta</option>
+        <option>Média</option>
         <option selected>Baixa</option>
       </select>
     </div>
@@ -309,7 +321,13 @@
       <label class="required" for="local-estac">Local do estacionamento irregular:</label>
       <div>
         <select id="local-estac">
-          <option value="">Selecione</option>
+          <option value="" disabled selected>Selecione</option>
+          <option>402 - Sobre a calçada</option>
+          <option>403 - Em via pública</option>
+          <option>405 - Em frente a portão de garagem</option>
+          <option>401 - Em local com placa de proibido estacionar</option>
+          <option>411 - Em ponto de táxi</option>
+          <option>404 - Em vaga de necessidades especiais</option>
         </select>
         <div class="hint">Selecione o local onde se encontra o veículo</div>
       </div>

@@ -183,6 +183,8 @@
       <label class="required" for="categoria">Categoria:</label>
       <select id="categoria" style="width:280px;">
         <option selected>Serviço</option>
+        <option>Informação</option>
+        <option>Solicitação</option>
       </select>
     </div>
 
@@ -264,6 +266,19 @@
       <label for="origem-ocorrencia">Origem da Ocorrência:</label>
       <select id="origem-ocorrencia" style="width:280px;">
         <option selected>Teleatendimento</option>
+        <option>Departamental</option>
+        <option>Aplicativo</option>
+        <option>Presencial</option>
+        <option>Aplicativo Web</option>
+        <option>Carioca Digital</option>
+        <option>Whatsapp</option>
+        <option>1746 Na Pista</option>
+        <option>Ouvidoria</option>
+        <option>Facebook</option>
+        <option>Agência 1746</option>
+        <option>Conservação</option>
+        <option>Chat PCRJ</option>
+        <option>Agente Compstat</option>
       </select>
     </div>
 
@@ -288,7 +303,11 @@
       <label for="qtd-pessoas">Quantidade de pessoas:</label>
       <div>
         <select id="qtd-pessoas">
-          <option value="">Selecione</option>
+          <option value="" disabled selected>Selecione</option>
+          <option>Menos de 20 pessoas</option>
+          <option>Entre 20 e 50 pessoas</option>
+          <option>Entre 50 e 100 pessoas</option>
+          <option>Mais de 100 pessoas</option>
         </select>
         <div class="hint">(Informe a quantidade de pessoas aglomeradas)</div>
       </div>
@@ -311,7 +330,12 @@
       <label class="required" for="local-barulho">Local de origem do barulho:</label>
       <div>
         <select id="local-barulho">
-          <option value="">Selecione</option>
+          <option value="" disabled selected>Selecione</option>
+          <option>Bar</option>
+          <option>Restaurante</option>
+          <option>Festa</option>
+          <option>Obras</option>
+          <option>Outros</option>
         </select>
         <div class="hint">(Selecione de onde vem o barulho)</div>
       </div>
@@ -321,7 +345,11 @@
       <label class="required" for="fonte-ruido">Fonte do ruído:</label>
       <div>
         <select id="fonte-ruido">
-          <option value="">Selecione</option>
+          <option value="" disabled selected>Selecione</option>
+          <option>Música ao vivo</option>
+          <option>Caixas de som</option>
+          <option>Máquinas de obras</option>
+          <option>Outros</option>
         </select>
         <div class="hint">(Selecione o tipo do ruído)</div>
       </div>
@@ -330,14 +358,20 @@
     <div class="row">
       <label class="required" for="dificil-acesso">Local é de difícil acesso:</label>
       <select id="dificil-acesso">
-        <option value="">Selecione</option>
+        <option value="" disabled selected>Selecione</option>
+        <option>Sim</option>
+        <option>Não</option>
       </select>
     </div>
 
     <div class="row">
       <label for="casos-obras">Nos casos de obras informe:</label>
       <select id="casos-obras">
-        <option value="">Selecione</option>
+        <option value="" disabled selected>Selecione</option>
+        <option>Obras residenciais</option>
+        <option>Estabelecimentos comerciais</option>
+        <option>Clubes</option>
+        <option>Outros</option>
       </select>
     </div>
 

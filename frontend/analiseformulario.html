@@ -185,6 +185,7 @@
                     <option value="wireframes/irregular_veiculo.html">Estacionamento Irregular</option>
                     <option value="wireframes/wireframe_sossego.html">Poluição Sonora / Sossego</option>
                     <option value="wireframes/wireframe_meio_ambiente.html">Infrações de Meio Ambiente</option>
+                    <option value="wireframes/wireframe_fiscalizacao_obras.html">Fiscalização de Obras</option>
                 </select>
             </div>
 
@@ -244,6 +245,7 @@
             "wireframes/irregular_veiculo.html": "wireframes/tobe_irregular_veiculo.html",
             "wireframes/wireframe_sossego.html": "wireframes/tobe_sossego.html",
             "wireframes/wireframe_meio_ambiente.html": "wireframes/tobe_meio_ambiente.html",
+            "wireframes/wireframe_fiscalizacao_obras.html": "",
         };
 
         formSelector.addEventListener('change', function(e) {
@@ -257,7 +259,7 @@
                 emptyAsIs.style.display = 'none';
                 iframeAsIs.style.display = 'block';
                 iframeAsIs.onload = hideLoaderAsIs; // Attach loader hide
-                iframeAsIs.src = selectedUrl;
+                iframeAsIs.src = selectedUrl + "?t=" + new Date().getTime();
 
                 // TO BE logic
                 const toBeUrl = toBeMapping[selectedUrl];
@@ -265,7 +267,7 @@
                     emptyToBe.style.display = 'none';
                     iframeToBe.style.display = 'block';
                     iframeToBe.onload = hideLoaderToBe; // Attach loader hide
-                    iframeToBe.src = toBeUrl;
+                    iframeToBe.src = toBeUrl + "?t=" + new Date().getTime();
                 } else {
                     iframeToBe.style.display = 'none';
                     emptyToBe.style.display = 'flex';

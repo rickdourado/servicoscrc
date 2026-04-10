@@ -105,17 +105,18 @@
 
             <div id="file-status" style="font-weight: 600; color: var(--sgrc-text);">Nenhum arquivo selecionado.</div>
 
-            <!-- Future AI logic container -->
-            <div>
-                <h2>Retorno de Análise / Prompt</h2>
-                <div class="ai-prompt-placeholder">
-                    > // Área reservada para input/resultado do Prompt IA... <br>
-                    > Status: Aguardando definição de lógica...
-                </div>
+            <div class="action-bar">
+                <button class="primary-btn" id="anonymizeBtn" disabled style="opacity: 0.5; cursor: not-allowed;">Extrair Texto e Anonimizar</button>
             </div>
 
-            <div class="action-bar">
-                <button class="primary-btn" id="analyzeBtn" disabled style="opacity: 0.5; cursor: not-allowed;">Iniciar Análise Inteligente</button>
+            <!-- Future AI logic container -->
+            <div id="previewContainer" style="display: none; margin-top: 2rem; width: 100%;">
+                <h2>Prévia do Texto Anonimizado</h2>
+                <p class="subtitle" style="margin-bottom: 1rem;">Confirme o texto que será enviado à IA. Dados sensíveis (CNPJ, Nomes de Empresa) foram ocultados pelo backend localmente.</p>
+                <textarea id="anonymizedPreview" style="width: 100%; min-height: 250px; resize: vertical; border-radius: 8px; padding: 1.5rem; background: #f8fafc; border: 2px solid #cbd5e1; font-family: monospace; font-size: 0.9rem; color: var(--text-secondary); outline: none; box-sizing: border-box;"></textarea>
+                <div class="action-bar" style="margin-top: 1rem;">
+                    <button class="primary-btn" id="analyzeBtn" style="background: var(--sgrc-border); border-color: var(--sgrc-border); color: #fff;">Enviar para a Inteligência Artificial</button>
+                </div>
             </div>
         </div>
     </main>
@@ -155,39 +156,81 @@
                 fileStatus.style.color = "var(--text-primary)";
                 
                 // Habilita Botão visualmente para demonstrar o fluxo (mock)
-                analyzeBtn.disabled = false;
-                analyzeBtn.style.opacity = '1';
-                analyzeBtn.style.cursor = 'pointer';
+                anonymizeBtn.disabled = false;
+                anonymizeBtn.style.opacity = '1';
+                anonymizeBtn.style.cursor = 'pointer';
             }
         }
 
-        analyzeBtn.addEventListener('click', async () => {
+        const anonymizeBtn = document.getElementById('anonymizeBtn');
+        const previewContainer = document.getElementById('previewContainer');
+        const anonymizedPreview = document.getElementById('anonymizedPreview');
+
+        anonymizeBtn.addEventListener('click', async () => {
             if (pdfInput.files.length === 0) return;
             
-            analyzeBtn.textContent = 'Processando Analise IA (Aguarde)...';
-            analyzeBtn.style.opacity = '0.5';
-            analyzeBtn.disabled = true;
+            anonymizeBtn.textContent = 'Extraindo e Anonimizando (Aguarde)...';
+            anonymizeBtn.style.opacity = '0.5';
+            anonymizeBtn.disabled = true;
 
             const file = pdfInput.files[0];
             const formData = new FormData();
             formData.append("file", file);
 
             try {
-                const response = await fetch('http://localhost:8000/api/analyze-contract', {
+                const response = await fetch('http://localhost:8000/api/anonymize', {
                     method: 'POST',
                     body: formData
                 });
                 
                 const data = await response.json();
                 
+                if(data.masked_text) {
+                    anonymizedPreview.value = data.masked_text;
+                    previewContainer.style.display = 'block';
+                    anonymizeBtn.style.display = 'none'; // hide it so user uses the next button
+                } else {
+                    alert("Erro ao extrair texto do documento.");
+                    anonymizeBtn.textContent = 'Extrair Texto e Anonimizar';
+                    anonymizeBtn.style.opacity = '1';
+                    anonymizeBtn.disabled = false;
+                }
+                
+            } catch (err) {
+                alert("Erro ao conectar com API: " + err);
+                anonymizeBtn.textContent = 'Extrair Texto e Anonimizar';
+                anonymizeBtn.style.opacity = '1';
+                anonymizeBtn.disabled = false;
+            }
+        });
+
+        analyzeBtn.addEventListener('click', async () => {
+            const textToAnalyze = anonymizedPreview.value;
+            if(!textToAnalyze) return;
+
+            const file = pdfInput.files[0];
+            
+            analyzeBtn.textContent = 'Processando Analise IA (Aguarde)...';
+            analyzeBtn.style.opacity = '0.5';
+            analyzeBtn.disabled = true;
+
+            try {
+                const response = await fetch('http://localhost:8000/api/analyze-text', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: textToAnalyze })
+                });
+                
+                const data = await response.json();
+                
                 sessionStorage.setItem('ai_result', data.result);
-                sessionStorage.setItem('filename', file.name);
+                sessionStorage.setItem('filename', file ? file.name : 'Documento Analisado');
                 
                 window.location.href = 'resultadocontrato.html';
                 
             } catch (err) {
                 alert("Erro ao conectar com API: " + err);
-                analyzeBtn.textContent = 'Iniciar Análise Inteligente';
+                analyzeBtn.textContent = 'Enviar para a Inteligência Artificial';
                 analyzeBtn.style.opacity = '1';
                 analyzeBtn.disabled = false;
             }
