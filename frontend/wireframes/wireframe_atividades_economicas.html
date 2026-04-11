@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Novo Chamado — Fiscalização de Obras</title>
+<title>Novo Chamado — Fiscalização de Atividades Econômicas sem Alvará</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -12,6 +12,15 @@
     font-size: 13px;
     background: #f0f0f0;
     padding: 0;
+  }
+
+  /* ── Protocolo ── */
+  .protocolo-bar {
+    background: #d8d8d8;
+    padding: 4px 14px;
+    font-size: 12px;
+    color: #333;
+    border-bottom: 1px solid #bbb;
   }
 
   /* ── Abas ── */
@@ -41,7 +50,7 @@
 
   /* ── Wrapper ── */
   .form-wrapper {
-    max-width: 760px;
+    max-width: 780px;
     margin: 0 auto;
     padding: 14px 14px 16px;
   }
@@ -61,10 +70,10 @@
     padding: 0 6px;
   }
 
-  /* ── Grid de linha ── */
+  /* ── Grid de linha padrão ── */
   .row {
     display: grid;
-    grid-template-columns: 190px 1fr;
+    grid-template-columns: 210px 1fr;
     align-items: center;
     gap: 5px 8px;
     margin-bottom: 7px;
@@ -91,7 +100,7 @@
     height: 24px;
     font-family: Arial, sans-serif;
   }
-  textarea    { height: 90px; resize: vertical; }
+  textarea    { height: 80px; resize: vertical; }
   select[size]{ height: auto; }
 
   /* ── Helpers ── */
@@ -104,11 +113,11 @@
   .fwb { display: flex; gap: 4px; align-items: center; }
   .fwb input { flex: 1; }
   .btn-icon {
-    border: 1px solid #888; background: #d4d4d4;
+    border: 1px solid #888; background: #3a6fbd; color: #fff;
     padding: 0 8px; font-size: 13px; cursor: pointer;
     border-radius: 2px; height: 24px;
   }
-  .btn-icon:hover { background: #c0c0c0; }
+  .btn-icon:hover { background: #2f5ea0; }
 
   /* ── Listbox ── */
   .listbox {
@@ -131,10 +140,10 @@
   }
   .btn-action:hover { background: #2f5ea0; }
 
-  /* ── Dois colunas (Número + CEP) ── */
+  /* ── Dois colunas Número + CEP ── */
   .two-col {
     display: grid;
-    grid-template-columns: 190px 110px 50px 1fr;
+    grid-template-columns: 210px 110px 50px 1fr;
     align-items: center;
     gap: 5px 8px;
     margin-bottom: 7px;
@@ -144,63 +153,38 @@
   /* ── Checkbox row ── */
   .chk-row {
     display: flex; align-items: center; gap: 6px;
-    margin: 4px 0 6px 198px; font-size: 13px; color: #222;
+    margin: 4px 0 6px 218px; font-size: 13px; color: #222;
   }
 
-  /* ── Tooltip de alerta ── */
-  .tooltip-warn {
-    display: inline-flex;
-    align-items: flex-start;
-    gap: 8px;
-    background: #fffacd;
-    border: 1px solid #c8a800;
-    border-radius: 3px;
-    padding: 6px 10px;
-    font-size: 12px;
-    color: #555;
-    position: relative;
-    max-width: 260px;
-    margin-left: 8px;
-  }
-  .tooltip-warn .warn-icon {
-    width: 20px; height: 20px; flex-shrink: 0;
-    background: #f0c000;
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .tooltip-warn .warn-close {
-    position: absolute; top: 3px; right: 6px;
-    font-size: 11px; color: #888; cursor: pointer;
-  }
-  .tooltip-row {
-    display: grid;
-    grid-template-columns: 190px 1fr;
-    align-items: center;
-    gap: 5px 8px;
-    margin-bottom: 7px;
-  }
-
-  /* ── Rodapé com dois botões ── */
-  .footer-bar {
+  /* ── Radio group ── */
+  .radio-group {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 6px 0 8px;
+    gap: 32px;
+    background: #e0e0e0;
+    border: 1px solid #bbb;
+    border-radius: 3px;
+    padding: 4px 14px;
+    width: fit-content;
   }
+  .radio-group label {
+    display: flex; align-items: center; gap: 6px;
+    text-align: left; font-weight: normal; color: #222; cursor: pointer;
+  }
+
+  /* ── Rodapé ── */
+  .footer-bar { padding: 6px 0 8px; }
   .btn-cancel {
     border: 1px solid #888; background: #3a6fbd; color: #fff;
     padding: 5px 18px; font-size: 13px; border-radius: 3px; cursor: pointer;
   }
   .btn-cancel:hover { background: #2f5ea0; }
-  .btn-avancar {
-    border: 1px solid #888; background: #3a6fbd; color: #fff;
-    padding: 5px 18px; font-size: 13px; border-radius: 3px; cursor: pointer;
-    font-weight: bold;
-  }
-  .btn-avancar:hover { background: #2f5ea0; }
 </style>
 </head>
 <body>
+
+  <!-- ── Protocolo ── -->
+  <div class="protocolo-bar">Protocolo atual: RIO-32424754-0</div>
 
   <!-- ── Abas ── -->
   <div class="tabs">
@@ -218,7 +202,7 @@
 
       <div class="row">
         <label class="req" for="categoria">Categoria:</label>
-        <select id="categoria" style="width:280px;">
+        <select id="categoria" style="width:300px;">
           <option selected>Serviço</option>
           <option>Informação</option>
           <option>Solicitação</option>
@@ -229,11 +213,12 @@
         <label class="req" for="tipo-subtipo">Tipo/Subtipo:</label>
         <div>
           <div class="fwb">
-            <input type="text" id="tipo-subtipo" value="Fiscalização de obras >> Fiscalização de obras em imóvel privado" />
+            <input type="text" id="tipo-subtipo"
+              value="Alvará >> Fiscalização de atividades econômicas sem alvará" />
             <button class="btn-icon">🔍</button>
           </div>
           <select class="listbox" size="2" id="tipo-lista">
-            <option selected>Fiscalização de obras &gt;&gt; Fiscalização de obras em imóvel privado</option>
+            <option selected>Alvará &gt;&gt; Fiscalização de atividades econômicas sem alvará</option>
           </select>
           <button class="btn-clear">Limpar Seleção</button>
         </div>
@@ -247,7 +232,7 @@
       <legend>Localização</legend>
 
       <div class="row">
-        <label class="req-blue" for="endereco">Endereço:</label>
+        <label class="req" for="endereco">Endereço:</label>
         <div class="fwb">
           <input type="text" id="endereco" />
           <button class="btn-icon">🔍</button>
@@ -267,19 +252,11 @@
         <label for="logradouro-inexistente" style="text-align:left; font-weight:normal;">Logradouro Inexistente</label>
       </div>
 
-      <!-- Número + CEP + tooltip de alerta -->
-      <div class="two-col" style="align-items:center;">
+      <div class="two-col">
         <label class="req" for="numero">Número:</label>
         <input type="text" id="numero" />
         <span style="text-align:right; font-size:13px; color:#222;">CEP:</span>
-        <div style="display:flex; align-items:center; gap:8px;">
-          <input type="text" id="cep" placeholder="__.___-___" />
-          <div class="tooltip-warn">
-            <span style="font-size:18px; color:#c8a800; flex-shrink:0;">⚠</span>
-            <span>Informe algum valor para aplicar o filtro.</span>
-            <span class="warn-close">✕</span>
-          </div>
-        </div>
+        <input type="text" id="cep" placeholder="__.___-___" />
       </div>
 
       <div class="row">
@@ -320,7 +297,7 @@
       <div class="row">
         <label>Unidade Organizacional:</label>
         <div>
-          <span class="static">SMDU — Secretaria Municipal de Desenvolvimento Urbano</span>
+          <span class="static">CLF — Coordenadoria de Licenciamento e Fiscalização</span>
           <div class="subinfo">A UO poderá ser alterada pela Distribuição de Endereço</div>
         </div>
       </div>
@@ -339,7 +316,7 @@
       </div>
 
       <div class="row">
-        <label for="origem-ocorrencia">Origem da Ocorrência:</label>
+        <label class="req" for="origem-ocorrencia">Origem da Ocorrência:</label>
         <select id="origem-ocorrencia" style="width:280px;">
           <option selected>Teleatendimento</option>
           <option>Departamental</option>
@@ -366,8 +343,8 @@
       <div class="row">
         <label for="prioridade">Prioridade:</label>
         <select id="prioridade" style="width:280px;">
-          <option>Alta</option>
-          <option selected>Média</option>
+          <option selected>Alta</option>
+          <option>Média</option>
           <option>Baixa</option>
         </select>
       </div>
@@ -376,9 +353,53 @@
         <label for="caminho-foto">Caminho da foto:</label>
         <input type="text" id="caminho-foto" />
       </div>
+    </fieldset>
+
+    <!-- ══════════════════════════════════
+         SEÇÃO 5 — ATRIBUTOS ESPECÍFICOS
+    ══════════════════════════════════ -->
+    <fieldset>
+      <legend>Atributos Específicos</legend>
+
+      <div class="row">
+        <label class="req" for="atividades">Atividades exercidas no local:</label>
+        <input type="text" id="atividades" />
+      </div>
+
+      <div class="row">
+        <label for="nome-estabelecimento">Nome do estabelecimento:</label>
+        <div>
+          <input type="text" id="nome-estabelecimento" />
+          <div class="hint">(razão social (cupom ou nota fiscal) ou nome de fantasia (no letreiro))</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="req" for="dias-horarios">Dias e horários em que a atividade é exercida:</label>
+        <input type="text" id="dias-horarios" />
+      </div>
+
+      <div class="row" style="align-items:center;">
+        <label class="req">É quiosque de praia? :</label>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="quiosque" id="quiosque-sim" value="sim" />
+            Sim
+          </label>
+          <label>
+            <input type="radio" name="quiosque" id="quiosque-nao" value="nao" />
+            Não
+          </label>
+        </div>
+      </div>
 
       <div class="row top">
-        <label for="descricao">Descrição:</label>
+        <label class="req-blue" for="desc-detalhada">Descrição detalhada da ocorrência:</label>
+        <textarea id="desc-detalhada"></textarea>
+      </div>
+
+      <div class="row top">
+        <label class="req" for="descricao">Descrição:</label>
         <textarea id="descricao"></textarea>
       </div>
     </fieldset>
@@ -389,7 +410,6 @@
   <div class="form-wrapper" style="padding-top:0;">
     <div class="footer-bar">
       <button class="btn-cancel">Cancelar</button>
-      <button class="btn-avancar">Avançar</button>
     </div>
   </div>
 

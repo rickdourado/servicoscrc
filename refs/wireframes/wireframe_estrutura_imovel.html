@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Novo Chamado — Fiscalização de Obras</title>
+<title>Novo Chamado — Estrutura de Imóvel / Defesa Civil</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -41,7 +41,7 @@
 
   /* ── Wrapper ── */
   .form-wrapper {
-    max-width: 760px;
+    max-width: 780px;
     margin: 0 auto;
     padding: 14px 14px 16px;
   }
@@ -61,7 +61,7 @@
     padding: 0 6px;
   }
 
-  /* ── Grid de linha ── */
+  /* ── Grid de linha padrão ── */
   .row {
     display: grid;
     grid-template-columns: 190px 1fr;
@@ -98,17 +98,20 @@
   .hint    { font-size: 11px; color: #555; font-style: italic; margin-top: 2px; }
   .static  { font-size: 13px; color: #222; }
   .subinfo { font-size: 12px; color: #444; margin-top: 2px; }
-  .badge   { font-size: 11px; background: #e0e0e0; border: 1px solid #bbb; border-radius: 2px; padding: 2px 8px; color: #444; display: inline-block; }
+  .badge   {
+    font-size: 11px; background: #e0e0e0; border: 1px solid #bbb;
+    border-radius: 2px; padding: 2px 8px; color: #444; display: inline-block;
+  }
 
   /* ── Field + botão ── */
   .fwb { display: flex; gap: 4px; align-items: center; }
   .fwb input { flex: 1; }
   .btn-icon {
-    border: 1px solid #888; background: #d4d4d4;
+    border: 1px solid #888; background: #3a6fbd; color: #fff;
     padding: 0 8px; font-size: 13px; cursor: pointer;
     border-radius: 2px; height: 24px;
   }
-  .btn-icon:hover { background: #c0c0c0; }
+  .btn-icon:hover { background: #2f5ea0; }
 
   /* ── Listbox ── */
   .listbox {
@@ -116,6 +119,7 @@
     height: 82px; overflow-y: auto; font-size: 12px; margin-top: 4px;
   }
   .listbox option { padding: 3px 5px; }
+  .listbox-yellow { background: #fffacd; }
 
   /* ── Botões ── */
   .btn-clear {
@@ -131,7 +135,7 @@
   }
   .btn-action:hover { background: #2f5ea0; }
 
-  /* ── Dois colunas (Número + CEP) ── */
+  /* ── Dois colunas Número + CEP ── */
   .two-col {
     display: grid;
     grid-template-columns: 190px 110px 50px 1fr;
@@ -141,50 +145,14 @@
   }
   .two-col label { text-align: right; }
 
-  /* ── Checkbox row ── */
+  /* ── Checkbox ── */
   .chk-row {
     display: flex; align-items: center; gap: 6px;
     margin: 4px 0 6px 198px; font-size: 13px; color: #222;
   }
 
-  /* ── Tooltip de alerta ── */
-  .tooltip-warn {
-    display: inline-flex;
-    align-items: flex-start;
-    gap: 8px;
-    background: #fffacd;
-    border: 1px solid #c8a800;
-    border-radius: 3px;
-    padding: 6px 10px;
-    font-size: 12px;
-    color: #555;
-    position: relative;
-    max-width: 260px;
-    margin-left: 8px;
-  }
-  .tooltip-warn .warn-icon {
-    width: 20px; height: 20px; flex-shrink: 0;
-    background: #f0c000;
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .tooltip-warn .warn-close {
-    position: absolute; top: 3px; right: 6px;
-    font-size: 11px; color: #888; cursor: pointer;
-  }
-  .tooltip-row {
-    display: grid;
-    grid-template-columns: 190px 1fr;
-    align-items: center;
-    gap: 5px 8px;
-    margin-bottom: 7px;
-  }
-
-  /* ── Rodapé com dois botões ── */
+  /* ── Rodapé ── */
   .footer-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 6px 0 8px;
   }
   .btn-cancel {
@@ -192,12 +160,6 @@
     padding: 5px 18px; font-size: 13px; border-radius: 3px; cursor: pointer;
   }
   .btn-cancel:hover { background: #2f5ea0; }
-  .btn-avancar {
-    border: 1px solid #888; background: #3a6fbd; color: #fff;
-    padding: 5px 18px; font-size: 13px; border-radius: 3px; cursor: pointer;
-    font-weight: bold;
-  }
-  .btn-avancar:hover { background: #2f5ea0; }
 </style>
 </head>
 <body>
@@ -218,7 +180,7 @@
 
       <div class="row">
         <label class="req" for="categoria">Categoria:</label>
-        <select id="categoria" style="width:280px;">
+        <select id="categoria" style="width:300px;">
           <option selected>Serviço</option>
           <option>Informação</option>
           <option>Solicitação</option>
@@ -229,11 +191,16 @@
         <label class="req" for="tipo-subtipo">Tipo/Subtipo:</label>
         <div>
           <div class="fwb">
-            <input type="text" id="tipo-subtipo" value="Fiscalização de obras >> Fiscalização de obras em imóvel privado" />
+            <input type="text" id="tipo-subtipo"
+              value="Estrutura de Imóvel >> Vistoria em imóvel com rachadura e infilt..." />
             <button class="btn-icon">🔍</button>
           </div>
-          <select class="listbox" size="2" id="tipo-lista">
-            <option selected>Fiscalização de obras &gt;&gt; Fiscalização de obras em imóvel privado</option>
+          <select class="listbox" size="5" id="tipo-lista">
+            <option selected>Estrutura de Imóvel &gt;&gt; Vistoria em imóvel com rachadura e infiltração</option>
+            <option>Estrutura de Imóvel &gt;&gt; Vistoria em imóvel apresentando trepidação</option>
+            <option>Estrutura de Imóvel &gt;&gt; Vistoria em ameaça de desabamento de estrutura</option>
+            <option>Estrutura de Imóvel &gt;&gt; Vistoria em desabamento de estrutura</option>
+            <option>Estrutura de Imóvel &gt;&gt; Vistoria em ameaça ou queda de revestime...</option>
           </select>
           <button class="btn-clear">Limpar Seleção</button>
         </div>
@@ -247,7 +214,7 @@
       <legend>Localização</legend>
 
       <div class="row">
-        <label class="req-blue" for="endereco">Endereço:</label>
+        <label class="req" for="endereco">Endereço:</label>
         <div class="fwb">
           <input type="text" id="endereco" />
           <button class="btn-icon">🔍</button>
@@ -257,29 +224,22 @@
       <div class="row top">
         <label></label>
         <div>
-          <select class="listbox" size="4" id="endereco-lista"></select>
+          <select class="listbox listbox-yellow" size="4" id="endereco-lista"></select>
           <button class="btn-clear">Limpar Seleção</button>
         </div>
       </div>
 
       <div class="chk-row">
         <input type="checkbox" id="logradouro-inexistente" />
-        <label for="logradouro-inexistente" style="text-align:left; font-weight:normal;">Logradouro Inexistente</label>
+        <label for="logradouro-inexistente"
+          style="text-align:left; font-weight:normal;">Logradouro Inexistente</label>
       </div>
 
-      <!-- Número + CEP + tooltip de alerta -->
-      <div class="two-col" style="align-items:center;">
+      <div class="two-col">
         <label class="req" for="numero">Número:</label>
         <input type="text" id="numero" />
         <span style="text-align:right; font-size:13px; color:#222;">CEP:</span>
-        <div style="display:flex; align-items:center; gap:8px;">
-          <input type="text" id="cep" placeholder="__.___-___" />
-          <div class="tooltip-warn">
-            <span style="font-size:18px; color:#c8a800; flex-shrink:0;">⚠</span>
-            <span>Informe algum valor para aplicar o filtro.</span>
-            <span class="warn-close">✕</span>
-          </div>
-        </div>
+        <input type="text" id="cep" placeholder="__.___-___" />
       </div>
 
       <div class="row">
@@ -320,7 +280,7 @@
       <div class="row">
         <label>Unidade Organizacional:</label>
         <div>
-          <span class="static">SMDU — Secretaria Municipal de Desenvolvimento Urbano</span>
+          <span class="static">DEFESA CIVIL — Subsecretaria de Proteção e Defesa Civil</span>
           <div class="subinfo">A UO poderá ser alterada pela Distribuição de Endereço</div>
         </div>
       </div>
@@ -339,7 +299,7 @@
       </div>
 
       <div class="row">
-        <label for="origem-ocorrencia">Origem da Ocorrência:</label>
+        <label class="req" for="origem-ocorrencia">Origem da Ocorrência:</label>
         <select id="origem-ocorrencia" style="width:280px;">
           <option selected>Teleatendimento</option>
           <option>Departamental</option>
@@ -376,9 +336,35 @@
         <label for="caminho-foto">Caminho da foto:</label>
         <input type="text" id="caminho-foto" />
       </div>
+    </fieldset>
+
+    <!-- ══════════════════════════════════
+         SEÇÃO 5 — ATRIBUTOS ESPECÍFICOS
+    ══════════════════════════════════ -->
+    <fieldset>
+      <legend>Atributos Específicos</legend>
+
+      <div class="row">
+        <label for="comunidade">Comunidade:</label>
+        <div>
+          <select id="comunidade">
+            <option value="">Selecione</option>
+            <option>Rocinha</option>
+            <option>Complexo do Alemão</option>
+            <option>Complexo da Maré</option>
+            <option>Manguinhos</option>
+            <option>Jacarezinho</option>
+            <option>Cidade de Deus</option>
+            <option>Vigário Geral</option>
+            <option>Pavão-Pavãozinho</option>
+            <option>Outros</option>
+          </select>
+          <div class="hint">(Selecione a comunidade da ocorrência.)</div>
+        </div>
+      </div>
 
       <div class="row top">
-        <label for="descricao">Descrição:</label>
+        <label class="req" for="descricao">Descrição:</label>
         <textarea id="descricao"></textarea>
       </div>
     </fieldset>
@@ -389,7 +375,6 @@
   <div class="form-wrapper" style="padding-top:0;">
     <div class="footer-bar">
       <button class="btn-cancel">Cancelar</button>
-      <button class="btn-avancar">Avançar</button>
     </div>
   </div>
 
