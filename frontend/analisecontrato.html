@@ -111,9 +111,13 @@
 
             <!-- Future AI logic container -->
             <div id="previewContainer" style="display: none; margin-top: 2rem; width: 100%;">
-                <h2>Prévia do Texto Anonimizado</h2>
-                <p class="subtitle" style="margin-bottom: 1rem;">Confirme o texto que será enviado à IA. Dados sensíveis (CNPJ, Nomes de Empresa) foram ocultados pelo backend localmente.</p>
+                <h2>Prévia do Contrato Anonimizado</h2>
+                <p class="subtitle" id="previewSubtitle" style="margin-bottom: 1rem;">Confirme o texto que será enviado à IA. Dados sensíveis (CNPJ, Nomes de Empresa) foram ocultados pelo backend localmente.</p>
+                
+                <div id="pdfWrapper" style="display: none; margin-bottom: 1.5rem;"></div>
+                
                 <div id="anonymizedPreview" contenteditable="true" style="width: 100%; min-height: 300px; max-height: 500px; overflow-y: auto; border-radius: var(--radius-small); padding: 2.5rem; background: #ffffff; border: 1px solid rgba(0, 74, 128, 0.15); box-shadow: inset 0 4px 12px rgba(0, 74, 128, 0.03); font-family: 'Inter', system-ui, sans-serif; font-size: 0.95rem; line-height: 1.8; color: var(--text-primary); outline: none; box-sizing: border-box; white-space: pre-wrap; word-break: break-word; transition: var(--spring-transition, all 0.3s ease);"></div>
+                
                 <div class="action-bar" style="margin-top: 1rem;">
                     <button class="primary-btn" id="analyzeBtn" style="background: var(--sgrc-border); border-color: var(--sgrc-border); color: #fff;">Enviar para a Inteligência Artificial</button>
                 </div>
@@ -189,7 +193,23 @@
                 const data = await response.json();
                 
                 if(data.masked_text) {
-                    anonymizedPreview.textContent = data.masked_text;
+                    const pdfWrapper = document.getElementById('pdfWrapper');
+                    const previewSubtitle = document.getElementById('previewSubtitle');
+                    
+                    if (data.preview_url) {
+                        pdfWrapper.innerHTML = `<iframe src="${BASE_URL}${data.preview_url}" style="width: 100%; height: 600px; border: var(--border-main); border-radius: var(--radius-small);"></iframe>`;
+                        pdfWrapper.style.display = 'block';
+                        anonymizedPreview.style.display = 'none'; // ocultamos a caixa feia
+                        anonymizedPreview.textContent = data.masked_text; // deixamos o texto invisível pra mandar p/ IA
+                        previewSubtitle.innerHTML = "O sistema aplicou <b>tarjas pretas diretamente no seu documento</b> para preservar 100% da formatação original.";
+                    } else {
+                        // Caso não seja PDF (tipo Docx), mostra a folha texturizada
+                        pdfWrapper.style.display = 'none';
+                        anonymizedPreview.style.display = 'block';
+                        anonymizedPreview.textContent = data.masked_text;
+                        previewSubtitle.innerHTML = "Confirme o texto extraído que será enviado à IA. Dados sensíveis foram ocultados pelo backend.";
+                    }
+                    
                     previewContainer.style.display = 'block';
                     anonymizeBtn.style.display = 'none'; // hide it so user uses the next button
                 } else {

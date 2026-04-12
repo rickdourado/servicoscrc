@@ -1,4 +1,5 @@
 from fastapi import FastAPI, File, UploadFile
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 import backend.scripts.core_logic as core_logic
@@ -21,6 +22,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+os.makedirs(anonymizer.TEMP_DIR, exist_ok=True)
+app.mount("/temp", StaticFiles(directory=anonymizer.TEMP_DIR), name="temp")
 
 class OrderData(BaseModel):
     items: List[core_logic.Level1Item]
@@ -94,23 +98,20 @@ async def anonymize_contract(file: UploadFile = File(...)):
     is_pdf = "pdf" in (file.content_type or "").lower() or file.filename.lower().endswith(".pdf")
     
     if is_pdf:
-         reader = PdfReader(io.BytesIO(file_bytes))
-         for page in reader.pages:
-             text_page = page.extract_text()
-             if text_page:
-                 raw_text += text_page + "\n"
+        filename, masked_text = anonymizer.redact_pdf_visually(file_bytes)
+        return {"masked_text": masked_text, "preview_url": f"/temp/{filename}"}
     else:
-         try:
-             import docx
-             doc = docx.Document(io.BytesIO(file_bytes))
-             for para in doc.paragraphs:
-                 raw_text += para.text + "\n"
-         except Exception:
-             raw_text = file_bytes.decode("utf-8", errors="ignore")
+        try:
+            import docx
+            doc = docx.Document(io.BytesIO(file_bytes))
+            for para in doc.paragraphs:
+                raw_text += para.text + "\n"
+        except Exception:
+            raw_text = file_bytes.decode("utf-8", errors="ignore")
 
-    # Aplica a censura de PII localmente
-    masked_text = anonymizer.process_and_save(raw_text, file.filename)
-    return {"masked_text": masked_text}
+        # Aplica a censura de PII localmente via raw text
+        masked_text = anonymizer.process_and_save(raw_text, file.filename)
+        return {"masked_text": masked_text, "preview_url": None}
 
 @app.post("/api/analyze-text")
 async def analyze_text(data: AnalyzeTextData):
