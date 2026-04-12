@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const API_URL = 'http://localhost:8000/api';
+    const isLocalDev = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port === '3000';
+    const API_URL = isLocalDev ? 'http://localhost:8000/api' : '/api';
     
     // UI Elements
     const poolSgrc = document.getElementById('pool-sgrc');

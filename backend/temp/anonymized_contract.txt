@@ -1,1310 +1,853 @@
---- Arquivo de Origem: Contrato nº 2514753 - Faturamento WhatsApp - Mar_26.pdf ---
+--- Arquivo de Origem: Minuta do Relatório – 002_2026 100426.pdf ---
 --- DADOS ANOMIZADOS PARA PROTEÇÃO ---
 
+  Relatório   002/2026  -   MARÇO/2026   
+Projeto:   
+No  mês  de  março  foi  dada  continuidade  ao  projeto  de  Substituição  das  tecnologias  que  
+sustentam
  
-Relatório  de  Prestação  de  Serviços   Contrato [OCULTO]  -  Empresa: [EMPRESA_OCULTA] 
-[PROCESSO_OCULTO]
-  ●  Período  de  faturamento:  1º  de  Março  de  2026  a  31  de  Março  de  2026  ●  Valor  total  do  contrato:  R$  130.168.560,00  (cento  e  trinta  milhões,  cento  e  sessenta  e  
-oito
- 
-mil
- 
-e
- 
-quinhentos
- 
-e
- 
-sessenta
- 
-reais)
- 
- Cliente:  Secretaria  Municipal  da  Casa  Civil    1.  Resumo  Faturamento   Linha  de  custo
- 
-Preço  total
- 
-Horas  de  desenvolvimento
- 
-R$  65.135,00
- 
-Licenciamento  da  plataforma
- 
-R$  11.250,00
- 
-Atendimento  ativo  (utilidade)
- 
-R$  7.572,50
- 
-Atendimento  receptivo  (sessões  dentro  de  24h)
- 
-R$  3.481,66
- 
-Total
- 
-R$  87.439,16
-   2.  Desenvolvimento   
-Item
+o
  
 Serviço
  
-Horas  desenvolvimento
- 
-Valor  da  hora
- 
-Preço  total
- 
-1
- 
-Lançamento  do  fluxo  de  incidentes  hídricos
- 
-100
- 
-R$  186,10
- 
-R$  18.610,00
- 
-2
- 
-Correções  de  erros  e  melhorias  gerais
- 
-150
- 
-R$  186,10
- 
-R$  27.915,00
- 
-3
- 
-Refatoração  do  System  Prompt
- 
-100
- 
-R$  186,10
- 
-R$  18.610,00
- 
-Total
- 
-350
- 
--
- 
-R$  65.135,00
- 
-       
-EMPRESA: [EMPRESA_OCULTA] ,  Rio  de  Janeiro/RJ  -  CEP:  20.211-175    
- 
- 3.  Atendimento    3.1.  Atendimento  Ativo   
-Categoria  HSM
- 
-Mensagens  entregues
- 
-Custo  unitário
- 
-Preço  total
- 
-Atendimento  ativo  (Utilidade)
- 
-58.250
- 
-R$  0,13
- 
-R$  7.572,50
- 
-Total  geral
- 
-58.250
- 
--
- 
-R$  7.572,50
- 
-  
-Campanha
- 
-Tentativas  Disparo
- 
-Mensagens  entregues
- 
-Taxa  de  entrega
- 
-Agendamento  Cadúnico
- 
-43.968
- 
-41.660
- 
-94,75%
- 
-Cartão  Pequenos  Cariocas
- 
-9.477
- 
-8.794
- 
-92,79%
- 
-Pesquisa  1746
- 
-4.203
- 
-4.004
- 
-95,27%
- 
-Autenticação  Pref.Rio
- 
-3.103
- 
-2.994
- 
-96,49%
- 
-Cobrança  Dívida  Ativa
- 
-485
- 
-454
- 
-93,61%
- 
-Teste  interno  -  Incidentes  hídricos
- 
-194
- 
-194
- 
-100,00%
- 
-Teste  interno  -  Puérperas
- 
-168
- 
-150
- 
-89,29%
- 
-Total  geral
- 
-61.598
- 
-58.250
- 
-94,56%
- 
-  3.2.  Atendimento  Receptivo   Item
- 
-Volume  Sessões
- 
-Custo  unitário
- 
-Preço  total
- 
-Atendimento  receptivo  (sessões  de  24  horas  fixas)
- 
-49.738
- 
-R$  0,07
- 
-R$  3.481,66
- 
- 4.  Licenciamento  
-Item
- 
-Sessões  Receptivas  (24h)
- 
-Faixa  apurada
- 
-Preço  total
- 
-Licenciamento  da  plataforma
- 
-49.738
- 
-Até  50.000
- 
-R$  11.250,00
- 
- 
-EMPRESA: [EMPRESA_OCULTA] ,  Rio  de  Janeiro/RJ  -  CEP:  20.211-175    
- 
-5.  Detalhamento  entregas  
- 5.1.  Fluxo  de  incidentes  hídricos  (Columbia)  
-Foi
- 
-implementado
- 
-e
- 
-disponibilizado
- 
-o
- 
-fluxo
- 
-de
- 
-atendimento
- 
-para
- 
-incidentes
- 
-hídricos,
- 
-permitindo
- 
-que
- 
-o
- 
-agente
- 
-de
- 
-IA
- 
-oriente
- 
-cidadãos
- 
-em
- 
-situações
- 
-de
- 
-risco
- 
-relacionadas
- 
-a
- 
-chuvas,
- 
-alagamentos
- 
-e
- 
-enchentes.
- O  fluxo  contempla  orientações  preventivas,  suporte  em  situações  emergenciais  e  
-direcionamento
- 
-para
- 
-pontos
- 
-de
- 
-apoio
- 
-e
- 
-canais
- 
-oficiais,
- 
-com
- 
-base
- 
-em
- 
-protocolos
- 
-estruturados
- 
-e
- 
-atualizados.
- 
-A
- 
-solução
- 
-também
- 
-permite
- 
-atuação
- 
-contextualizada
- 
-conforme
- 
-o
- 
-nível
- 
-de
- 
-risco
- 
-informado
- 
-pelo
- 
-usuário,
- 
-priorizando
- 
-segurança
- 
-e
- 
-clareza
- 
-nas
- 
-instruções.
- Essa  entrega  amplia  a  capacidade  do  agente  em  cenários  críticos,  oferecendo  
-suporte
- 
-ágil
- 
-e
- 
-confiável
- 
-à
- 
-população
- 
-em
- 
-situações
- 
-de
- 
-emergência.
- 
- 5.2.  Correções  de  erros  e  melhorias  gerais  
-Foram
- 
-realizadas
- 
-diversas
- 
-correções
- 
-e
- 
-melhorias
- 
-técnicas
- 
-em
- 
-diferentes
- 
-componentes
- 
-da
- 
-plataforma,
- 
-com
- 
-foco
- 
-em
- 
-aumentar
- 
-a
- 
-confiabilidade,
- 
-a
- 
-qualidade
- 
-do
- 
-código
- 
-e
- 
-a
- 
-robustez
- 
-dos
- 
-processos
- 
-de
- 
-deploy
- 
-e
- 
-operação.
- Destacam-se  a  automação  de  deploys  e  testes,  correções  em  processamento  de  filas  
-e
- 
-envio
- 
-de
- 
-alertas,
- 
-além
- 
-de
- 
-uma
- 
-revisão
- 
-funcional
- 
-completa
- 
-da
- 
-aplicação,
- 
-garantindo
- 
-estabilidade
- 
-dos
- 
-fluxos
- 
-e
- 
-ausência
- 
-de
- 
-falhas
- 
-visíveis
- 
-ao
- 
-usuário.
- 
-Também
- 
-foram
- 
-realizadas
- 
-ações
- 
-de
- 
-limpeza
- 
-técnica
- 
-e
- 
-organização
- 
-do
- 
-código,
- 
-contribuindo
- 
-para
- 
-maior
- 
-manutenção.
- Adicionalmente,  foi  corrigido  um  problema  no  pipeline  de  dados  que  interrompia  a  
-atualização
- 
-do
- 
-histórico
- 
-de
- 
-conversas
- 
-no
- 
-BigQuery.
- 
-A
- 
-solução
- 
-envolveu
- 
-ajustes
- 
-no
- 
-mecanismo
- 
-de
- 
-processamento
- 
-e
- 
-recuperação
- 
-dos
- 
-dados,
- 
-restabelecendo
- 
-a
- 
-integridade
- 
-das
- 
-informações
- 
-analíticas.
- Essas  melhorias  reforçam  a  estabilidade  do  sistema,  a  confiabilidade  dos  dados  e  a  
-maturidade
- 
-operacional
- 
-da
- 
-solução.
- 
- 5.3.  Refatoração  do  system  prompt  
-Foi
- 
-realizada
- 
-a
- 
-refatoração
- 
-do
- 
-system
- 
-prompt
- 
-do
- 
-agente,
- 
-resultando
- 
-em
- 
-redução
- 
-significativa
- 
-de
- 
-seu
- 
-tamanho,
- 
-com
- 
-manutenção
- 
-ou
- 
-melhoria
- 
-do
- 
-desempenho
- 
-na
- 
-maioria
- 
-das
- 
-métricas
- 
-avaliadas.
- A  nova  versão  apresentou  melhor  relação  entre  custo  e  performance,  além  de  
-incluir
- 
-mecanismos
- 
-para
- 
-acompanhamento
- 
-de
- 
-tokens
- 
-e
- 
-facilitar
- 
-o
- 
-versionamento
- 
-e
- 
-a
- 
-gestão
- 
-do
- 
-prompt.
- 
-Essa
- 
-evolução
- 
-contribui
- 
-para
- 
-maior
- 
-eficiência
- 
-operacional
- 
-e
- 
-governança
- 
-sobre
- 
-o
- 
-comportamento
- 
-do
- 
-agente.
-  
- 6.  Indicadores  e  níveis  de  serviço  Os  serviços  deverão  atender,  de  forma  contínua  e  ininterrupta,  aos  indicadores  e  metas  de  
-desempenho
- 
-definidos
- 
-no
- 
-Termo
- 
-de
- 
-Referência
- 
-e
- 
-Edital [OCULTO]
-  
-EMPRESA: [EMPRESA_OCULTA] ,  Rio  de  Janeiro/RJ  -  CEP:  20.211-175    
- 
-6.1.  Sessões  receptivas  ●  Os  dados  de  origem  utilizados  para  o  cálculo  foram  obtidos  a  partir  de  uma  extração  
-direta
- 
-ao
- 
-banco
- 
-de
- 
-dados
- 
-de
- 
-produção
- 
-do
- 
-fornecedor
- 
-do
- 
-broker
- 
-(Wetalkie)
- 
-e
- 
-estão
- 
-disponíveis
- 
-no
- 
-anexo
- 
-II
- 
-deste
- 
-relatório
- 
-e
- 
-suas
- 
-respectivas
- 
-visualizações
- 
-resumidas
- 
-disponibilizadas
- 
-no
- 
-anexo
- 
-III
- 
-através
- 
-de
- 
-importação
- 
-da
- 
-base
- 
-de
- 
-origem
- 
-em
- 
-formato
- 
-de
- 
-tabela
- 
-no
- 
-datalake
- 
-municipal.
- ●  Para  agrupamento  das  sessões  receptivas,  conforme  consta  em  contrato,  utilizamos  a  
-seguinte
- 
-metodologia:
- 
- ○  A  partir  da  primeira  mensagem  enviada  pelo  cidadão  (separação  por  números  de  
-telefone
- 
-distintos),
- 
-abre-se
- 
-uma
- 
-janela
- 
-de
- 
-24
- 
-horas
- 
-corridas.
- 
-A
- 
-partir
- 
-daí
- 
-todas
- 
-as
- 
-mensagens
- 
-dentro
- 
-desse
- 
-intervalo
- 
-são
- 
-contabilizadas
- 
-como
- 
-parte
- 
-da
- 
-mesma
- 
-sessão
- 
-aberta.
- 
-Uma
- 
-nova
- 
-mensagem
- 
-do
- 
-cidadão
- 
-enviada
- 
-após
- 
-a
- 
-janela
- 
-de
- 
-24
- 
-horas
- 
-corridas
- 
-configura
- 
-a
- 
-abertura
- 
-de
- 
-uma
- 
-nova
- 
-sessão.
- ●  Volume  aferido :  49.738  sessões.  
- 6.2.  Implementação  ●  Nível  de  serviço  alvo :  Cumprimento  de  100%  dos  prazos  acordados  para  cada  serviço  
-implantado
- 
-solicitado
+1746
+,
  
 pela
  
-contratante.
- ●  Resultado  aferido :  100%.    
-Implementações  -  Mar/2026
+solução
  
-Formato
+de
  
-Data  acordada
+CRM
  
-Data  Entrega
+da
  
-Status  Prazo
+Salesforce.
  
-Disparos  ativos  -  Lembrete  agendamento  CadÚnico
+  
+Atividades  executadas   -  Março  de  2026  a.  Resumo  das  principais  Reuniões   ●  1746  -  OmniChanell  -  Mapeamento  Preliminar  de  Stakeholders  -  (02/03)  ●  Workshop:  WhatsApp  (Mkt  Cloud)  -  (03/03)  ●  Workshop:  WhatsApp  (Agentforce)  -  (03/03)  ●  Workshop  -  Portal  +  Salesforce  -  (04/03)  ●  Configuração  SSO  Marketing  Cloud  -  (04/03)  ●  Checkpoint  com  SUBTD  -  (05/03)  ●  Criação  WABA  -  Iplanrio  (06/03)  ●  Alinhamento  das  Campanhas  de  disparos  -  WhatsApp  -  (09/03)  ●  Apresentação  Salesforce  Signature  -  IplanRio  (09/03)  ●  Alinhamento  inicial  da  arquitetura  DataCloud  <>  Marketing  Cloud  <>  Service  Cloud  -  
+(10/03)
+ ●  Checkpoint  com  SUBTD  -  (11/03)  ●  Configuração  do  WhatsApp  -  (11/03)  ●  Reunião  de  elaboração  da  Matriz  RACI  -  (11/03)  ●  Dúvidas  sobre  o  Agentforce  -  (12/03)  ●  Explicação/Validação  da  estrutura  inicial  do  Service  Cloud  -  (12/03)  ●  GMO  Salesforce  -  Matriz  RACI,  Riscos  &  Stakeholders  -  (12/03)  ●  IplanRio  -  Apres.  Data  Cloud  -  (13/03)  ●  Estrutura  Service  Cloud  +  Marketing  Cloud  -  (16/03)  ●  Alinhamento  Service  Cloud  +  Marketing  Cloud  -  (17/03)  ●  Checkpoint  com  SUBTD  -  (19/03)  ●  Alinhamentos  de  Gestão  -  Iplan  e  TO  -  (19/03)  ●  Alinhamento  sobre  gestão  de  Riscos  -  (20/03)  ●  Componentes  Custom  do  projeto  -  (20/03)  ●  Config  do  WABA  -  (23/03)  ●  IPLANRIO  -  Signature  -  Acompanhamento  Semanal  -  (23/03)  ●  Confecção  do  status  report  semanal  -  (23/03)  ●  Sales  Force  -  Status  Report  -  (24/03)  ●  WPP  Receptivo,  hands-on  &  Q&A  -  (24/03)   1  
+ ●  Desenho  inicial  da  estrutura  da  estrutura  de  comunicação  -  (24/03)  ●  Definição  do  Fluxo  de  comunicação  do  MKT  -  (24/03)  ●  Fluxos  e  temas  de  ouvidoria  -  (24/03)  ●  Desenho  do  fluxo  de  cadastro  -  (25/03)  ●  Checkpoint  com  SUBTD  -  (26/03)  ●  Fluxo  de  cadastro  do  cidadão  no  Salesforce  -  (26/03)  ●  Iplanrio  &  SF/TO  -  Agentforce  Discovery  -  (27/03)  ●  Levantamento  SECONSERVA  -  (27/03)  ●  Novo  Desenho  Integração  1746  -  (27/03)  ●  Ajustes  -  Cronograma/Status  Report  -  (27/03)  ●  Plano  de  transição  -  Tecnologia  1746  -  (27/03)=  ●  Confecção  do  status  report  semanal  -  (30/03)  ●  IPLANRIO  -  Signature  -  Acompanhamento  Semanal  -  (30/03)  ●  Sales  Force  -  Status  Report  -  (31/03)  ●  Follow  Up  CzRM  -  IPLAN  <>  SUBTD  <>  TO  -  (31/03)  ●  Checkpoint  com  SUBTD  -  (31/03)  ●  Canal  Voz  1746  Reunião  com  a  Nice  e  TO  -  (31/03)   
+b.  Resumo  das  principais  atividades  gerenciais   ●  Acompanhamento  de  projeto  ●  Atualização  de  Cronograma ●  Realização  de  status  Report ●  Realização  de  reuniões  de  controle  ●  Gestão  de  riscos  e  impedimentos ●  Revisão  de  decisões  técnicas  (ADRs)  ●  Refinamento  de  requisitos  técnicos  e  de  negócio (Aba  “Levantamento  de  Requisito”)  ●  Mapeamento  de  stakeholders (Aba  “Stakeholders  CRC”)  ●  Suporte  às  lideranças  de  negócio  ●  Alinhamentos  de  GMO  ●  Análises  de  solução  ●  Elaboração  e  melhorias  da  arquitetura  da  solução (Aba  “ERD  –  Objects”)  ●  Elaboração  de  planos  de  Integração  
+ c.  Resumo  das  principais  atividades  técnicas   
+1  –  Instanciamento  básico  -  Marketing  Cloud  ●  Configuração  da  WABA  e  SAP 
+ 2  
  
-Pipeline  disparo
  
-01/03/2026
  
-01/03/2026
  
-✅
  
-Disparos  ativos  -  Pesquisa  1746
+2  –  Criação  de  campanhas  de  disparo  ativo  via  WhatsApp  ●  Elaboração  da  estrutura  de  comunicação  entre  Data  Lake,  Data  Cloud  e  Marketing  Cloud  
  
-Pipeline  disparo
+ 3  
+
  
-01/03/2026
  
-01/03/2026
  
-✅
+ 3  –  Ciclo  de  vida  dos  serviços  (Abertura,  roteamento,  tratativa  e  fechamento)  ●  Criação  do  Componente  de  mapas  do  Arcgis  
  
-Disparos  ativos  -  Dívida  Ativa  (Lembrete  pagamento)
  
-Pipeline  disparo
+●  Criação  dos  Objetos  Custom  para  base  da  lógica  dos  Serviços  
  
-20/03/2026
  
-20/03/2026
+ 4  
+
  
-✅
  
-Disparos  ativos  -  Cartão  Pequenos  Cariocas
  
-Pipeline  disparo
+ 4  –  Integração  do  Salesforce  com  sistemas  externos  ●  Integração  com  o  IPP  o  Criação  da  api  ipp-pgeo-sys-api  responsável  por  integrar  dados  geográficos  de  
+trechos
  
-20/03/2026
+de
  
-20/03/2026
- 
-✅
- 
-Disparos  ativos  -  Dívida  Ativa  (Confirmação  pagamento)
- 
-Pipeline  disparo
- 
-23/03/2026
- 
-23/03/2026
- 
-✅
- 
-Disparos  ativos  -  Dívida  Ativa  (Aviso)
- 
-Pipeline  disparo
- 
-31/03/2026
- 
-31/03/2026
- 
-✅
- 
-Disparos  ativos  -  Projeto  Columbia
- 
-Pipeline  disparo
- 
-31/03/2026
- 
-31/03/2026
- 
-✅
- 
-Lançamento  do  fluxo  de  incidentes  hídricos  (Columbia)
- 
-Nova  implementação
- 
-30/03/2026
- 
-30/03/2026
- 
-✅
- 
-Refatoração  do  System  Prompt
- 
-Nova  implementação
- 
-18/03/2026
- 
-18/03/2026
- 
-✅
- 
-EMPRESA: [EMPRESA_OCULTA] ,  Rio  de  Janeiro/RJ  -  CEP:  20.211-175    
- 
-  6.3.  Latência  ●  Nível  de  serviço  alvo :  Latência  de  entrega  de  mensagens  em  até  01  (um)  minuto  em  
-98%
- 
-dos
- 
-casos.
- ●  Resultado  aferido :  98%  das  mensagens  entregues  em  até  34.12  segundos.   A  latência  (ou  tempo  total  de  processamento  ou  E2E)  é  calculada  usando  os  traces  gerados  em  
-cada
- 
-etapa
+logradouros
  
 do
  
-fluxo.
+sistema
  
-Cada
+IPP
  
-etapa
+(ArcGIS)
  
-produz
+para
  
-um
+o
  
-span
+Salesforce.
+ (Documentação:  IPP  PGeo  System  API  (ipp-pgeo-sys-api)  -  VPIA  -  Confluence)  
+ 5  
+
  
-com
  
-horários
+ 
+●  Proposta  Integração  SGRC  >  Mulesoft  >  Departamentos  o  Documentação:  Proposta  Integração  SGRC  >  Mulesoft  >  Departamentos  -  VPIA  -  Confluence 
+R$   
+ 
+ 
+Horas  técnicas   -  Março  de  2026   
+     Horas  
+Preço  unitário  Preço  Total  
+Serviços  Especializados  
+29  
+Serviço  técnico  especializado  
+Core  Hora  116  R$  295,25  
+R$  34.249,00  
+GMO  Hora  40  R$  295,25  
+R$  11.810,00  
+Mkt  Cloud  Hora  64  R$  295,25  
+R$  18.896,00  
+Arquiteto  Hora  120  R$  295,25  
+R$  35.430,00  
+Gestão  Hora  368  R$  295,25  108.652,00  
+ 6  
+
+ 
+Mulesoft  Hora  176  R$  295,25  
+R$  51.964,00  
+Field  Service  Hora  16  R$  295,25  R$  4.724,00  
+ 900  Subtotal  
+R$  265.725,00   
+Licenças   -  Março  de  2026    
+ Item  Descrição  Produto  Unidade  
+Quantidade  2/12  
+Preço  Unitário/mensal  
+Preço  Total  
+Atendimento  1  
+Atendentes  Omnichannel  em  tempo  real  -  síncronos  
+Service  Cloud  Enterprise  Edition  +  Digital  Engagement  Enterprise  Edition  
+Usuário  30  R$  360,90  
+R$  10.827,05  
+        
+Gestão  de  Campanhas  
+7  
+Marketing  Cloud  Engagement  -  Enterprise  Edition  Plataforma  de  campanhas  de  marketing  e  comunicação  
+API  Calls  (por  ano)  -  200  milhões  Automação  100.000  Contatos  500.000  Data  Extension.  Storage  (GB)  100  Super  Message   (e-mails  sem  anexo)  150  
+Plataforma  1  
+R$  80.765,41  
+R$  80.765,41  
+ 7  
+ milhões  Usuários  100  
+8  
+Contatos  adicionais  para  campanhas  de  marketing  
+Additional  Contacts  
+Pacotes  de  Contatos  (1.000)  
+5.500  R$  8,02  
+R$  44.110,00  
+9  
+Autenticação  de  Domínios  em  Nuvem  (Organizações)  
+Private  Domain  
+Domínio  1  R$  4.812,16  R$  4.812,16  
+10  
+Certificado  SSL  
+SSL  Certificate  
+Certificado  SSL  
+1  R$  871,13  R$  871,13  
+11  
+Auditoria  e  Log  da  plataforma  
+Audit  Trail  Aplicação  1  R$  6.633,10  R$  6.633,10  
+12  
+Endereço  IP  Privado  para  envio  de  e-mails  em  larga  escala  em  Nuvem  IP  
+Private  IP  
+Endereço  IP  
+1  R$  401,01  R$  401,01  
+        
+Atendimento  Geral  
+14  
+Créditos  utilizados  em  Data  Cloud  
+Data  Services  Card  100K  
+Por  Créditos  a  serem  consumidos  no  Ano  
+45  pacotes  de  100.000  créditos  por  12  meses  
+R$  268,88  
+R$  12.099,64  
+        
+Infraestrutura  
+15  
+Armazenamento  de  Dados  
+Customer  Data  Cloud  -  Data  Storage  (1024  GB)  
+Armazenamento  disponibilizado  
+1  R$  1.475,73  R$  1.475,73  
+ 8  
+ 
+16  
+Gerenciamento  de  privacidade  de  dados  
+Privacy  Center  
+Aplicação  1  
+R$  32.343,90  
+R$  32.343,90  
+17  
+Monitoramento  de  desempenho  e  disponibilidade  
+Event  Monitoring  
+Aplicação  1  
+R$  24.254,90  
+R$  24.254,90  
+        
+Logins  18  
+Logins  mensais  dos  cidadãos  no  portal  de  autoatendimento  
+Customer  Community  -  Unlimited  Edition  -  Logins  (Per  Month)  
+Logins/mês  15.000  R$  0,27  
+R$  4.112,50  
+        
+Plataforma  de  Integração  
+19  
+Plataforma  de  integração  avançada  
+MuleSoft  -  Anypoint  Platform  Base  Subscription  -  Titanium  Edition  
+Plataforma  1  
+R$  65.163,84  
+R$  65.163,84  
+20  
+Capacidade  de  processamento  da  plataforma  
+MuleSoft  -  Additional  vCore  Production  -  Titanium  Edition  (No  Flex)  
+VCore  de  expansão  
+1  
+R$  27.544,79  
+R$  27.544,79  
+        
+ 9  
+ 
+Unidade  de  Negócios  Mkt  
+21  
+Unidade  de  negócio  adicional  (Organizações  adicionais)  
+Additional  Business  Unit  (+1)  
+Unidade  de  negócios  
+1  R$  6.015,20  R$  6.015,20  
+        
+Certificado  SSL  22  
+Certificados  SSL  (4  por  unidade  de  negócio  adicional)  
+SSL  Certificate  (4  unidades  por  BU)  
+Conjunto  de  certificados/mês  
+1  R$  483,96  R$  483,96  
+        
+Suporte  do  Fabricante  
+23  
+Monitoramento  Avançado  de  Auditoria  e  Suporte  
+Premier  Success  Plan  -  Marketing  Cloud  Engagement  
+Pacote  de  Serviços  
+1  
+R$  31.801,61  
+R$  31.801,61  
+24  
+Suporte  avançado  do  fabricante  
+Signature  Success  -  Marketing  Cloud  Engagement  
+Adicional  de  Suporte  Avançado  do  Fabricante  
+1  
+R$  125.223,87  
+R$  125.223,87  
+Plataforma  Telefonia  Digital  
+25  
+Plataforma  de  telefonia  digital  
+CXone  Mpower  Voice  Agent  e  Services  
+Plataforma/mês  
+1  
+R$  68.533,59  
+R$  68.533,59  
+        
+IA  Generativa  para  voz  
+26  
+Inteligência  Artificial  Generativa  para  Telefonia  
+Cognigy  Al  Voice  Enablement  (per  conversation)  130  mil/mês  
+Por  Conversação  /mês  
+0,15  
+R$  206.478,79  
+R$  30.971,82  
+ 10  
+         
+Infraestrutura  Telefonia  
+27  
+Porta  Universal  
+Configured  Universal  Port  (in  excess  of  included  Port(s))  
+Infra/mês  1  R$  138,52  R$  138,52  
+28  
+Infraestrutura  adicional  
+Infra  Variável  de  Telefonia  (portas,  armazenamento,  tráfego)  
+Infra/mês  1  R$  335,51  R$  335,51  
+         Subtotal  R$  578.919,24        Esclarecimento  dos  Itens:   8  -  Additional  Contacts   -  A  carga  da  base  de  contatos  do  Registro  Municipal  Integrado  faz  
+parte
+ 
+do
+ 
+Setup,
+ 
+por
+ 
+isso
+ 
+a
+ 
+necessidade
  
 de
+ 
+incluir
+ 
+os
+ 
+pacotes
+ 
+adicionais
+ 
+de
+ 
+contatos
+ 
+desde
+ 
+o
  
 início
  
-e
+do
  
-fim;
+Projeto.
+ 9  -  Private  Domain   -  Contratação  de  domínio,  faixa  de  IPs  dedicada  e  trilha  de  auditoria  para  
+o
  
-assim,
+serviço
+ 
+de
+ 
+disparos.
+ 
+Necessário
+ 
+configurar
+ 
+upfront.
+ 10   -  Certificado  SSL  -  Gestão  de  Campanhas  -  Certificado  de  Segurança  SSL  para  o  módulo  de  
+Gestão
+ 
+de
+ 
+Campanhas
+ 
+(Marketing
+ 
+Cloud
+ 
+)
+  14  -  Data  Services  Card  100K  -  Créditos  de  data  cloud,  necessários  para  configuração  das  
+pipelines
+ 
+de
+ 
+disparo.
+ 16  -  Privacy  Center  -  Ferramenta  para  atender  LGPD  17  -  Event  Monitoring  -   Item  de  segurança,  que  precisa  ser  configurado  upfront  18  -  Customer  Community  -  Unlimited  Edition  -  Logins   -  O  quantitativo  previsto  corresponde  
+a
+ 
+6%
+ 
+do
+ 
+total
+ 
+estimado
+ 
+para
  
 o
  
-E2E
- 
-é
- 
-obtido
- 
-pela
- 
-diferença
- 
-entre
- 
-o
- 
-startTime
+final
  
 do
  
 primeiro
  
-span
+ano,
  
-e
- 
-o
- 
-endTime
- 
-do
- 
-último
- 
-span
-,
- 
-representando
+sendo
  
 o
  
-tempo
+mínimo
  
-completo
- 
-de
- 
-processamento
- 
-da
- 
-requisição
- 
-no
- 
-sistema
- 
-distribuído.
- Para  verificar  o  resultado  apresentado,  disponibilizamos  um  script  de  validação  no  Anexo  V  
-deste
- 
-relatório.
- 
-O
- 
-procedimento
+necessário
  
 para
  
-utilização
- 
-é
- 
-o
- 
-seguinte:
-  1)  Obtenção  dos  dados:  Acesse  o  Anexo  III  e  realize  o  download  da  aba  "Base  bruta  -  
-Timestamp
- 
--
- 
-Requests"
- 
-em
- 
-formato
- 
-CSV.
- 2)  Execução  do  script:  Execute  o  comando  abaixo  no  terminal,  substituindo  o  caminho  
-pelo
- 
-local
- 
-onde
- 
-o
- 
-arquivo
- 
-foi
- 
-salvo:
-     python  e2e_p98.py  caminho/para/seus/dados/brutos.csv  3)  Processamento  realizado  pelo  script:      -  Limpeza  do  arquivo  CSV  (remoção  de  cabeçalhos  e  linhas  extras)      -  Leitura  e  parsing  dos  timestamps  de  início  e  fim      -  Cálculo  da  diferença  temporal  em  segundos  para  cada  registro      -  Cálculo  do  percentil  98  (P98)  utilizando  ordenação  e  interpolação  linear      -  Exibição  do  resultado  no  console     O  método  de  cálculo  do  P98  está  documentado  em  detalhes  através  de  comentários  inline  no  
-código-fonte
- 
-do
- 
-script
- 
-(Anexo
- 
-V),
- 
-permitindo
- 
-a
- 
-compreensão
- 
-completa
- 
-da
- 
-metodologia
- 
-aplicada.
-   6.4.  Disponibilidade  ●  Nível  de  serviço  alvo :  Disponibilidade  da  plataforma:  99,9%  por  mês.  ●  Resultado  aferido :  99,989%   A  disponibilidade  é  medida  fazendo  requisições  ao  endpoint  de  readiness  a  cada  5  minutos.  
-Esse
- 
-endpoint
- 
-verifica
- 
-se
- 
-todos
+viabilizar
  
 os
  
-componentes
+testes,
  
-críticos
+a
+ 
+validação
+ 
+funcional
+ 
+e
+ 
+a
+ 
+homologação
+ 
+da
+ 
+solução
+ 
+durante
+ 
+a
+ 
+fase
+ 
+de
+ 
+desenvolvimento
  
 do
  
-sistema
+portal.
  
-estão
+ 11  
+ Essa  previsão  inicial  reduzida  é  justificada  pela  própria  lógica  de  implantação  gradual  da  
+solução,
  
-saudáveis.
+na
  
-Quando
- 
-a
- 
-checagem
- 
-retorna
- 
-OK,
+qual
  
 o
  
-sistema
+ambiente
  
-é
+precisa
  
-considerado
+ser
  
-disponível
+disponibilizado
  
-naquele
+com
  
-intervalo;
+um
  
-quando
+volume
  
-falha,
+controlado
  
-é
+de
  
-marcado
+acessos
+ 
+para
+ 
+permitir
+ 
+o
+ 
+trabalho
+ 
+das
+ 
+equipes
+ 
+técnicas
+ 
+e
+ 
+de
+ 
+negócio
+ 
+sem
+ 
+onerar,
+ 
+de
+ 
+imediato,
+ 
+a
+ 
+contratação
+ 
+da
+ 
+capacidade
+ 
+plena.
+ 
+Em  outras  palavras,  trata-se  de  uma  quantidade  estrategicamente  dimensionada  para  
+garantir
+ 
+a
+ 
+execução
+ 
+segura
+ 
+da
+ 
+etapa
+ 
+de
+ 
+implantação,
+ 
+servindo
  
 como
  
-indisponível.
+base
  
-A
+para
  
-partir
- 
-dessas
- 
-verificações
- 
-periódicas,
- 
-calcula-se
- 
-o
- 
-percentual
+aferição
  
 de
  
-tempo
+desempenho,
  
-em
+ajustes
+ 
+de
+ 
+configuração
+ 
+e
+ 
+validação
+ 
+dos
+ 
+fluxos
+ 
+antes
+ 
+da
+ 
+ampliação
+ 
+do
+ 
+uso
+ 
+pela
+ 
+totalidade
+ 
+dos
+ 
+usuários
+ 
+previstos.
+ 
+20  -  MuleSoft  -  Additional  vCore  Production  -Titanium  Edition  (No  Flex)  -  Middleware  de  
+integração
+ 
+para
+ 
+ser
+ 
+utilizado
+ 
+com
+ 
+os
+ 
+sistemas
+ 
+externos
+ 
+dos
+ 
+órgãos.
+ 
+21  -  Additional  Business  Unit  (+1)  -   Instância  segregada  do  Marketing  Cloud  dedicada  ao  
+ciclo
+ 
+de
+ 
+desenvolvimento
+ 
+.
+ 
+Funciona
+ 
+como
+ 
+um
+ 
+espaço
+ 
+de
+ 
+trabalho
+ 
+independente
  
 que
  
-o
+permite
  
-sistema
+gerenciar
  
-permaneceu
+dados,
  
-operacional. A  partir  do  acesso  ao  dashboard de  monitoramento  da  disponibilidade,  é  possível  aferir  o  indicador  de  disponibilidade  do  chatbot  durante  o  mês  de  Fevereiro.  Para  fins  de  auditoria  do  
-dashboard,
+usuários
  
-deve-se
+e
  
-verificar
+jornadas
+ 
+de
+ 
+comunicação
+ 
+por
+ 
+unidade
+ 
+de
+ 
+negócio.
+ 
+O
+ 
+Marketing
+ 
+Cloud
+ 
+vai
+ 
+ser
  
 a
  
-query
+ferramenta
  
-disponibilizada
+institucional
  
-no
+oficial
  
-Anexo
+da
  
-III,
+Prefeitura
  
-intitulada
+para
  
-“Disponibilidade
- 
-EMPRESA: [EMPRESA_OCULTA] ,  Rio  de  Janeiro/RJ  -  CEP:  20.211-175    
- 
-(Uptime)  –  AGREGADO”.  
- 
-  7.  Anexos  7.1.  Anexo  I  -  Relatório  Bruto  Disparos  -  Fornecedor/Broker  Wetalkie  -  Mar/26 7.2.  Anexo  II  -  Relatório  Bruto  Mensagens  -  Fornecedor/Broker  Wetalkie  -  Mar/26 7.3.  Anexo  III  -  Extrações  DL  -  Latência  e  Sessões  Receptivas  -  Mar/26 7.4.  Anexo  IV  -  Script  e2e_p98.py   
- 
- 
-___________________________________________  
-Ingrid  Herdeiro  Gomes  
-Diretora
+envio
  
 de
  
-Diretoria
+mensageria
+ 
+via
+ 
+WhatsApp,
+ 
+E-mail,
+ 
+SMS
+ 
+e
+ 
+Push.
+ A  contratação  de  unidades  de  negócio  adicionais  visa  atender  a  necessidade  de  outros  órgãos  
+que
+ 
+hoje
+ 
+já
+ 
+possuem
+ 
+disparos
  
 de
  
-Experiência
+e-mail
  
-Digital
+transacionais
  
-Matrícula:
+e
  
-623.495-1
+que
  
-EMPRESA: [EMPRESA_OCULTA] ,  Rio  de  Janeiro/RJ  -  CEP:  20.211-175    
-
+terão
+ 
+que
+ 
+adequar/transferir
+ 
+os
+ 
+seus
+ 
+fluxos
+ 
+de
+ 
+disparo
+ 
+para
+ 
+a
+ 
+nova
+ 
+ferramenta
+ 
+(que
+ 
+traz
+ 
+consigo
+ 
+toda
+ 
+a
+ 
+camada
+ 
+de
+ 
+segurança
+ 
+de
+ 
+LGPD,
+ 
+coleta
+ 
+de
+ 
+consentimento
+ 
+e
+ 
+rastreabilidade
+ 
+completa)
+ 
+O
+ 
+primeiro
+ 
+órgão
+ 
+que
+ 
+utilizará
+ 
+a
+ 
+instância
+ 
+adicional
+ 
+será
+ 
+a
+ 
+CIVITAS
+ 
+e
+ 
+estamos
+ 
+iniciando
+ 
+esse
+ 
+processo
+ 
+de
+ 
+configuração.
+ 22  -   SSL  Certificate  (4  unidades  por  BU)  -  Certificados  SSL  da  Plataforma  de  Serviços  -   
+(Service
+ 
+Cloud)
+  
+ 23  -  Premier  Success  Plan  -  Marketing  Cloud  Engagement  -  Planos  de  suporte  básico,  
+necessário
+ 
+para
+ 
+contratação
+ 
+do
+ 
+avançado
+ 24  -  Signature  Success  -  Marketing  Cloud   -  Planos  de  suporte  avançado  da  Salesforce   25  -  CXone  Mpower  Voice  Agent  e  Services  -  Sistema  da  NICE  de  telefonia  26  -  Cognigy  Al  Voice  Enablement  (per  conversation)  -  Créditos  de  IA  para  desenvolvimento  
+da
+ 
+ferramenta
+ 
+de
+ 
+telefonia,
+ 
+capacidade
+ 
+de
+ 
+IA
+ 
+Generativa
+ 
+para
+ 
+voz
+ 
+na
+ 
+URA,
+ 
+que
+ 
+está
+ 
+alocada
+ 
+com
+ 
+a
+ 
+menor
+ 
+quantidade
+ 
+de
+ 
+horas
+ 
+possível
+ 
+para
+ 
+setup
+ 
+e
+ 
+configuração.
+ 27  -  Configured  Universal  Port  (in  excess  of  included  Port(s))  -  Infraestrutura  de  telefonia    28  -   Infra  Variável  de  Telefonia  (portas,  armazenamento,  tráfego)  -  Infraestrutura  de  
+telefonia
+  
+Valor  Total   -  Março  de  2026 
+ 12  
+  
+Licenciamento  R$  578.919,24  
+Serviços  Especializados  R$  265.725,00  
+Total  R$  844.644,24   
+ 
+ 
+  
+ 
+ 
+   
+________________________________________
+ 
+Casa
+ 
+Civil
+  
+ 
+  
+   ________________________________________  
+IplanRio  -   Simone Torres De AssumpçãoAssessora  Especial  para  Parcerias    Matrícula:  620.874-5  
+ 13  

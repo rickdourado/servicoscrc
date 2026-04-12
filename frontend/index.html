@@ -46,7 +46,8 @@
         .module-card {
             background: var(--surface-color);
             border: var(--border-main);
-            box-shadow: var(--shadow-brutal);
+            box-shadow: var(--shadow-main);
+            border-radius: var(--radius-main);
             padding: 3rem 2rem;
             text-decoration: none;
             display: flex;
@@ -54,19 +55,19 @@
             align-items: center;
             justify-content: center;
             gap: 1.5rem;
-            transition: all 0.15s ease;
+            transition: var(--spring-transition, all 0.4s ease);
             color: var(--text-primary);
         }
 
         .module-card:hover {
-            transform: translate(-4px, -4px);
-            box-shadow: 8px 8px 0px var(--accent-color);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-hover);
             background: var(--prefrio-bg);
+            border-color: var(--prefrio-border);
         }
 
         .module-card:active {
-            transform: translate(2px, 2px);
-            box-shadow: none;
+            transform: translateY(2px) scale(0.98);
         }
 
         .module-icon {
