@@ -172,6 +172,7 @@
         const anonymizeBtn = document.getElementById('anonymizeBtn');
         const previewContainer = document.getElementById('previewContainer');
         const anonymizedPreview = document.getElementById('anonymizedPreview');
+        let currentRedactedFilename = null;
 
         anonymizeBtn.addEventListener('click', async () => {
             if (pdfInput.files.length === 0) return;
@@ -202,8 +203,12 @@
                         anonymizedPreview.style.display = 'none'; // ocultamos a caixa feia
                         anonymizedPreview.textContent = data.masked_text; // deixamos o texto invisível pra mandar p/ IA
                         previewSubtitle.innerHTML = "O sistema aplicou <b>tarjas pretas diretamente no seu documento</b> para preservar 100% da formatação original.";
+                        
+                        // Extrai apenas o nome do arquivo para mandar na próxima etapa
+                        currentRedactedFilename = data.preview_url.split('/').pop();
                     } else {
                         // Caso não seja PDF (tipo Docx), mostra a folha texturizada
+                        currentRedactedFilename = null;
                         pdfWrapper.style.display = 'none';
                         anonymizedPreview.style.display = 'block';
                         anonymizedPreview.textContent = data.masked_text;
@@ -238,10 +243,15 @@
             analyzeBtn.disabled = true;
 
             try {
+                const payload = { text: textToAnalyze };
+                if (currentRedactedFilename) {
+                    payload.filename = currentRedactedFilename;
+                }
+                
                 const response = await fetch(`${BASE_URL}/api/analyze-text`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text: textToAnalyze })
+                    body: JSON.stringify(payload)
                 });
                 
                 const data = await response.json();

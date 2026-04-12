@@ -31,6 +31,7 @@ class OrderData(BaseModel):
 
 class AnalyzeTextData(BaseModel):
     text: str
+    filename: str | None = None
 
 @app.get("/api/data")
 def get_data():
@@ -128,10 +129,21 @@ async def analyze_text(data: AnalyzeTextData):
     try:
         client = genai.Client(api_key=api_key)
         
+        contents_list = [prompt + "\n\n(Aviso do sistema interno: o conteúdo a seguir foi lido localmente e nós ocultamos propositalmente os nomes reais da empresa e CNPJ substituindo por tarjas pretas de redação [OCULTO]. Considere essas tarjas apenas como proteção e analise o layout da página como parte normal do documento.)\n\n--- INÍCIO DO DOCUMENTO ---"]
+        
+        if data.filename and data.filename.endswith(".pdf"):
+            pdf_path = os.path.join(anonymizer.TEMP_DIR, data.filename)
+            if os.path.exists(pdf_path):
+                uploaded_file = client.files.upload(file=pdf_path)
+                contents_list.append(uploaded_file)
+            else:
+                contents_list.append(data.text)
+        else:
+            contents_list.append(data.text)
+            
         response = client.models.generate_content(
             model='gemini-2.5-flash',
-            contents=[prompt + "\n\n(Aviso do sistema interno: o conteúdo a seguir foi lido localmente e nós ocultamos propositalmente os nomes reais da empresa e CNPJ substituindo por tags [OCULTO]. Aceite e considere como parte normal do documento.)\n\n--- INÍCIO DO TEXTO ---",
-            data.text]
+            contents=contents_list
         )
              
         return {"result": response.text}
