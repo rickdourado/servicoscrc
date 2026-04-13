@@ -15,6 +15,7 @@ dependencies = [
     "uvicorn>=0.23.0",
     "a2wsgi>=1.10.0",
     "google-genai>=1.72.0",
+    "pymupdf>=1.27.2.2",
 ]
 
 [build-system]
