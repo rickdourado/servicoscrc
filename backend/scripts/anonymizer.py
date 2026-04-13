@@ -30,9 +30,12 @@ def mask_sensitive_data(text: str) -> str:
     # We replace the matched first group (the anchor word) and hide the second group (the identifier)
     text = re.sub(contract_pattern, r'\1 [OCULTO]', text)
     
-    # Mask company names after typical anchors (capturing up to standard punctuation or newline)
     company_pattern = r'(?i)\b(contratada|contratante|empresa)\s*[:\s]+(.*?(?=cnpj|cpf|\n|\r|$|,\s*[a-z]))'
     text = re.sub(company_pattern, r'\1: [EMPRESA_OCULTA] ', text)
+    
+    # Mask specific platform keywords
+    platform_pattern = r'(?i)\b(salesforce|central1746)\b'
+    text = re.sub(platform_pattern, '[PLATAFORMA_OCULTA]', text)
     
     return text
 
@@ -55,7 +58,8 @@ def get_redaction_patterns():
         (r'\bPRO-\d{4}/\d+\b', 0), # Processos PRO
         (r'(?i)\bsecretaria municipal da [áa]rea civil\b', 0),
         (r'(?i)\b(contrato|processo|ata|termo|edital|pregão)(?:\s+administrativo)?(?:\s+n[oº°])?\s*[:\.-]*\s*([0-9/\.-]+)', 2),
-        (r'(?i)\b(contratada|contratante|empresa)\s*[:\s]+(.*?(?=cnpj|cpf|\n|\r|$|,\s*[a-z]))', 2)
+        (r'(?i)\b(contratada|contratante|empresa)\s*[:\s]+(.*?(?=cnpj|cpf|\n|\r|$|,\s*[a-z]))', 2),
+        (r'(?i)\b(salesforce|central1746)\b', 0)
     ]
 
 def redact_pdf_visually(file_bytes: bytes) -> tuple[str, str]:
