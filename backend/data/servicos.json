@@ -1,0 +1,474 @@
+{
+    "items": [
+        {
+            "id": "n1_0",
+            "name": "Administração pública",
+            "children": [
+                {
+                    "name": "Saúde do servidor"
+                },
+                {
+                    "name": "Solicitações do servidor"
+                },
+                {
+                    "name": "Consulta a processos"
+                },
+                {
+                    "name": "Benefícios"
+                },
+                {
+                    "name": "Concursos e Processos seletivos"
+                },
+                {
+                    "name": "Previdência do servidor"
+                },
+                {
+                    "name": "Licitação e Pregão"
+                },
+                {
+                    "name": "Irregularidades em empresas terceirizadas"
+                }
+            ]
+        },
+        {
+            "id": "n1_1",
+            "name": "Animais",
+            "children": [
+                {
+                    "name": "Saúde animal"
+                },
+                {
+                    "name": "Proteção aos animais"
+                }
+            ]
+        },
+        {
+            "id": "n1_2",
+            "name": "Cidadania",
+            "children": [
+                {
+                    "name": "Assistência social"
+                },
+                {
+                    "name": "Acessibilidade"
+                },
+                {
+                    "name": "Direitos Humanos"
+                },
+                {
+                    "name": "Mulher carioca"
+                },
+                {
+                    "name": "PROCON carioca"
+                },
+                {
+                    "name": "Participação social"
+                }
+            ]
+        },
+        {
+            "id": "n1_3",
+            "name": "Cultura, Esporte e Lazer",
+            "children": [
+                {
+                    "name": "Atividade física"
+                },
+                {
+                    "name": "Audiovisual"
+                },
+                {
+                    "name": "Incentivo cultural"
+                },
+                {
+                    "name": "Espaços culturais"
+                }
+            ]
+        },
+        {
+            "id": "n1_4",
+            "name": "Cursos",
+            "children": [
+                {
+                    "name": "Oportunidades Cariocas (land page)"
+                }
+            ]
+        },
+        {
+            "id": "n1_5",
+            "name": "Educação",
+            "children": [
+                {
+                    "name": "Vida escolar"
+                },
+                {
+                    "name": "MultiRio"
+                },
+                {
+                    "name": "Educação Infantil"
+                },
+                {
+                    "name": "Ensino Fundamental e Médio"
+                },
+                {
+                    "name": "Educação Especial"
+                },
+                {
+                    "name": "Bibliotecas"
+                },
+                {
+                    "name": "Matrícula escolar"
+                },
+                {
+                    "name": "Segurança escolar"
+                },
+                {
+                    "name": "Cursos"
+                }
+            ]
+        },
+        {
+            "id": "n1_6",
+            "name": "Empresas",
+            "children": []
+        },
+        {
+            "id": "n1_7",
+            "name": "Imóveis",
+            "children": [
+                {
+                    "name": "IPTU"
+                },
+                {
+                    "name": "ITBI"
+                },
+                {
+                    "name": "Leilão"
+                },
+                {
+                    "name": "Imóveis protegidos"
+                },
+                {
+                    "name": "Certidões e Documentos"
+                },
+                {
+                    "name": "Fiscalização de imóveis"
+                },
+                {
+                    "name": "Usucapião"
+                }
+            ]
+        },
+        {
+            "id": "n1_8",
+            "name": "Licenças, Alvarás e Permissões",
+            "children": [
+                {
+                    "name": "Ambientais"
+                },
+                {
+                    "name": "Sanitárias"
+                },
+                {
+                    "name": "Urbanísticas"
+                },
+                {
+                    "name": "Publicidades"
+                },
+                {
+                    "name": "Ocupação de área pública"
+                },
+                {
+                    "name": "Atividade econômica"
+                },
+                {
+                    "name": "Transportes"
+                }
+            ]
+        },
+        {
+            "id": "n1_9",
+            "name": "Meio Ambiente",
+            "children": [
+                {
+                    "name": "Poluição urbana"
+                },
+                {
+                    "name": "Desmatamento"
+                },
+                {
+                    "name": "Arborização"
+                },
+                {
+                    "name": "Parques"
+                },
+                {
+                    "name": "Fiscalização ambiental"
+                },
+                {
+                    "name": "Educação Ambiental"
+                },
+                {
+                    "name": "Certificados"
+                }
+            ]
+        },
+        {
+            "id": "n1_10",
+            "name": "Ordem pública",
+            "children": [
+                {
+                    "name": "Perturbação do sossego"
+                },
+                {
+                    "name": "Comércio ambulante"
+                },
+                {
+                    "name": "Estacionamento irregular"
+                },
+                {
+                    "name": "Feiras"
+                },
+                {
+                    "name": "Fiscalização de área pública"
+                }
+            ]
+        },
+        {
+            "id": "n1_11",
+            "name": "Ouvidoria",
+            "children": [
+                {
+                    "name": "Elogio"
+                },
+                {
+                    "name": "Sugestão"
+                },
+                {
+                    "name": "Reclamação"
+                },
+                {
+                    "name": "Suporte técnico"
+                },
+                {
+                    "name": "Insatisfação com teleatendimento"
+                }
+            ]
+        },
+        {
+            "id": "n1_12",
+            "name": "Saúde",
+            "children": [
+                {
+                    "name": "Atendimento hospitalar / Hospitais"
+                },
+                {
+                    "name": "Emergência / UPAs e Centros de Emergência"
+                },
+                {
+                    "name": "Atendimento ambulatorial / Consultas e exames / Clínicas da Família e Postos de Saúde"
+                },
+                {
+                    "name": "Auxílios em saúde"
+                },
+                {
+                    "name": "Vacinação"
+                },
+                {
+                    "name": "Gestação e Primeira infância"
+                },
+                {
+                    "name": "Medicamentos"
+                },
+                {
+                    "name": "Dengue"
+                },
+                {
+                    "name": "Vigilância Sanitária"
+                },
+                {
+                    "name": "Reabilitação"
+                },
+                {
+                    "name": "Programas"
+                }
+            ]
+        },
+        {
+            "id": "n1_13",
+            "name": "Serviços urbanos",
+            "children": [
+                {
+                    "name": "Limpeza"
+                },
+                {
+                    "name": "Conservação"
+                },
+                {
+                    "name": "Drenagem"
+                },
+                {
+                    "name": "Iluminação pública"
+                },
+                {
+                    "name": "Árvores"
+                },
+                {
+                    "name": "Serviços funerários"
+                }
+            ]
+        },
+        {
+            "id": "n1_14",
+            "name": "Defesa Civil",
+            "children": [
+                {
+                    "name": "Vistorias"
+                },
+                {
+                    "name": "Participação e Prevenção"
+                },
+                {
+                    "name": "Interdição e Desinterdição"
+                }
+            ]
+        },
+        {
+            "id": "n1_15",
+            "name": "Trabalho",
+            "children": [
+                {
+                    "name": "Pessoa Jurídica e Autônomo / Empresas"
+                },
+                {
+                    "name": "Emprego formal"
+                },
+                {
+                    "name": "Estágio"
+                },
+                {
+                    "name": "Empreendedorismo"
+                }
+            ]
+        },
+        {
+            "id": "n1_16",
+            "name": "Trânsito",
+            "children": [
+                {
+                    "name": "Estacionamento"
+                },
+                {
+                    "name": "Placas e sinal de trânsito"
+                },
+                {
+                    "name": "Multas"
+                },
+                {
+                    "name": "Fiscalização eletrônica"
+                },
+                {
+                    "name": "Carteira Digital de Trânsito"
+                }
+            ]
+        },
+        {
+            "id": "n1_17",
+            "name": "Transparência",
+            "children": [
+                {
+                    "name": "Anticorrupção"
+                },
+                {
+                    "name": "Acesso à Informação (LAI)"
+                },
+                {
+                    "name": "Proteção de dados (LGPD)"
+                }
+            ]
+        },
+        {
+            "id": "n1_18",
+            "name": "Transporte",
+            "children": [
+                {
+                    "name": "Ônibus"
+                },
+                {
+                    "name": "BRT"
+                },
+                {
+                    "name": "Vans e kombis"
+                },
+                {
+                    "name": "Transporte escolar"
+                },
+                {
+                    "name": "VLT"
+                },
+                {
+                    "name": "Táxi"
+                },
+                {
+                    "name": "Bicicletas"
+                },
+                {
+                    "name": "Jaé"
+                },
+                {
+                    "name": "Gratuidade"
+                },
+                {
+                    "name": "Tarifas"
+                }
+            ]
+        },
+        {
+            "id": "n1_19",
+            "name": "Tributos",
+            "children": [
+                {
+                    "name": "Dívida Ativa"
+                },
+                {
+                    "name": "ISS"
+                },
+                {
+                    "name": "Nota Carioca"
+                }
+            ]
+        },
+        {
+            "id": "n1_20",
+            "name": "Turismo e Eventos",
+            "children": [
+                {
+                    "name": "Transporte"
+                },
+                {
+                    "name": "Saúde"
+                },
+                {
+                    "name": "Turismo pela cidade"
+                },
+                {
+                    "name": "Grandes eventos"
+                }
+            ]
+        },
+        {
+            "id": "n1_21",
+            "name": "Carnaval",
+            "children": [
+                {
+                    "name": "Blocos de rua"
+                },
+                {
+                    "name": "Trabalhadores do Carnaval"
+                },
+                {
+                    "name": "Desfiles na Sapucaí"
+                }
+            ]
+        }
+    ]
+}

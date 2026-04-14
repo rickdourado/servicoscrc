@@ -1,0 +1,666 @@
+{
+    "items": [
+        {
+            "id": "n1_0",
+            "name": "Acessibilidade",
+            "level2": [
+                "Atendimento à Pessoas com Deficiência",
+                "Gratuidade de transporte",
+                "Atendimento Médico",
+                "Estacionamento",
+                "Regulamentações viárias"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_1",
+            "name": "Animais",
+            "level2": [
+                "Proteção de Animais",
+                "Animais Silvestres",
+                "Vetores",
+                "Danos à Fauna",
+                "Zoonoses",
+                "Medicina Veterinária"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_2",
+            "name": "Assistência Social",
+            "level2": [
+                "Programas Sociais",
+                "Atendimento Social",
+                "Vítimas de Violência",
+                "Conselho Tutelar",
+                "Abrigos",
+                "Alimentação popular",
+                "Benefícios / Auxílios",
+                "Cadastro Único",
+                "Cartão Família Carioca",
+                "Cursos",
+                "Gratuidade de Transporte",
+                "Inclusão Social",
+                "Programas Habitacionais - SMH",
+                "Programas de Saúde",
+                "Restaurantes Populares"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_3",
+            "name": "Central Anticorrupção",
+            "level2": [
+                "Central Anticorrupção"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_4",
+            "name": "Cidadania e Direitos Humanos",
+            "level2": [
+                "Racismo, Injúria Racial e Anitssemitismo",
+                "Intolerância Religiosa"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_5",
+            "name": "Trânsito",
+            "level2": [
+                "Semáforo",
+                "Estacionamento",
+                "Sinalização Gráfica",
+                "Engenharia de tráfego",
+                "Multas",
+                "Estacionamento Irregular",
+                "Fiscalização Eletrônica",
+                "Trânsito",
+                "Endereços",
+                "Regulamentações Viárias"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_6",
+            "name": "Limpeza Urbana",
+            "level2": [
+                "Fiscalização de Grande Gerador",
+                "Comlurb - Coleta Domiciliar",
+                "Limpeza",
+                "Coleta Seletiva",
+                "Instalação e manutenção de contêineres, caçambas e papeleiras",
+                "Remoção de carcaça de veículo",
+                "Comlurb - Vetores",
+                "Manejo Arbóreo",
+                "Remoção de Caçamba de empresa particular",
+                "Remoção Gratuita",
+                "Acidente com veículos e equipamentos",
+                "Atendimento ao empregado",
+                "Informações sobre caçamba legal",
+                "Resíduos Sólidos"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_7",
+            "name": "Conservação",
+            "level2": [
+                "Praças",
+                "Drenagem e Saneamento",
+                "Vias Públicas",
+                "Mobiliário Urbano",
+                "Pavimentação",
+                "Monumentos e Chafarizes",
+                "Endereços",
+                "Fiscalização de Instalações Mecânicas",
+                "Parques"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_8",
+            "name": "Cultura, Esporte e Lazer",
+            "level2": [
+                "Atividades Esportivas",
+                "Atividades culturais",
+                "Carnaval",
+                "Endereços",
+                "Equipamentos culturais",
+                "Eventos",
+                "Incentivo Cultural",
+                "Programação Cultural",
+                "Turismo"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_9",
+            "name": "Defesa Civil",
+            "level2": [
+                "Geotecnia",
+                "Estrutura de Imóvel",
+                "Estrutura Pública",
+                "Defesa Civil",
+                "Documento - Defesa Civil",
+                "Interdição de imóvel"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_10",
+            "name": "Educação",
+            "level2": [
+                "Educação Infantil",
+                "MultiRio",
+                "Bibliotecas",
+                "Educação",
+                "Educação Especial",
+                "Endereços",
+                "Gestão Escolar",
+                "Uniforme e material escolar"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_11",
+            "name": "Empresas",
+            "level2": [
+                "Pagamentos",
+                "Alvará",
+                "Publicidade",
+                "Endereços"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_12",
+            "name": "Iluminação Pública",
+            "level2": [
+                "Iluminação Pública"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_13",
+            "name": "IPTU, Dívida Ativa e Nota Carioca",
+            "level2": [
+                "Nota Carioca",
+                "IPTU",
+                "Pagamentos",
+                "Atendimento ao cidadão",
+                "Conselho de Contribuintes do Município",
+                "Dívida Ativa",
+                "Endereços",
+                "Herança Jacente",
+                "ISS",
+                "ITBI",
+                "Impostos e taxas"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_14",
+            "name": "LGBTQIA+",
+            "level2": [
+                "Saúde",
+                "Atendimento jurídico",
+                "Trabalho e emprego"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_15",
+            "name": "Meio Ambiente",
+            "level2": [
+                "Danos ao meio ambiente",
+                "Adoção de áreas públicas na Fundação Parques e Jardins",
+                "Arborização",
+                "Manejo Arbóreo",
+                "Poluição",
+                "Parques urbanos, jardins e praças da Fundação Parques e Jardins",
+                "Meio Ambiente",
+                "Educação Ambiental",
+                "Emissão de CMCC – Certidão Municipal de Cumprimento de Condicionantes",
+                "Emissão do Certificado de Adequação de Imóvel - CAI",
+                "Endereços",
+                "Informações sobre compensação das emissões de gases do efeito estufa de obras (Resolução Conjunta nº 14/2009)",
+                "Licença Ambiental",
+                "Mapa de Cobertura Vegetal e Uso do Solo"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_16",
+            "name": "Mulher Carioca",
+            "level2": [
+                "Violência obstétrica",
+                "Assédio no transporte",
+                "Atendimento à mulher em situação de violência",
+                "Cursos e capacitações",
+                "Mapa da mulher carioca"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_17",
+            "name": "Obras e Imóveis",
+            "level2": [
+                "Planejamento Urbano – SMPU",
+                "Fiscalização de obras",
+                "Vias públicas",
+                "Drenagem e Saneamento",
+                "Solicitação de obra",
+                "Licença de obras",
+                "Imóveis do Patrimônio Municipal",
+                "Cópia de projetos",
+                "Endereços",
+                "Imóveis protegidos",
+                "Interdição de imóvel",
+                "Leilão",
+                "Obras em prédios públicos - RioUrbe",
+                "Regularização Urbanística e Fundiária"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_18",
+            "name": "Ordem Pública",
+            "level2": [
+                "Estacionamento Irregular",
+                "Perturbação do Sossego",
+                "Veículo",
+                "Ocupação de área pública",
+                "Remoção de carcaça de veículo",
+                "Postura Municipal",
+                "Feiras",
+                "Mobiliário urbano",
+                "Auxílio à população",
+                "Comércio ambulante",
+                "Superintendência/Administração Regional"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_19",
+            "name": "Pedido de Acesso à Informação (LAI)",
+            "level2": [
+                "-"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_20",
+            "name": "Processos e certidões",
+            "level2": [
+                "Certidões",
+                "Atendimento ao cidadão",
+                "Processos",
+                "Mapas",
+                "Cópia de Projetos",
+                "Informações sobre a Prefeitura",
+                "Processos SMDU"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_21",
+            "name": "Procon Carioca",
+            "level2": [
+                "Defesa do Consumidor"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_22",
+            "name": "Proteção de dados",
+            "level2": [
+                "Lei de Proteção de Dados"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_23",
+            "name": "Saúde e Vigilância Sanitária",
+            "level2": [
+                "Visa Processos / Licenciamentos",
+                "Benefícios / Auxílios",
+                "Alimentos e estabelecimentos de ensino",
+                "Dengue",
+                "Programa Cegonha Carioca",
+                "Mercados, supermercados e agroindústrias",
+                "Outros estabelecimentos comerciais",
+                "Estabelecimentos e serviços de saúde",
+                "Saúde",
+                "Estabelecimentos Veterinários ou de interesse à saúde animal",
+                "Atendimento Médico",
+                "Atendimento em Unidades de Atenção Secundária",
+                "Atendimento em Unidades de Atenção Terciária",
+                "Atendimento em Unidades de Saúde",
+                "Atividade Física em Unidades de Saúde",
+                "Concursos Públicos",
+                "Cursos",
+                "Endereços",
+                "Leite Materno",
+                "Mandado Judicial para SMS",
+                "Programa de Saúde",
+                "Reabilitação Física",
+                "Riocard - SMS"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_24",
+            "name": "Serviço Funerário",
+            "level2": [
+                "Cemitérios e Serviços Funerários",
+                "Endereços"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_25",
+            "name": "Servidor Público",
+            "level2": [
+                "Pagamentos",
+                "Certidões",
+                "Financiamento Imobiliário",
+                "Servidor Público",
+                "Pensão",
+                "Benefícios / Auxílios",
+                "Imposto de Renda",
+                "Contribuição Previdenciária",
+                "Concurso Público",
+                "Endereços",
+                "Informação sobre a Prefeitura",
+                "Informações sobre a Prefeitura",
+                "Perícia Médica",
+                "Plano de Saúde",
+                "Previdência Complementar",
+                "Trabalho e Emprego"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_26",
+            "name": "Solicitação de exclusão de cadastro na Central 1746",
+            "level2": [
+                "-"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_27",
+            "name": "Suporte técnico e teleatendimento",
+            "level2": [
+                "Atendimento ao cidadão",
+                "Qualidade do atendimento da central 1746"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_28",
+            "name": "Trabalho e Emprego",
+            "level2": [
+                "Irregularidades em empresas terceirizadas",
+                "Cursos",
+                "Acessibilidade digital",
+                "Endereços",
+                "Trabalho e emprego"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_29",
+            "name": "Transporte",
+            "level2": [
+                "Ônibus",
+                "Veículo",
+                "Transporte Especial Complementar - TEC",
+                "Táxi",
+                "BRT (Corredor expresso de ônibus)",
+                "Transportes",
+                "Bilhetagem eletrônica",
+                "Ciclovias",
+                "Endereços",
+                "Gratuidade de transporte",
+                "Transporte escolar e fretamento",
+                "Táxi e mototáxi",
+                "Táxi.Rio",
+                "Vistoria Anual"
+            ],
+            "source": "SGRC"
+        },
+        {
+            "id": "n1_30",
+            "name": "Saúde",
+            "level2": [
+                "Vigilância Sanitária",
+                "Vacinação",
+                "Atendimento ambulatorial",
+                "Pronto Atendimento",
+                "Atendimento médico",
+                "Auxílios",
+                "Medicamentos",
+                "Cegonha carioca",
+                "Consultas e Exames",
+                "Dengue"
+            ],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_31",
+            "name": "Animais",
+            "level2": [
+                "Campanhas",
+                "Animais domésticos",
+                "Atendimento clínico",
+                "Animais silvestres"
+            ],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_32",
+            "name": "Meio Ambiente",
+            "level2": [
+                "Árvores",
+                "Proteção",
+                "Poluição da água",
+                "Poluição do ar",
+                "Fiscalização de queimadas"
+            ],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_33",
+            "name": "Transporte",
+            "level2": [
+                "Transporte complementar",
+                "Transporte escolar",
+                "Processos",
+                "Táxi e Mototáxi",
+                "Ônibus",
+                "Gratuidade",
+                "Bicicletas",
+                "Veículos",
+                "Estacionamento",
+                "Mobilidade Urbana",
+                "Jaé",
+                "VLT",
+                "BRT"
+            ],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_34",
+            "name": "Licenças",
+            "level2": [
+                "Alvará",
+                "Certidões",
+                "Licenças",
+                "Licitação e pregão"
+            ],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_35",
+            "name": "Cidade",
+            "level2": [
+                "Imóveis",
+                "Conservação",
+                "Limpeza urbana",
+                "Fiscalização",
+                "Praças e Parques",
+                "Serviço funerário",
+                "Iluminação pública"
+            ],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_36",
+            "name": "Cidadania",
+            "level2": [
+                "Assistência social",
+                "Procon carioca",
+                "Suporte técnico e teleatendimento",
+                "Mulher carioca",
+                "Acessibilidade",
+                "Intolerância religiosa e racial"
+            ],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_37",
+            "name": "Tributos",
+            "level2": [
+                "Dívida Ativa",
+                "IPTU",
+                "Imposto",
+                "ITBI",
+                "Certidões",
+                "ISS",
+                "Nota Carioca"
+            ],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_38",
+            "name": "Ordem Pública",
+            "level2": [
+                "Comércio",
+                "Perturbação do sossego",
+                "Estacionamento irregular",
+                "Feiras"
+            ],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_39",
+            "name": "Trânsito",
+            "level2": [
+                "Sinalização gráfica",
+                "Estacionamento",
+                "Multas"
+            ],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_40",
+            "name": "Servidor",
+            "level2": [
+                "Pagamentos",
+                "Benefícios",
+                "Saúde do servidor"
+            ],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_41",
+            "name": "Cultura",
+            "level2": [
+                "Audiovisual",
+                "Incentivo Cultural",
+                "Equipamentos culturais",
+                "Carnaval",
+                "Esportes e Lazer",
+                "Turismo"
+            ],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_42",
+            "name": "Família",
+            "level2": [],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_43",
+            "name": "Ouvidoria",
+            "level2": [
+                "Reclamação"
+            ],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_44",
+            "name": "Educação",
+            "level2": [
+                "Educação infantil",
+                "Vida escolar",
+                "MultiRio",
+                "Educação especial",
+                "Educação Fundamental",
+                "Bibliotecas",
+                "Matrícula",
+                "Cursos"
+            ],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_45",
+            "name": "Central Anticorrupção",
+            "level2": [
+                "Denúncia"
+            ],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_46",
+            "name": "Trabalho",
+            "level2": [
+                "Emprego e estágio"
+            ],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_47",
+            "name": "Lei Geral de Proteção de Dados (LGPD)",
+            "level2": [
+                "Informações"
+            ],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_48",
+            "name": "Segurança",
+            "level2": [],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_49",
+            "name": "Lei de Acesso à Informação (LAI)",
+            "level2": [
+                "Transparência"
+            ],
+            "source": "Prefrio"
+        },
+        {
+            "id": "n1_50",
+            "name": "Obras",
+            "level2": [
+                "Licenciamento"
+            ],
+            "source": "Prefrio"
+        }
+    ]
+}

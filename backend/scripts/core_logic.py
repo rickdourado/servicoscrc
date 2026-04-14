@@ -1,3 +1,4 @@
+import json
 import openpyxl
 from pydantic import BaseModel
 from typing import List
@@ -6,6 +7,7 @@ from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+COMPARACAO_JSON = BASE_DIR / 'backend' / 'data' / 'comparacao.json'
 EXCEL_PATH = str(BASE_DIR / 'refs' / 'PlanilhaConsolidada.xlsx')
 OUTPUT_PATH = str(BASE_DIR / 'refs' / 'PlanilhaGerada.xlsx')
 
@@ -16,49 +18,19 @@ class Level1Item(BaseModel):
     source: str
 
 def extract_data() -> List[Level1Item]:
-    wb = openpyxl.load_workbook(EXCEL_PATH, data_only=True)
-    
-    sheets_to_extract = [
-        {"name_in_excel": "SRGC", "source_name": "SGRC"},
-        {"name_in_excel": "Prefrio", "source_name": "Prefrio"}
-    ]
-    
-    result = []
-    idx = 0
-    
-    for sheet_info in sheets_to_extract:
-        if sheet_info["name_in_excel"] not in wb.sheetnames:
-            continue
-            
-        ws = wb[sheet_info["name_in_excel"]]
-        data_dict = {}
-        
-        for row in ws.iter_rows(min_row=2, values_only=True):
-            nivel1 = row[0]
-            nivel2 = row[1]
-            
-            if not nivel1:
-                continue
-                
-            nivel1 = str(nivel1).strip()
-            nivel2 = str(nivel2).strip() if nivel2 else ""
-            
-            if nivel1 not in data_dict:
-                data_dict[nivel1] = []
-                
-            if nivel2 and nivel2 not in data_dict[nivel1]:
-                data_dict[nivel1].append(nivel2)
-        
-        for n1_name, n2_list in data_dict.items():
-            result.append(Level1Item(
-                id=f"n1_{idx}",
-                name=n1_name,
-                level2=n2_list,
-                source=sheet_info["source_name"]
-            ))
-            idx += 1
-            
-    return result
+    """Extrai os dados de comparação a partir do arquivo JSON absoluto."""
+    if not COMPARACAO_JSON.exists():
+        print(f"ERRO: Arquivo {COMPARACAO_JSON} não encontrado.")
+        return []
+
+    try:
+        with open(COMPARACAO_JSON, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            items = data.get("items", [])
+            return [Level1Item(**item) for item in items]
+    except Exception as e:
+        print(f"Erro ao ler JSON de comparacao: {e}")
+        return []
 
 def save_new_order(ordered_items: List[Level1Item]):
     wb = openpyxl.Workbook()
