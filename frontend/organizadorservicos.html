@@ -572,7 +572,9 @@
     /* ═══════════════════════════════════════════
        STATE
     ══════════════════════════════════════════ */
-    const API_URL = 'http://localhost:8000/api/servicos-organizacao';
+    const isLocalDev = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port === '3000';
+    const API_URL = isLocalDev ? 'http://localhost:8000/api' : '/api';
+    const SERVICOS_ENDPOINT = `${API_URL}/servicos-organizacao`;
     let items = [];          // [{id, name, children:[{name}]}]
     let allExpanded = false;
     let dragSrcIdx = null;
@@ -592,7 +594,7 @@
     ══════════════════════════════════════════ */
     async function loadData() {
         try {
-            const res = await fetch(API_URL);
+            const res = await fetch(SERVICOS_ENDPOINT);
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const json = await res.json();
             items = json.items || [];
