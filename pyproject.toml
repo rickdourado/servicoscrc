@@ -8,14 +8,9 @@ dependencies = [
     "fastapi>=0.100.0",
     "openpyxl>=3.1.0",
     "pydantic>=2.0.0",
-    "pypdf>=6.9.2",
-    "python-docx>=1.2.0",
     "python-dotenv>=1.0.0",
-    "python-multipart>=0.0.24",
     "uvicorn>=0.23.0",
     "a2wsgi>=1.10.0",
-    "google-genai>=1.72.0",
-    "pymupdf>=1.27.2.2",
 ]
 
 [build-system]
