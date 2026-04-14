@@ -46,7 +46,7 @@ def save_data(data: OrderData):
 @app.post("/api/analyze-contract")
 async def analyze_contract(file: UploadFile = File(...)):
     try:
-        with open("backend/prompts/prompt_conciso", "r", encoding="utf-8") as f:
+        with open("backend/prompts/prompt_generico", "r", encoding="utf-8") as f:
             prompt = f.read()
     except Exception as e:
         return {"result": f"Erro abrindo o arquivo de prompt: {str(e)}"}
@@ -117,7 +117,7 @@ async def anonymize_contract(file: UploadFile = File(...)):
 @app.post("/api/analyze-text")
 async def analyze_text(data: AnalyzeTextData):
     try:
-        with open("backend/prompts/prompt_conciso", "r", encoding="utf-8") as f:
+        with open("backend/prompts/prompt_generico", "r", encoding="utf-8") as f:
             prompt = f.read()
     except Exception as e:
         return {"result": f"Erro abrindo o arquivo de prompt: {str(e)}"}
