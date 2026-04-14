@@ -3,6 +3,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 import backend.scripts.core_logic as core_logic
+import backend.scripts.servicos_organizacao as servicos_org
 from pydantic import BaseModel
 import os
 from google import genai
@@ -44,6 +45,11 @@ class AnalyzeTextData(BaseModel):
 def get_data():
     items = core_logic.extract_data()
     return {"items": items}
+
+@app.get("/api/servicos-organizacao")
+def get_servicos_organizacao():
+    items = servicos_org.extract_servicos()
+    return {"items": [item.model_dump() for item in items]}
 
 @app.post("/api/save")
 def save_data(data: OrderData):
