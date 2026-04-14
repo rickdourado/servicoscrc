@@ -13,6 +13,9 @@ import io
 
 load_dotenv()
 
+# Detecta se está em Modo Produção (para desabilitar IA pesada)
+IS_PRODUCTION = os.environ.get("IS_PRODUCTION", "false").lower() == "true"
+
 # Configuração de caminhos para Produção (PythonAnywhere)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 PROMPTS_DIR = os.path.join(BASE_DIR, "backend", "prompts")
@@ -49,6 +52,9 @@ def save_data(data: OrderData):
 
 @app.post("/api/analyze-contract")
 async def analyze_contract(file: UploadFile = File(...)):
+    if IS_PRODUCTION:
+        return {"result": "⚠️ Esta funcionalidade está disponível apenas no ambiente de desenvolvimento local."}
+        
     try:
         prompt_path = os.path.join(PROMPTS_DIR, "prompt_generico")
         with open(prompt_path, "r", encoding="utf-8") as f:
@@ -99,6 +105,9 @@ async def analyze_contract(file: UploadFile = File(...)):
 
 @app.post("/api/anonymize")
 async def anonymize_contract(file: UploadFile = File(...)):
+    if IS_PRODUCTION:
+        return {"masked_text": "Recurso desabilitado em modo produção.", "preview_url": None}
+        
     file_bytes = await file.read()
     raw_text = ""
     is_pdf = "pdf" in (file.content_type or "").lower() or file.filename.lower().endswith(".pdf")
@@ -121,6 +130,9 @@ async def anonymize_contract(file: UploadFile = File(...)):
 
 @app.post("/api/analyze-text")
 async def analyze_text(data: AnalyzeTextData):
+    if IS_PRODUCTION:
+        return {"result": "⚠️ Esta funcionalidade está disponível apenas no ambiente de desenvolvimento local."}
+        
     try:
         prompt_path = os.path.join(PROMPTS_DIR, "prompt_generico")
         with open(prompt_path, "r", encoding="utf-8") as f:

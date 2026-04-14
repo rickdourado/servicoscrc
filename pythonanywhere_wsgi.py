@@ -3,6 +3,7 @@ import os
 
 # Adiciona o diretório do projeto ao path do sistema do PythonAnywhere
 project_home = '/home/projetocrc/servicoscrc'
+os.environ['IS_PRODUCTION'] = 'true'
 if project_home not in sys.path:
     sys.path.append(project_home)
 
