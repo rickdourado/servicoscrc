@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Chamado — Vistoria em ameaça de desabamento de estrutura (OTIMIZADO)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #004a80;
+            --primary-light: #e6f0f9;
+            --accent: #d97706;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text-dark: #0f172a;
+            --text-gray: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg); color: var(--text-dark); padding: 2rem; display: flex; justify-content: center; }
+
+        .wizard-container { background: var(--surface); border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); width: 100%; max-width: 600px; overflow: hidden; border: 1px solid var(--border); }
+        .service-title { background: #fff7ed; color: #9a3412; font-size: 1.1rem; font-weight: 900; padding: 1rem 2rem; border-bottom: 1px solid var(--border); text-align: center; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stepper-header { display: flex; justify-content: space-between; padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); background: #fff; position: relative; }
+        .stepper-progress-bar { position: absolute; top: 50%; left: 3rem; right: 3rem; height: 4px; background: var(--border); z-index: 1; transform: translateY(-50%); }
+        .stepper-progress-fill { position: absolute; top: 0; left: 0; height: 100%; background: var(--accent); width: 0%; transition: width 0.3s ease; }
+        .step-indicator { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; background: #fff; padding: 0 0.5rem; }
+        .step-circle { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.85rem; background: var(--surface); border: 2px solid var(--border); color: var(--text-gray); }
+        .step-indicator.completed .step-circle { background: var(--accent); border-color: var(--accent); color: white; }
+        .step-indicator.active .step-circle { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 0 4px #ffedd5; }
+        .step-label { font-size: 0.7rem; font-weight: 700; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
+        .step-indicator.active .step-label { color: var(--accent); }
+        
+        .step-content { padding: 2.5rem 2rem; }
+        .step-title { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); margin-bottom: 0.5rem; }
+        .step-subtitle { font-size: 0.95rem; color: var(--text-gray); margin-bottom: 2rem; line-height: 1.5; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .form-label span.req { color: #ef4444; margin-left: 2px; }
+        .form-control { width: 100%; padding: 0.875rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; background: #fff; }
+        .form-control:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px #ffedd5; }
+        textarea.form-control { min-height: 110px; resize: vertical; }
+        
+        .wizard-footer { padding: 1.5rem 2rem; background: #f8fafc; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .btn { padding: 0.75rem 1.5rem; border-radius: 8px; font-size: 0.95rem; font-weight: 700; cursor: pointer; border: none; transition: all 0.2s; }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-gray); }
+        .btn-outline:hover { background: var(--border); color: var(--text-dark); }
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-primary:hover { background: #b45309; transform: translateY(-1px); }
+
+        .optimized-badge { background: #d97706; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem; vertical-align: middle; margin-left: 8px; }
+    </style>
+</head>
+<body>
+    <div class="wizard-container">
+        <div class="service-title">Vistoria em ameaça de desabamento de estrutura <span class="optimized-badge">FLUXO DESEJÁVEL</span></div>
+        
+        <div class="stepper-header">
+            <div class="stepper-progress-bar"><div class="stepper-progress-fill"></div></div>
+            <div class="step-indicator"><div class="step-circle">1</div><div class="step-label">Local</div></div>
+            <div class="step-indicator"><div class="step-circle">2</div><div class="step-label">Atributos</div></div>
+            <div class="step-indicator"><div class="step-circle">3</div><div class="step-label">Fotos</div></div>
+            <div class="step-indicator"><div class="step-circle">4</div><div class="step-label">Revisão</div></div>
+        </div>
+
+        <div class="step-content-wrapper" style="padding: 2.5rem 2rem;">
+            
+            <!-- STEP 1: LOCAL -->
+            <div class="step-content-section" id="step1">
+                <h2 class="step-title">Localização</h2>
+                <p class="step-subtitle">Confirme o local para envio da equipe de fiscalização.</p>
+
+                <div class="form-group">
+                    <label class="form-label">Endereço <span class="req">*</span></label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" class="form-control" value="Morro da Formiga" placeholder="Rua, Avenida, Praça...">
+                        <button class="btn btn-outline" style="padding: 0.875rem;">🔍</button>
+                    </div>
+                </div>
+
+                <div style="width: 100%; height: 180px; background: #e2e8f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 1px dashed #94a3b8; flex-direction: column; overflow: hidden; position: relative;">
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.3; background-image: repeating-linear-gradient(45deg, #cbd5e1 25%, transparent 25%, transparent 75%, #cbd5e1 75%, #cbd5e1), repeating-linear-gradient(45deg, #cbd5e1 25%, var(--bg) 25%, var(--bg) 75%, #cbd5e1 75%, #cbd5e1); background-position: 0 0, 10px 10px; background-size: 20px 20px;"></div>
+                    <span style="font-size: 2rem; position: relative; z-index: 2; transform: translateY(-5px); color: #ef4444;">📍</span>
+                    <span style="color: #475569; font-weight: 600; font-size: 0.85rem; position: relative; z-index: 2;">Módulo de Mapa Ativo</span>
+                </div>
+
+                <div class="checkbox-row" style="margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                    <input type="checkbox" id="log-off">
+                    <label for="log-off" style="font-size: 0.85rem; font-weight: 500;">Ponto sem endereço oficial</label>
+                </div>
+                
+                
+                <div class="form-group">
+                    <label class="form-label">Número <span class="req">*</span></label>
+                    <input type="text" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Complemento </label>
+                    <input type="text" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Ponto de Referência </label>
+                    <input type="text" class="form-control" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Comunidade </label>
+                    <input type="text" class="form-control" placeholder="">
+                </div>
+            </div>
+
+            <!-- STEP 2: ATRIBUTOS -->
+            <div class="step-content-section" id="step2" style="display: none;">
+                <h2 class="step-title">Informações Adicionais</h2>
+                <p class="step-subtitle">Detalhes fundamentais para a triagem do chamado.</p>
+                
+            </div>
+
+            <!-- STEP 3: FOTOS -->
+            <div class="step-content-section" id="step3" style="display: none;">
+                <h2 class="step-title">Fotos e Evidências</h2>
+                <p class="step-subtitle">Anexe até 3 fotos para auxiliar na fiscalização.</p>
+                <div style="border: 2px dashed var(--accent); background: #fffbeb; border-radius: 12px; padding: 3rem 2rem; text-align: center; cursor: pointer;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">📸</div>
+                    <h3 style="color: var(--accent); font-weight: 700; margin-bottom: 0.5rem;">Toque para adicionar fotos</h3>
+                </div>
+            </div>
+
+            <!-- STEP 4: FINALIZAR -->
+            <div class="step-content-section" id="step4" style="display: none;">
+                <h2 class="step-title">Revisão e Contato</h2>
+                <p class="step-subtitle">Como deseja que a Prefeitura responda ao seu chamado?</p>
+                <div class="form-group">
+                    <label class="form-label">E-mail para acompanhamento</label>
+                    <input type="email" class="form-control" placeholder="seuemail@exemplo.com">
+                </div>
+                <div style="background: #fffbeb; border: 1px solid #fde68a; padding: 1rem; border-radius: 8px; margin-top: 1.5rem; color: #92400e; font-size: 0.85rem;">
+                    <p>Ao clicar em finalizar, sua solicitação entrará em fila de distribuição para o órgão competente.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="wizard-footer">
+            <button class="btn btn-outline" id="btn-back" style="visibility: hidden;" onclick="prevStep()">Voltar</button>
+            <button class="btn btn-primary" id="btn-next" onclick="nextStep()">Próximo Passo</button>
+        </div>
+    </div>
+
+    <script>
+        const steps = document.querySelectorAll('.step-content-section');
+        const indicators = document.querySelectorAll('.step-indicator');
+        const progressFill = document.querySelector('.stepper-progress-fill');
+        const btnNext = document.getElementById('btn-next');
+        const btnBack = document.getElementById('btn-back');
+        let currentStep = 0;
+
+        function updateStepper() {
+            indicators.forEach((ind, index) => {
+                ind.classList.remove('active', 'completed');
+                if (index === currentStep) ind.classList.add('active');
+                else if (index < currentStep) ind.classList.add('completed');
+            });
+            
+            const progress = (currentStep / (indicators.length - 1)) * 100;
+            progressFill.style.width = `${progress}%`;
+
+            steps.forEach((step, index) => {
+                step.style.display = index === currentStep ? 'block' : 'none';
+            });
+
+            btnBack.style.visibility = currentStep === 0 ? 'hidden' : 'visible';
+            btnNext.innerHTML = currentStep === steps.length - 1 ? 'Finalizar ✅' : 'Próximo Passo 👉';
+        }
+
+        function nextStep() {
+            if (currentStep < steps.length - 1) { currentStep++; updateStepper(); }
+            else { alert('Sucesso! Protocolo gerado.'); }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) { currentStep--; updateStepper(); }
+        }
+        
+        updateStepper();
+    </script>
+</body>
+</html>
