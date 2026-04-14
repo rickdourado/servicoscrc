@@ -19,6 +19,7 @@ IS_PRODUCTION = os.environ.get("IS_PRODUCTION", "false").lower() == "true"
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 PROMPTS_DIR = BASE_DIR / "backend" / "prompts"
 TEMP_DIR = BASE_DIR / "backend" / "temp"
+FRONTEND_DIR = BASE_DIR / "frontend"
 
 app = FastAPI(title="App Lúdico API - JSON Powered")
 
@@ -108,6 +109,34 @@ async def analyze_contract(file: UploadFile = File(...)):
     )
     return {"result": response.text}
 
+@app.post("/api/analyze-text")
+async def analyze_text(data: AnalyzeTextData):
+    """Analisa o texto de um contrato já extraído e anonimizado."""
+    if IS_PRODUCTION:
+        return {"result": "⚠️ Esta funcionalidade está disponível apenas no ambiente de desenvolvimento local."}
+    
+    from google import genai
+    api_key = os.environ.get("GEMINI_API_KEY")
+    if not api_key:
+        return {"result": "🚨 Erro: GEMINI_API_KEY não configurada."}
+
+    client = genai.Client(api_key=api_key)
+    
+    prompt = (
+        "Você é um especialista jurídico e de gestão de contratos do CRC. "
+        "Analise o texto abaixo (que pode estar anonimizado) e extraia: "
+        "1. Objeto do contrato; 2. Partes envolvidas; 3. Obrigações principais; "
+        "4. Prazos e Vigência; 5. Valores (se houver). "
+        "Responda em Markdown estruturado.\n\n"
+        f"Texto: {data.text}"
+    )
+
+    response = client.models.generate_content(
+        model='gemini-2.0-flash',
+        contents=[prompt]
+    )
+    return {"result": response.text}
+
 @app.post("/api/anonymize")
 async def anonymize_contract(file: UploadFile = File(...)):
     if IS_PRODUCTION:
@@ -127,6 +156,10 @@ async def anonymize_contract(file: UploadFile = File(...)):
 @app.get("/api/ping")
 def ping():
     return {"status": "ok", "mode": "production" if IS_PRODUCTION else "development"}
+
+# --- FRONTEND (SERVE ARQUIVOS ESTÁTICOS) ---
+# O ideal é que esta rota seja a última, pois ela captura tudo que não foi pego pelas rotas acima.
+app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")
 
 # Export para PythonAnywhere (WSGI)
 try:
