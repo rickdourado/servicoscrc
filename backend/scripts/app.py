@@ -60,12 +60,6 @@ def ping():
 
 app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")
 
-try:
-    from a2wsgi import ASGIMiddleware
-
-    application = ASGIMiddleware(app)
-except ImportError:
-    pass
 
 if __name__ == "__main__":
     import uvicorn
