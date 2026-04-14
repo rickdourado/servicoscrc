@@ -9,7 +9,7 @@ from pydantic import BaseModel
 
 load_dotenv()
 
-IS_PRODUCTION = os.environ.get("IS_PRODUCTION", "false").lower() == "true"
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 FRONTEND_DIR = BASE_DIR / "frontend"
@@ -55,7 +55,7 @@ def save_data(data: OrderData):
 
 @app.get("/api/ping")
 def ping():
-    return {"status": "ok", "mode": "production" if IS_PRODUCTION else "development"}
+    return {"status": "ok"}
 
 
 app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")

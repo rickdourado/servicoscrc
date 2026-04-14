@@ -10,8 +10,6 @@ if path not in sys.path:
 from dotenv import load_dotenv
 load_dotenv(os.path.join(path, '.env'))
 
-# Trava as funções de IA apenas no servidor (Produção)
-os.environ['IS_PRODUCTION'] = 'true'
 
 # Importa a aplicação FastAPI do seu projeto
 from backend.scripts.app import app
