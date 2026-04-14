@@ -4,4 +4,4 @@ __pycache__/
 refs/PlanilhaGerada.xlsx
 .DS_Store
 backend/temp/
-refs/contratos/
+refs/contratos//.agent/
