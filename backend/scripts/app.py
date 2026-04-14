@@ -13,6 +13,10 @@ import io
 
 load_dotenv()
 
+# Configuração de caminhos para Produção (PythonAnywhere)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+PROMPTS_DIR = os.path.join(BASE_DIR, "backend", "prompts")
+
 app = FastAPI(title="App Lúdico API")
 
 app.add_middleware(
@@ -46,7 +50,8 @@ def save_data(data: OrderData):
 @app.post("/api/analyze-contract")
 async def analyze_contract(file: UploadFile = File(...)):
     try:
-        with open("backend/prompts/prompt_generico", "r", encoding="utf-8") as f:
+        prompt_path = os.path.join(PROMPTS_DIR, "prompt_generico")
+        with open(prompt_path, "r", encoding="utf-8") as f:
             prompt = f.read()
     except Exception as e:
         return {"result": f"Erro abrindo o arquivo de prompt: {str(e)}"}
@@ -117,7 +122,8 @@ async def anonymize_contract(file: UploadFile = File(...)):
 @app.post("/api/analyze-text")
 async def analyze_text(data: AnalyzeTextData):
     try:
-        with open("backend/prompts/prompt_generico", "r", encoding="utf-8") as f:
+        prompt_path = os.path.join(PROMPTS_DIR, "prompt_generico")
+        with open(prompt_path, "r", encoding="utf-8") as f:
             prompt = f.read()
     except Exception as e:
         return {"result": f"Erro abrindo o arquivo de prompt: {str(e)}"}
@@ -149,6 +155,13 @@ async def analyze_text(data: AnalyzeTextData):
         return {"result": response.text}
     except Exception as e:
         return {"result": f"Erro interno ao invocar Inteligência Artificial: {str(e)}"}
+
+# Export para PythonAnywhere (WSGI)
+try:
+    from a2wsgi import ASGIMiddleware
+    application = ASGIMiddleware(app)
+except ImportError:
+    pass
 
 if __name__ == "__main__":
     import uvicorn
