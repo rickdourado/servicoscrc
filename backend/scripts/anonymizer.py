@@ -92,7 +92,13 @@ def redact_pdf_visually(file_bytes: bytes) -> tuple[str, str]:
                 areas = page.search_for(m)
                 for area in areas:
                     page.add_redact_annot(area, fill=(0, 0, 0)) # Tarja preta
-                    
+
+        # Redigir IMAGENS (Logos, Assinaturas, Carimbos)
+        for img in page.get_images():
+            xref = img[0]
+            for rect in page.get_image_rects(xref):
+                page.add_redact_annot(rect, fill=(0.95, 0.95, 0.95)) # Tarja cinza muito clara
+
         page.apply_redactions()
         
     # Gera nome único para o arquivo temporário
