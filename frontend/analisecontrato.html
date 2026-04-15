@@ -182,6 +182,30 @@
                 
                 <div id="anonymizedPreview" contenteditable="true" style="display: none; width: 100%; min-height: 300px; max-height: 500px; overflow-y: auto; border-radius: var(--radius-small); padding: 2rem; background: #fff; border: 1px solid #ddd; font-family: 'Inter', sans-serif; white-space: pre-wrap;"></div>
                 
+                <!-- Configuração da IA -->
+                <div style="margin-top: 2rem; padding: 1.5rem; background: var(--accent-light); border-radius: var(--radius-small); border: 1px solid rgba(0,74,128,0.1);">
+                    <h3 style="font-family: 'Outfit', sans-serif; color: var(--accent); margin-bottom: 1rem; font-size: 1.25rem;">Configuração da Consultoria IA</h3>
+                    
+                    <div style="display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 250px;">
+                            <label style="display: block; font-weight: 700; margin-bottom: 0.5rem; color: var(--accent); font-size: 0.9rem;">Modelo de Análise:</label>
+                            <select id="promptSelect" style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 2px solid var(--accent); background: white; font-family: 'Inter', sans-serif; font-weight: 600; color: var(--accent); outline: none;">
+                                <!-- Prompts serão carregados aqui -->
+                            </select>
+                        </div>
+                        <button id="viewPromptBtn" class="primary-btn" style="background: white; border-color: var(--accent); color: var(--accent); height: 46px; font-size: 0.85rem;">👁️ Consultar Instruções (Prompt)</button>
+                    </div>
+
+                    <!-- Visualizador do Prompt -->
+                    <div id="promptViewer" style="display: none; margin-top: 1.5rem; padding: 1.5rem; background: #fff; border: 1px solid #ddd; border-left: 4px solid var(--orange-vibrant); border-radius: 4px; animation: slideIn 0.3s ease;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h4 style="margin: 0; color: var(--accent);">Instruções para a IA:</h4>
+                            <button onclick="document.getElementById('promptViewer').style.display='none'" style="background: none; border: none; color: #999; cursor: pointer; font-size: 1.2rem;">&times;</button>
+                        </div>
+                        <div id="promptContent" style="font-family: monospace; font-size: 0.85rem; color: #444; white-space: pre-wrap; line-height: 1.5;"></div>
+                    </div>
+                </div>
+
                 <div class="action-bar" style="justify-content: flex-end; gap: 1rem;">
                     <button class="primary-btn" id="cancelBtn" style="background: #f1f5f9; color: #64748b; border-color: #e2e8f0;">Cancelar</button>
                     <button class="primary-btn" id="analyzeBtn" style="background: var(--orange-vibrant); border-color: var(--orange-vibrant); color: #fff;">Enviar para Consultoria IA</button>
@@ -207,6 +231,40 @@
         const loadingOverlay = document.getElementById('loadingOverlay');
         const loadingText = document.getElementById('loadingText');
         const analyzeBtn = document.getElementById('analyzeBtn');
+        
+        const promptSelect = document.getElementById('promptSelect');
+        const viewPromptBtn = document.getElementById('viewPromptBtn');
+        const promptViewer = document.getElementById('promptViewer');
+        const promptContent = document.getElementById('promptContent');
+
+        let availablePrompts = [];
+
+        // Carregar Prompts
+        async function loadPrompts() {
+            try {
+                const response = await fetch(`${BASE_URL}/api/get-prompts`);
+                const data = await response.json();
+                availablePrompts = data.prompts;
+                
+                promptSelect.innerHTML = availablePrompts.map(p => 
+                    `<option value="${p.id}">${p.label}</option>`
+                ).join('');
+                
+            } catch (err) {
+                console.error("Erro ao carregar prompts:", err);
+            }
+        }
+
+        loadPrompts();
+
+        viewPromptBtn.addEventListener('click', () => {
+            const selectedId = promptSelect.value;
+            const prompt = availablePrompts.find(p => p.id === selectedId);
+            if (prompt) {
+                promptContent.textContent = prompt.content || "Sem instruções definidas para este modelo.";
+                promptViewer.style.display = 'block';
+            }
+        });
 
         // Drag & Drop
         ['dragover', 'dragleave', 'drop'].forEach(evt => {
@@ -282,6 +340,7 @@
 
         analyzeBtn.addEventListener('click', async () => {
             const anonymizedText = document.getElementById('anonymizedPreview').textContent;
+            const selectedPrompt = promptSelect.value;
             
             loadingOverlay.style.display = 'flex';
             loadingText.textContent = 'Analisando via Inteligência Artificial...';
@@ -290,10 +349,15 @@
                 const response = await fetch(`${BASE_URL}/api/analyze-text`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text: anonymizedText })
+                    body: JSON.stringify({ 
+                        text: anonymizedText,
+                        prompt_type: selectedPrompt 
+                    })
                 });
                 
                 const data = await response.json();
+                if (data.error) throw new Error(data.error);
+                
                 sessionStorage.setItem('ai_result', data.result);
                 sessionStorage.setItem('filename', pdfInput.files[0].name);
                 window.location.href = 'resultadocontrato.html';

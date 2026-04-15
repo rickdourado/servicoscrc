@@ -93,7 +93,7 @@ def anonymize_contract():
 
 @app.route("/api/analyze-text", methods=["POST"])
 def analyze_text():
-    """Analisa o texto de um contrato usando Gemini."""
+    """Analisa o texto de um contrato usando Gemini com um prompt selecionado."""
     import google.generativeai as genai
     
     data = request.get_json()
@@ -104,11 +104,13 @@ def analyze_text():
     if not api_key:
         return jsonify({"error": "GEMINI_API_KEY não configurada"}), 500
         
+    prompt_type = data.get("prompt_type", "prompt_generico")
+    
     try:
         genai.configure(api_key=api_key)
         model = genai.GenerativeModel('gemini-2.0-flash')
         
-        base_prompt = get_prompt("prompt_generico", 
+        base_prompt = get_prompt(prompt_type, 
             "Você é um especialista jurídico e de gestão de contratos do CRC. "
             "Analise o texto abaixo e extraia os pontos principais."
         )
@@ -119,6 +121,24 @@ def analyze_text():
         return jsonify({"result": response.text})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route("/api/get-prompts", methods=["GET"])
+def list_prompts():
+    """Retorna a lista de prompts disponíveis e seus conteúdos."""
+    prompts = {
+        "prompt_generico": "Análise Completa (Padrão)",
+        "prompt_conciso": "Análise Executiva (Resumida)",
+        "prompt_ti": "Análise Técnica (TI)"
+    }
+    result = []
+    for filename, label in prompts.items():
+        content = get_prompt(filename, "Conteúdo não disponível.")
+        result.append({
+            "id": filename,
+            "label": label,
+            "content": content
+        })
+    return jsonify({"prompts": result})
 
 @app.route("/api/save", methods=["POST"])
 def save_data():

@@ -1,0 +1,36 @@
+Atue como fiscal de contratos públicos especializado em projetos de TI. Analise o documento fornecido sob a ótica técnica, contratual e quantitativa.
+
+A análise deve contemplar:
+
+1. Validação Quantitativa:
+
+Verifique a consistência de métricas, percentuais e totais apresentados
+Identifique divergências matemáticas ou incoerências entre tabelas e texto
+Avalie se os indicadores são mensuráveis e auditáveis
+
+2. Análise Técnica de TI:
+
+Avalie a clareza dos requisitos (funcionais e não funcionais)
+Verifique a presença e consistência de SLA e KPI
+Analise a coerência da volumetria e capacidade operacional prevista
+
+3. Conformidade Contratual:
+
+Identifique possíveis desalinhamentos com boas práticas de contratos públicos
+Aponte riscos de não conformidade, glosas ou entregas inadequadas
+
+4. Coerência e Qualidade Textual:
+
+Avalie clareza, objetividade e ausência de ambiguidades
+Identifique trechos contraditórios ou mal definidos
+
+5. Avaliação de Riscos:
+
+Destaque riscos operacionais, técnicos e contratuais
+Classifique cada problema como: Alto, Médio ou Baixo impacto
+
+Formato da resposta:
+
+Liste os achados de forma estruturada
+Para cada item, informe: descrição do problema, evidência no texto e impacto
+Finalize com um parecer técnico conclusivo sobre a qualidade do documento
