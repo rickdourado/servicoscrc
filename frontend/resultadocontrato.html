@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parecer Técnico - CRC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        :root {
+            --accent: #004a80;
+            --surface: #ffffff;
+            --orange-vibrant: #ff8c00;
+        }
+
+        .result-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: var(--surface);
+            padding: 4rem;
+            border: var(--border-main);
+            box-shadow: var(--shadow-brutal);
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #f1f5f9;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+        }
+
+        .result-header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.25rem;
+            color: var(--accent);
+            margin: 0;
+        }
+
+        .file-info {
+            background: #f8fafc;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .markdown-body {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #1e293b;
+        }
+
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+            color: var(--accent);
+            margin-top: 2rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .markdown-body strong {
+            color: var(--orange-vibrant);
+        }
+
+        .markdown-body blockquote {
+            border-left: 4px solid var(--accent);
+            background: #f0f7ff;
+            padding: 1rem 2rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+
+        .print-btn {
+            background: var(--accent);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .print-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        @media print {
+            .app-header, .app-footer, .print-actions { display: none !important; }
+            .result-container { box-shadow: none; border: none; margin: 0; padding: 0; width: 100%; max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="logo-area">
+            <div class="logo-chip">IA CONSULTORIA</div>
+            <h1>Parecer Técnico do Contrato</h1>
+        </div>
+        <nav class="print-actions">
+            <a href="analisecontrato.html" class="primary-btn" style="text-decoration: none; border-color: #ddd; background: white; color: #333;">Novo Upload</a>
+            <button onclick="window.print()" class="print-btn">🖨️ Imprimir Parecer</button>
+        </nav>
+    </header>
+
+    <main class="app-main">
+        <div class="result-container" id="printableArea">
+            <div class="result-header">
+                <div>
+                    <h1>Relatório de Análise</h1>
+                    <p id="currentDate"></p>
+                </div>
+                <div class="file-info" id="filenameDisplay">Documento: Analisando...</div>
+            </div>
+
+            <div id="aiOutput" class="markdown-body">
+                <!-- Conteúdo gerado pela IA entrará aqui -->
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <p>Desenvolvido por Patrick Ribeiro e Bruno Barbosa - SUBTD/CRC</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const result = sessionStorage.getItem('ai_result');
+            const filename = sessionStorage.getItem('filename');
+            
+            if (!result) {
+                window.location.href = 'analisecontrato.html';
+                return;
+            }
+
+            document.getElementById('filenameDisplay').textContent = `Documento: ${filename}`;
+            document.getElementById('currentDate').textContent = new Date().toLocaleDateString('pt-BR', {
+                day: '2-digit', month: 'long', year: 'numeric'
+            });
+
+            // Converte Markdown para HTML
+            document.getElementById('aiOutput').innerHTML = marked.parse(result);
+        });
+    </script>
+</body>
+</html>

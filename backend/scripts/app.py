@@ -12,14 +12,37 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 FRONTEND_DIR = BASE_DIR / "frontend"
 SERVICOS_JSON = BASE_DIR / "backend" / "data" / "servicos.json"
+PROMPTS_DIR = BASE_DIR / "backend" / "prompts"
+TEMP_DIR = BASE_DIR / "backend" / "temp"
+
+# Cria pasta temporária se não existir
+os.makedirs(TEMP_DIR, exist_ok=True)
 
 # Inicializa Flask configurado para servir o frontend como estático
 app = Flask(__name__, static_folder=str(FRONTEND_DIR), static_url_path="")
 CORS(app)
 
+# Detecta se está em Modo Produção (para desabilitar IA pesada se necessário)
+IS_PRODUCTION = os.environ.get("IS_PRODUCTION", "false").lower() == "true"
+
+def get_prompt(filename: str, default_text: str) -> str:
+    """Carrega um prompt do diretório de prompts ou retorna um padrão."""
+    path = PROMPTS_DIR / filename
+    if path.exists():
+        try:
+            return path.read_text(encoding="utf-8")
+        except Exception as e:
+            print(f"⚠️ Erro ao ler arquivo de prompt {filename}: {e}")
+    return default_text
+
 @app.route("/")
 def serve_index():
     return send_from_directory(app.static_folder, "index.html")
+
+@app.route("/temp/<path:filename>")
+def serve_temp(filename):
+    """Serve arquivos temporários (PDFs anonimizados)."""
+    return send_from_directory(str(TEMP_DIR), filename)
 
 @app.route("/<path:path>")
 def serve_static(path):
@@ -33,6 +56,67 @@ def get_servicos_organizacao():
     try:
         items = servicos_org.extract_servicos()
         return jsonify({"items": [item.model_dump() for item in items]})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# --- NOVAS ROTAS DE CONTRATO (Migradas do branch dev) ---
+
+@app.route("/api/anonymize", methods=["POST"])
+def anonymize_contract():
+    """Recebe um PDF, anonimiza e retorna o texto extraído e a URL do PDF mascarado."""
+    import backend.scripts.anonymizer as anonymizer
+    
+    if "file" not in request.files:
+        return jsonify({"error": "Nenhum arquivo enviado"}), 400
+        
+    file = request.files["file"]
+    file_bytes = file.read()
+    is_pdf = file.filename.lower().endswith(".pdf")
+    
+    try:
+        if is_pdf:
+            filename, masked_text = anonymizer.redact_pdf_visually(file_bytes)
+            return jsonify({
+                "masked_text": masked_text,
+                "preview_url": f"/temp/{filename}"
+            })
+        else:
+            # Caso não seja PDF, apenas extrai e mascara o texto
+            raw_text = file_bytes.decode("utf-8", errors="ignore")
+            masked_text = anonymizer.process_and_save(raw_text, file.filename)
+            return jsonify({
+                "masked_text": masked_text,
+                "preview_url": None
+            })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/api/analyze-text", methods=["POST"])
+def analyze_text():
+    """Analisa o texto de um contrato usando Gemini."""
+    import google.generativeai as genai
+    
+    data = request.get_json()
+    if not data or "text" not in data:
+        return jsonify({"error": "Texto não fornecido"}), 400
+        
+    api_key = os.environ.get("GEMINI_API_KEY")
+    if not api_key:
+        return jsonify({"error": "GEMINI_API_KEY não configurada"}), 500
+        
+    try:
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel('gemini-2.0-flash')
+        
+        base_prompt = get_prompt("prompt_generico", 
+            "Você é um especialista jurídico e de gestão de contratos do CRC. "
+            "Analise o texto abaixo e extraia os pontos principais."
+        )
+        
+        prompt = f"{base_prompt}\n\nTexto para Análise:\n{data['text']}"
+        response = model.generate_content(prompt)
+        
+        return jsonify({"result": response.text})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

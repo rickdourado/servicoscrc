@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Contratos - CRC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --accent: #004a80;
+            --accent-light: #e6f0f9;
+            --orange-vibrant: #ff8c00;
+        }
+
+        .contract-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+            background: var(--surface);
+            border: var(--border-main);
+            box-shadow: var(--shadow-brutal);
+            padding: 3rem;
+            margin-top: 2rem;
+            animation: slideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .upload-area {
+            border: 3px dashed var(--accent);
+            background: var(--accent-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: var(--radius-small);
+        }
+
+        .upload-area:hover, .upload-area.dragover {
+            background: #d0e4f5;
+            border-color: var(--orange-vibrant);
+            transform: translateY(-2px);
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 4px 8px rgba(0,74,128,0.2));
+        }
+
+        .upload-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .upload-subtitle {
+            font-size: 1rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .action-bar {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        #pdfInput {
+            display: none;
+        }
+
+        .file-status-badge {
+            display: none;
+            align-self: center;
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 2px solid var(--accent);
+            border-radius: 50px;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--accent-light);
+            border-top: 5px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1.5rem;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .preview-header {
+            border-bottom: 2px solid var(--accent-light);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .preview-header h2 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--accent);
+            font-size: 2rem;
+        }
+
+        iframe {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="logo-area">
+            <div class="logo-chip">SUBTD / CRC</div>
+            <h1>Análise de Contratos Inteligente</h1>
+        </div>
+        <nav>
+            <a href="index.html" class="primary-btn" style="text-decoration: none;">⬅ Voltar Dashboard</a>
+        </nav>
+    </header>
+
+    <main class="app-main">
+        <div class="contract-container">
+            <div class="preview-header">
+                <h2>Envio de Documento</h2>
+                <p class="subtitle">Faça o upload do contrato (PDF/DOC) para detecção de irregularidades e anonimização automática.</p>
+            </div>
+
+            <!-- Upload Area -->
+            <label class="upload-area" for="pdfInput" id="uploadZone">
+                <div class="upload-icon">📄</div>
+                <div class="upload-title">Arraste o documento aqui</div>
+                <div class="upload-subtitle">Ou clique para selecionar no computador (Máx 10MB)</div>
+                <input type="file" id="pdfInput" accept="application/pdf,.doc,.docx">
+            </label>
+
+            <div id="file-status" class="file-status-badge">Nenhum arquivo selecionado.</div>
+
+            <div class="action-bar">
+                <button class="primary-btn" id="anonymizeBtn" disabled>Processar Documento e Anonimizar</button>
+            </div>
+
+            <!-- Preview Section -->
+            <div id="previewContainer" style="display: none; margin-top: 3rem; width: 100%;">
+                <div class="preview-header">
+                    <h2>Prévia com Anonimização Visual</h2>
+                    <p class="subtitle" id="previewSubtitle">Aplicamos <b>tarjas pretas</b> nos dados sensíveis para proteger sua privacidade antes do envio à IA.</p>
+                </div>
+                
+                <div id="pdfWrapper" style="display: none; margin-bottom: 2rem;"></div>
+                
+                <div id="anonymizedPreview" contenteditable="true" style="display: none; width: 100%; min-height: 300px; max-height: 500px; overflow-y: auto; border-radius: var(--radius-small); padding: 2rem; background: #fff; border: 1px solid #ddd; font-family: 'Inter', sans-serif; white-space: pre-wrap;"></div>
+                
+                <div class="action-bar" style="justify-content: flex-end; gap: 1rem;">
+                    <button class="primary-btn" id="cancelBtn" style="background: #f1f5f9; color: #64748b; border-color: #e2e8f0;">Cancelar</button>
+                    <button class="primary-btn" id="analyzeBtn" style="background: var(--orange-vibrant); border-color: var(--orange-vibrant); color: #fff;">Enviar para Consultoria IA</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <h3 id="loadingText">Processando arquivo...</h3>
+        <p>Garantindo que nenhum dado sensível saia do CRC.</p>
+    </div>
+
+    <script>
+        const BASE_URL = ''; // Rotas relativas no Flask
+
+        const uploadZone = document.getElementById('uploadZone');
+        const pdfInput = document.getElementById('pdfInput');
+        const fileStatus = document.getElementById('file-status');
+        const anonymizeBtn = document.getElementById('anonymizeBtn');
+        const previewContainer = document.getElementById('previewContainer');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const loadingText = document.getElementById('loadingText');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+
+        // Drag & Drop
+        ['dragover', 'dragleave', 'drop'].forEach(evt => {
+            uploadZone.addEventListener(evt, (e) => {
+                e.preventDefault();
+                if(evt === 'dragover') uploadZone.classList.add('dragover');
+                else uploadZone.classList.remove('dragover');
+                
+                if(evt === 'drop' && e.dataTransfer.files.length) {
+                    pdfInput.files = e.dataTransfer.files;
+                    handleFileChange();
+                }
+            });
+        });
+
+        pdfInput.addEventListener('change', handleFileChange);
+
+        function handleFileChange() {
+            if (pdfInput.files.length > 0) {
+                const file = pdfInput.files[0];
+                fileStatus.innerHTML = `Arquivo: <b>${file.name}</b>`;
+                fileStatus.style.display = 'block';
+                anonymizeBtn.disabled = false;
+                anonymizeBtn.style.opacity = '1';
+            }
+        }
+
+        anonymizeBtn.addEventListener('click', async () => {
+            if (pdfInput.files.length === 0) return;
+            
+            loadingOverlay.style.display = 'flex';
+            loadingText.textContent = 'Anonimizando Dados Sensíveis...';
+
+            const file = pdfInput.files[0];
+            const formData = new FormData();
+            formData.append("file", file);
+
+            try {
+                const response = await fetch(`${BASE_URL}/api/anonymize`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if(data.masked_text) {
+                    const pdfWrapper = document.getElementById('pdfWrapper');
+                    const previewSubtitle = document.getElementById('previewSubtitle');
+                    const anonymizedPreview = document.getElementById('anonymizedPreview');
+                    
+                    if (data.preview_url) {
+                        pdfWrapper.innerHTML = `<iframe src="${BASE_URL}${data.preview_url}" style="width: 100%; height: 700px; border: var(--border-main); border-radius: var(--radius-small);"></iframe>`;
+                        pdfWrapper.style.display = 'block';
+                        anonymizedPreview.style.display = 'none';
+                        anonymizedPreview.textContent = data.masked_text;
+                    } else {
+                        pdfWrapper.style.display = 'none';
+                        anonymizedPreview.style.display = 'block';
+                        anonymizedPreview.textContent = data.masked_text;
+                    }
+                    
+                    previewContainer.style.display = 'block';
+                    anonymizeBtn.parentElement.style.display = 'none';
+                    uploadZone.style.display = 'none';
+                    fileStatus.style.display = 'none';
+                }
+            } catch (err) {
+                alert("Erro ao conectar com API: " + err);
+            } finally {
+                loadingOverlay.style.display = 'none';
+            }
+        });
+
+        analyzeBtn.addEventListener('click', async () => {
+            const anonymizedText = document.getElementById('anonymizedPreview').textContent;
+            
+            loadingOverlay.style.display = 'flex';
+            loadingText.textContent = 'Analisando via Inteligência Artificial...';
+
+            try {
+                const response = await fetch(`${BASE_URL}/api/analyze-text`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: anonymizedText })
+                });
+                
+                const data = await response.json();
+                sessionStorage.setItem('ai_result', data.result);
+                sessionStorage.setItem('filename', pdfInput.files[0].name);
+                window.location.href = 'resultadocontrato.html';
+            } catch (err) {
+                alert("Erro na análise IA: " + err);
+            } finally {
+                loadingOverlay.style.display = 'none';
+            }
+        });
+
+        document.getElementById('cancelBtn').onclick = () => window.location.reload();
+    </script>
+    <footer class="app-footer">
+        <p>Desenvolvido por Patrick Ribeiro e Bruno Barbosa - SUBTD/CRC</p>
+    </footer>
+</body>
+</html>
