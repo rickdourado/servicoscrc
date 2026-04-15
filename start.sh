@@ -3,20 +3,20 @@
 # Encerra os processos filhos caso o usuário pare o script (Ctrl+C)
 trap "kill 0" SIGINT
 
-echo "🚀 Iniciando o Backend (API via FastAPI na porta 8000)..."
-uv run uvicorn backend.scripts.app:app --host 0.0.0.0 --port 8000 &
+echo "🚀 Iniciando o Ambiente Flask (Backend + Frontend na porta 8000)..."
+echo "O Flask agora serve tanto a API quanto os arquivos estáticos."
+echo ""
 
-echo "🌐 Iniciando o Frontend (Servidor HTML na porta 3000)..."
-cd frontend
-python3 -m http.server 3000 &
+# Executa o app Flask diretamente usando uv
+uv run python backend/scripts/app.py &
 
 echo ""
 echo "========================================="
 echo "✅ AMBIENTE INICIADO COM SUCESSO! ✅"
 echo "========================================="
-echo "👉 Abra no seu navegador: http://localhost:3000"
+echo "👉 Abra no seu navegador: http://localhost:8000"
 echo "========================================="
-echo "Pressione Ctrl+C para encerrar todos os servidores."
+echo "Pressione Ctrl+C para encerrar o servidor."
 
 # Fica aguardando para manter o script ativo
 wait
