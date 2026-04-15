@@ -1,11 +1,11 @@
 import os
-import requests
-import json
+from google import genai
 from dotenv import load_dotenv
 
 load_dotenv()
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
 
 def generate_description(item_type, item_name, parent_name=""):
     """
@@ -14,6 +14,8 @@ def generate_description(item_type, item_name, parent_name=""):
     if not GEMINI_API_KEY:
         return {"error": "Chave da API do Gemini não configurada."}
 
+    client = genai.Client(api_key=GEMINI_API_KEY)
+    
     prompt_context = f"Tema principal: {item_name}" if item_type == "theme" else f"Tema principal: {parent_name}\nSubtema: {item_name}"
     
     prompt_text = f"""Atue como um redator especialista em serviços públicos municipais. Sua tarefa é criar uma descrição extremamente objetiva para temas e subtemas do portal de atendimento 1746 da prefeitura.
@@ -27,21 +29,12 @@ Regras estritas:
 Contexto a ser descrito:
 {prompt_context}"""
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}"
-    
-    headers = {'Content-Type': 'application/json'}
-    payload = {
-        "contents": [{
-            "parts": [{ "text": prompt_text }]
-        }]
-    }
-
     try:
-        response = requests.post(url, headers=headers, data=json.dumps(payload))
-        response.raise_for_status()
-        data = response.json()
+        response = client.models.generate_content(
+            model=GEMINI_MODEL,
+            contents=prompt_text
+        )
         
-        generated_text = data.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '')
-        return {"description": generated_text.strip()}
+        return {"description": response.text.strip()}
     except Exception as e:
         return {"error": str(e)}

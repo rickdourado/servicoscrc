@@ -14,7 +14,7 @@
             justify-content: center;
             flex: 1;
             gap: 3.5rem;
-            max-width: 800px;
+            max-width: 1200px; /* Aumentado para suportar 3 cards por linha */
             margin: 0 auto;
             text-align: center;
             padding: 2rem 0;
@@ -38,9 +38,16 @@
 
         .modules-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Reduzido para caber 3 mais facilmente */
             gap: 2rem;
             width: 100%;
+        }
+
+        /* Forçar 3 colunas em telas de desktop para garantir o visual desejado */
+        @media (min-width: 1024px) {
+            .modules-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
         .module-card {
@@ -111,6 +118,12 @@
                 </a>
                 
                 
+                <a href="padronizacao.html" class="module-card">
+                    <div class="module-icon">✨</div>
+                    <h2 class="module-title">Padronização de Serviços</h2>
+                    <p class="module-desc">Limpeza de textos, resumo informacional e padronização oficial de descrições para o Pref.rio.</p>
+                </a>
+
                 <a href="analisecontrato.html" class="module-card">
                     <div class="module-icon">🛡️</div>
                     <h2 class="module-title">Análise de Contratos</h2>

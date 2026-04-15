@@ -94,21 +94,21 @@ def anonymize_contract():
 @app.route("/api/analyze-text", methods=["POST"])
 def analyze_text():
     """Analisa o texto de um contrato usando Gemini com um prompt selecionado."""
-    import google.generativeai as genai
+    from google import genai
     
     data = request.get_json()
     if not data or "text" not in data:
         return jsonify({"error": "Texto não fornecido"}), 400
         
     api_key = os.environ.get("GEMINI_API_KEY")
+    gemini_model = os.environ.get("GEMINI_MODEL", "gemini-2.0-flash")
     if not api_key:
         return jsonify({"error": "GEMINI_API_KEY não configurada"}), 500
         
     prompt_type = data.get("prompt_type", "prompt_generico")
     
     try:
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-2.0-flash')
+        client = genai.Client(api_key=api_key)
         
         base_prompt = get_prompt(prompt_type, 
             "Você é um especialista jurídico e de gestão de contratos do CRC. "
@@ -116,7 +116,7 @@ def analyze_text():
         )
         
         prompt = f"{base_prompt}\n\nTexto para Análise:\n{data['text']}"
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(model=gemini_model, contents=prompt)
         
         return jsonify({"result": response.text})
     except Exception as e:
@@ -139,6 +139,55 @@ def list_prompts():
             "content": content
         })
     return jsonify({"prompts": result})
+
+@app.route("/api/standardize", methods=["POST"])
+def standardize_service():
+    """Padroniza descrições de serviços ou resume informações (Migrado do ServicosClean)."""
+    from google import genai
+    import re
+    
+    data = request.get_json()
+    if not data or "text" not in data:
+        return jsonify({"error": "Texto não fornecido"}), 400
+        
+    tipo = data.get("type", "servico") # 'servico' ou 'informacao'
+    api_key = os.environ.get("GEMINI_API_KEY")
+    gemini_model = os.environ.get("GEMINI_MODEL", "gemini-2.0-flash")
+    
+    try:
+        client = genai.Client(api_key=api_key)
+        
+        # Carrega regras do prompt
+        filename = f"prompt_{tipo}.md" if tipo in ['servico', 'informacao'] else "prompt_servico.md"
+        regras = get_prompt(filename, "Aja como um especialista em redação oficial e simplificação de serviços públicos.")
+        
+        # Constrói o prompt final
+        if tipo == 'informacao':
+            instrucao_saida = "Retorne APENAS um JSON com os campos: o_que_e, como_funciona, publico_alvo, informacoes_importantes."
+        else:
+            instrucao_saida = "Retorne APENAS um JSON com os campos de padronização definidos nas regras (descricao_resumida, descricao_completa, etc)."
+            
+        prompt = f"{regras}\n\nTexto de Entrada:\n{data['text']}\n\n{instrucao_saida}\n\nOBS: Traga a resposta estritamente em um bloco JSON markdown."
+        
+        response = client.models.generate_content(model=gemini_model, contents=prompt)
+        text_response = response.text
+        
+        # Extrai JSON do bloco de código
+        json_match = re.search(r'```(?:json)?\s*(\{.*?\})\s*```', text_response, re.DOTALL)
+        if json_match:
+            result = json.loads(json_match.group(1))
+        else:
+            # Fallback: tenta procurar qualquer par de chaves
+            json_match = re.search(r'\{.*\}', text_response, re.DOTALL)
+            if json_match:
+                result = json.loads(json_match.group(0))
+            else:
+                raise Exception("Não foi possível extrair um JSON válido da resposta da IA.")
+                
+        return jsonify({"sucesso": True, "resultado": result})
+        
+    except Exception as e:
+        return jsonify({"error": str(e), "sucesso": False}), 500
 
 @app.route("/api/save", methods=["POST"])
 def save_data():
