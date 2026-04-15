@@ -34,9 +34,17 @@ def mask_sensitive_data(text: str) -> str:
     company_pattern = r'(?i)\b(contratada|contratante|empresa)\s*[:\s]+(.*?(?=cnpj|cpf|\n|\r|$|,\s*[a-z]))'
     text = re.sub(company_pattern, r'\1: [EMPRESA_OCULTA] ', text)
     
-    # Mascarar palavras-chave de plataforma (Central1746, Salesforce)
-    platform_pattern = r'(?i)\b(salesforce|central1746)\b'
+    # Mascarar palavras-chave de plataforma (Central1746, Salesforce, IPLAN)
+    platform_pattern = r'(?i)\b(salesforce|central1746|iplan)\b'
     text = re.sub(platform_pattern, '[PLATAFORMA_OCULTA]', text)
+    
+    # Mascarar Simone e variações
+    simone_pattern = r'(?i)\b(simone\s+[a-z]+|simone)\b'
+    text = re.sub(simone_pattern, '[DADO_PESSOAL_OCULTO]', text)
+    
+    # Mascarar SUBTD
+    subtd_pattern = r'(?i)\bsubtd\b'
+    text = re.sub(subtd_pattern, '[ÓRGÃO_OCULTO]', text)
     
     return text
 
@@ -61,7 +69,9 @@ def get_redaction_patterns():
         (r'(?i)\bsecretaria municipal da [áa]rea civil\b', 0),
         (r'(?i)\b(contrato|processo|ata|termo|edital|pregão)(?:\s+administrativo)?(?:\s+n[oº°])?\s*[:\.-]*\s*([0-9/\.-]+)', 2),
         (r'(?i)\b(contratada|contratante|empresa)\s*[:\s]+(.*?(?=cnpj|cpf|\n|\r|$|,\s*[a-z]))', 2),
-        (r'(?i)\b(salesforce|central1746)\b', 0)
+        (r'(?i)\b(salesforce|central1746|iplan)\b', 0),
+        (r'(?i)\b(simone\s+[a-z]+|simone)\b', 0),
+        (r'(?i)\bsubtd\b', 0)
     ]
 
 def redact_pdf_visually(file_bytes: bytes) -> tuple[str, str]:
