@@ -27,12 +27,18 @@ IS_PRODUCTION = os.environ.get("IS_PRODUCTION", "false").lower() == "true"
 
 def get_prompt(filename: str, default_text: str) -> str:
     """Carrega um prompt do diretório de prompts ou retorna um padrão."""
+    if not filename.endswith(".md"):
+        filename = f"{filename}.md"
+    
     path = PROMPTS_DIR / filename
     if path.exists():
         try:
             return path.read_text(encoding="utf-8")
         except Exception as e:
             print(f"⚠️ Erro ao ler arquivo de prompt {filename}: {e}")
+    else:
+        print(f"⚠️ Prompt não encontrado: {path}")
+        
     return default_text
 
 @app.route("/")
@@ -125,16 +131,18 @@ def analyze_text():
 @app.route("/api/get-prompts", methods=["GET"])
 def list_prompts():
     """Retorna a lista de prompts disponíveis e seus conteúdos."""
-    prompts = {
+    # Mapeamento de IDs internos para Labels de interface
+    available_prompts = {
         "prompt_generico": "Análise Completa (Padrão)",
         "prompt_conciso": "Análise Executiva (Resumida)",
         "prompt_ti": "Análise Técnica (TI)"
     }
     result = []
-    for filename, label in prompts.items():
-        content = get_prompt(filename, "Conteúdo não disponível.")
+    for prompt_id, label in available_prompts.items():
+        # get_prompt agora lida com o .md automaticamente
+        content = get_prompt(prompt_id, "Conteúdo não disponível.")
         result.append({
-            "id": filename,
+            "id": prompt_id,
             "label": label,
             "content": content
         })
@@ -157,9 +165,9 @@ def standardize_service():
     try:
         client = genai.Client(api_key=api_key)
         
-        # Carrega regras do prompt
-        filename = f"prompt_{tipo}.md" if tipo in ['servico', 'informacao'] else "prompt_servico.md"
-        regras = get_prompt(filename, "Aja como um especialista em redação oficial e simplificação de serviços públicos.")
+        # Carrega regras do prompt (get_prompt já adiciona .md)
+        prompt_id = f"prompt_{tipo}" if tipo in ['servico', 'informacao'] else "prompt_servico"
+        regras = get_prompt(prompt_id, "Aja como um especialista em redação oficial e simplificação de serviços públicos.")
         
         # Constrói o prompt final
         if tipo == 'informacao':
