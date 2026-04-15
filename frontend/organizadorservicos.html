@@ -92,6 +92,7 @@
         .btn-outline:hover { background: var(--surface-alt); border-color: var(--accent); color: var(--accent); }
         .btn-success { background: #10b981; color: white; }
         .btn-danger { background: #ef4444; color: white; }
+        .btn-warning { background: #f59e0b; color: white; }
 
         /* MAIN CONTENT */
         .main-container {
@@ -148,6 +149,7 @@
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            min-height: 200px;
         }
 
         .item {
@@ -161,10 +163,12 @@
             gap: 0.75rem;
             transition: var(--transition);
             user-select: none;
+            position: relative;
         }
 
         .item:hover { border-color: var(--accent); background: var(--accent-light); }
         .item.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 4px 12px rgba(0,74,128,0.2); }
+        .item.drag-over { border-color: var(--orange); border-width: 2px; background: #fff7ed; }
         
         .item-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
         .item.active .item-icon { color: white; }
@@ -214,16 +218,7 @@
         .form-input:focus, .form-textarea:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px var(--accent-light); }
 
         .ai-btn-wrapper { display: flex; justify-content: space-between; align-items: center; }
-        .ai-badge {
-            background: linear-gradient(135deg, var(--orange), #f9b17a);
-            color: white;
-            padding: 0.25rem 0.6rem;
-            border-radius: 20px;
-            font-size: 0.65rem;
-            font-weight: 900;
-            text-transform: uppercase;
-        }
-
+        
         /* UTILS */
         .badge-type { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; color: var(--text-sub); margin-bottom: 0.25rem; }
 
@@ -239,7 +234,10 @@
             align-items: center;
             gap: 0.75rem;
             animation: slideIn 0.3s ease-out;
+            min-width: 250px;
         }
+        .toast.success { border-left-color: #10b981; }
+        .toast.error { border-left-color: #ef4444; }
         @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
         /* LOADING */
@@ -261,6 +259,9 @@
             <h1>Gestão de Serviços CRC</h1>
         </a>
         <div class="nav-actions">
+            <button onclick="restoreOriginal()" class="btn btn-warning">
+                <i class="fa-solid fa-rotate-left"></i> Restaurar Inicial
+            </button>
             <button onclick="saveChanges()" class="btn btn-primary">
                 <i class="fa-solid fa-cloud-upload-alt"></i> Sincronizar Tudo
             </button>
@@ -383,9 +384,7 @@
                 el.onclick = () => selectTheme(theme.id);
                 list.appendChild(el);
             });
-            initSortable('list-themes', (newOrder) => {
-                appData = newOrder.map(id => appData.find(t => t.id === id));
-            });
+            initSortableThemes();
         }
 
         function selectTheme(id) {
@@ -413,9 +412,7 @@
                 list.appendChild(el);
             });
 
-            initSortable('list-subthemes', (newOrder) => {
-                theme.subthemes = newOrder.map(id => theme.subthemes.find(s => s.id === id));
-            });
+            initSortableSubthemes();
             renderServices();
         }
 
@@ -445,9 +442,7 @@
                 list.appendChild(el);
             });
 
-            initSortable('list-services', (newOrder) => {
-                sub.services = newOrder.map(id => sub.services.find(s => s.id === id));
-            });
+            initSortableServices();
         }
 
         function selectService(id) {
@@ -459,11 +454,11 @@
             renderServices();
         }
 
-        // HELPERS
         function createItemEl(item, type, isActive) {
             const div = document.createElement('div');
             div.className = `item ${isActive ? 'active' : ''}`;
             div.dataset.id = item.id;
+            div.dataset.type = type;
             
             let icon = 'fa-layer-group';
             if (type === 'subtheme') icon = 'fa-folder-tree';
@@ -477,39 +472,90 @@
             return div;
         }
 
-        function initSortable(listId, onUpdate) {
-            const el = document.getElementById(listId);
+        // SORTABLES & DRAG LOGIC
+        function initSortableThemes() {
+            const el = document.getElementById('list-themes');
             if (el.sortable) el.sortable.destroy();
             el.sortable = new Sortable(el, {
+                group: { name: 'themes', put: ['subthemes'] }, // Permite receber subtemas
                 animation: 150,
-                ghostClass: 'sortable-ghost',
-                onEnd: () => {
-                    const ids = Array.from(el.children).map(child => child.dataset.id);
-                    onUpdate(ids);
+                onEnd: (evt) => {
+                    const ids = Array.from(el.children).filter(c => c.dataset.type === 'theme').map(c => c.dataset.id);
+                    appData = ids.map(id => appData.find(t => t.id === id));
+                },
+                onAdd: (evt) => {
+                    // Quando um subtema é arrastado da Col 2 para a Col 1
+                    const subId = evt.item.dataset.id;
+                    const fromTheme = appData.find(t => t.id === selectedThemeId);
+                    const subIndex = fromTheme.subthemes.findIndex(s => s.id === subId);
+                    const subthemeObj = fromTheme.subthemes.splice(subIndex, 1)[0];
+                    
+                    // Encontra o tema de destino baseado em onde foi solto
+                    const targetIdx = evt.newIndex;
+                    const targetTheme = appData[targetIdx];
+                    
+                    if (targetTheme && targetTheme.id !== fromTheme.id) {
+                        targetTheme.subthemes.push(subthemeObj);
+                        showToast(`Movido para ${targetTheme.name}`, 'success');
+                    } else {
+                        // Se soltou no vácuo ou no mesmo tema, volta para o original
+                        fromTheme.subthemes.splice(subIndex, 0, subthemeObj);
+                        showToast('Movimentação cancelada', 'error');
+                    }
+                    
+                    renderThemes();
+                    renderSubthemes();
                 }
             });
         }
 
-        // INSPECTOR
+        function initSortableSubthemes() {
+            const el = document.getElementById('list-subthemes');
+            if (el.sortable) el.sortable.destroy();
+            el.sortable = new Sortable(el, {
+                group: { name: 'subthemes', pull: true, put: true },
+                animation: 150,
+                onEnd: (evt) => {
+                    // Se foi movido dentro da própria lista
+                    if(evt.to === evt.from) {
+                        const theme = appData.find(t => t.id === selectedThemeId);
+                        const ids = Array.from(el.children).map(c => c.dataset.id);
+                        theme.subthemes = ids.map(id => theme.subthemes.find(s => s.id === id));
+                    }
+                }
+            });
+        }
+
+        function initSortableServices() {
+            const el = document.getElementById('list-services');
+            if (el.sortable) el.sortable.destroy();
+            el.sortable = new Sortable(el, {
+                group: 'services',
+                animation: 150,
+                onEnd: (evt) => {
+                    const theme = appData.find(t => t.id === selectedThemeId);
+                    const sub = theme.subthemes.find(s => s.id === selectedSubthemeId);
+                    const ids = Array.from(el.children).map(c => c.dataset.id);
+                    sub.services = ids.map(id => sub.services.find(s => s.id === id));
+                }
+            });
+        }
+
+        // INSPECTOR & ACTIONS
         function openInspector(item, type) {
             activeItem = item;
             activeType = type;
             document.getElementById('inspector-empty').style.display = 'none';
             document.getElementById('inspector-content').classList.add('active');
-            
             document.getElementById('ins-badge').textContent = type;
             document.getElementById('ins-name').value = item.name;
             document.getElementById('ins-desc').value = item.description || '';
-            
-            // Serviços não costumam ter descrição no modelo do 1746 conforme referência
             document.getElementById('group-desc').style.visibility = type === 'service' ? 'hidden' : 'visible';
         }
 
         function updateActiveItem(key, val) {
             if (!activeItem) return;
             activeItem[key] = val;
-            
-            // Debounced Refresh local name in list
             const currentId = activeItem.id;
             const nameEls = document.querySelectorAll(`[data-id="${currentId}"] .item-name`);
             nameEls.forEach(el => el.textContent = val || 'Sem nome');
@@ -517,10 +563,10 @@
 
         async function generateAIDesc() {
             if (!activeItem || activeType === 'service') return;
-            
             showLoader(true);
             try {
-                const parent = activeType === 'subtheme' ? appData.find(t => t.id === selectedThemeId).name : '';
+                let parent = '';
+                if (activeType === 'subtheme') parent = appData.find(t => t.id === selectedThemeId).name;
                 const res = await fetch(`${API_BASE}/ai/generate-description`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -531,17 +577,11 @@
                     activeItem.description = data.description;
                     document.getElementById('ins-desc').value = data.description;
                     showToast('Descrição gerada!', 'success');
-                } else {
-                    showToast(data.error || 'Erro na IA', 'error');
-                }
-            } catch (e) {
-                showToast('Erro ao contatar IA', 'error');
-            } finally {
-                showLoader(false);
-            }
+                } else showToast(data.error || 'Erro na IA', 'error');
+            } catch (e) { showToast('Erro ao contatar IA', 'error'); }
+            finally { showLoader(false); }
         }
 
-        // ACTIONS
         function addItem(type) {
             const newId = Math.random().toString(36).substr(2, 9);
             const newItem = { id: newId, name: 'Novo ' + type, description: '' };
@@ -551,15 +591,14 @@
                 renderThemes();
                 selectTheme(newId);
             } else if (type === 'subtheme') {
+                if(!selectedThemeId) return showToast('Selecione um Tema antes', 'error');
                 newItem.services = [];
-                const theme = appData.find(t => t.id === selectedThemeId);
-                theme.subthemes.push(newItem);
+                appData.find(t => t.id === selectedThemeId).subthemes.push(newItem);
                 renderSubthemes();
                 selectSubtheme(newId);
-            } else if (type === 'service') {
-                const theme = appData.find(t => t.id === selectedThemeId);
-                const sub = theme.subthemes.find(s => s.id === selectedSubthemeId);
-                sub.services.push(newItem);
+            } else {
+                if(!selectedSubthemeId) return showToast('Selecione um Subtema antes', 'error');
+                appData.find(t => t.id === selectedThemeId).subthemes.find(s => s.id === selectedSubthemeId).services.push(newItem);
                 renderServices();
                 selectService(newId);
             }
@@ -567,7 +606,6 @@
 
         function deleteItem() {
             if (!activeItem || !confirm('Deseja realmente excluir este item?')) return;
-            
             if (activeType === 'theme') {
                 appData = appData.filter(t => t.id !== activeItem.id);
                 selectedThemeId = null;
@@ -584,7 +622,6 @@
                 selectedServiceId = null;
                 renderServices();
             }
-            
             document.getElementById('inspector-content').classList.remove('active');
             document.getElementById('inspector-empty').style.display = 'flex';
             activeItem = null;
@@ -600,33 +637,38 @@
                 });
                 if (res.ok) showToast('Sincronizado com sucesso!', 'success');
                 else showToast('Erro ao salvar', 'error');
-            } catch (e) {
-                showToast('Erro de conexão', 'error');
-            } finally {
-                showLoader(false);
-            }
+            } catch (e) { showToast('Erro de conexão', 'error'); }
+            finally { showLoader(false); }
+        }
+
+        async function restoreOriginal() {
+            if(!confirm('Isso resetará todas as descrições e a ordem para o estado inicial. Prosseguir?')) return;
+            showLoader(true);
+            try {
+                const res = await fetch(`${API_BASE}/restore-original`, { method: 'POST' });
+                const data = await res.json();
+                if(data.items) {
+                    appData = data.items;
+                    selectedThemeId = null;
+                    selectedSubthemeId = null;
+                    selectedServiceId = null;
+                    renderThemes();
+                    renderSubthemes();
+                    showToast('Dados restaurados!', 'success');
+                } else showToast(data.error || 'Erro ao restaurar', 'error');
+            } catch(e) { showToast('Erro ao restaurar', 'error'); }
+            finally { showLoader(false); }
         }
 
         function exportToExcel() {
-            const rows = [];
-            rows.push(['Tema', 'Descrição Tema', 'Subtema', 'Descrição Subtema', 'Serviço']);
-            
+            const rows = [['Tema', 'Descrição Tema', 'Subtema', 'Descrição Subtema', 'Serviço']];
             appData.forEach(t => {
-                if (t.subthemes.length === 0) {
-                    rows.push([t.name, t.description, '', '', '']);
-                } else {
-                    t.subthemes.forEach(s => {
-                        if (s.services.length === 0) {
-                            rows.push([t.name, t.description, s.name, s.description, '']);
-                        } else {
-                            s.services.forEach(srv => {
-                                rows.push([t.name, t.description, s.name, s.description, srv.name]);
-                            });
-                        }
-                    });
-                }
+                if (t.subthemes.length === 0) rows.push([t.name, t.description, '', '', '']);
+                else t.subthemes.forEach(s => {
+                    if (s.services.length === 0) rows.push([t.name, t.description, s.name, s.description, '']);
+                    else s.services.forEach(srv => rows.push([t.name, t.description, s.name, s.description, srv.name]));
+                });
             });
-
             const ws = XLSX.utils.aoa_to_sheet(rows);
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, "Hierarquia");
@@ -637,16 +679,13 @@
             const container = document.getElementById('toasts');
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
-            toast.innerHTML = `<i class="fa-solid fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i> ${msg}`;
+            toast.innerHTML = `<i class="fa-solid fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i> ${msg}`;
             container.appendChild(toast);
             setTimeout(() => toast.remove(), 3000);
         }
 
-        function showLoader(show) {
-            document.getElementById('loader').classList.toggle('active', show);
-        }
+        function showLoader(show) { document.getElementById('loader').classList.toggle('active', show); }
 
-        // Init
         document.addEventListener('DOMContentLoaded', loadData);
     </script>
 </body>

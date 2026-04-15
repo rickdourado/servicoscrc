@@ -6,51 +6,52 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "0830bd9b",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Administração pública",
-                    "services": [
-                        {
-                            "id": "92362866",
-                            "name": "Saúde do servidor",
-                            "description": ""
-                        },
-                        {
-                            "id": "5bae7a33",
-                            "name": "Solicitações do servidor",
-                            "description": ""
-                        },
-                        {
-                            "id": "817d45a8",
-                            "name": "Consulta a processos",
-                            "description": ""
-                        },
-                        {
-                            "id": "ffb5ca47",
-                            "name": "Benefícios",
-                            "description": ""
-                        },
-                        {
-                            "id": "26ff8f67",
-                            "name": "Concursos e Processos seletivos",
-                            "description": ""
-                        },
-                        {
-                            "id": "e83cfa03",
-                            "name": "Previdência do servidor",
-                            "description": ""
-                        },
-                        {
-                            "id": "48fcd5c0",
-                            "name": "Licitação e Pregão",
-                            "description": ""
-                        },
-                        {
-                            "id": "4fff3346",
-                            "name": "Irregularidades em empresas terceirizadas",
-                            "description": ""
-                        }
-                    ]
+                    "id": "92362866",
+                    "name": "Saúde do servidor",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "5bae7a33",
+                    "name": "Solicitações do servidor",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "817d45a8",
+                    "name": "Consulta a processos",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "ffb5ca47",
+                    "name": "Benefícios",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "26ff8f67",
+                    "name": "Concursos e Processos seletivos",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "e83cfa03",
+                    "name": "Previdência do servidor",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "48fcd5c0",
+                    "name": "Licitação e Pregão",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "4fff3346",
+                    "name": "Irregularidades em empresas terceirizadas",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -60,21 +61,16 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "04255f4c",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Animais",
-                    "services": [
-                        {
-                            "id": "2006fe09",
-                            "name": "Saúde animal",
-                            "description": ""
-                        },
-                        {
-                            "id": "72c337f4",
-                            "name": "Proteção aos animais",
-                            "description": ""
-                        }
-                    ]
+                    "id": "2006fe09",
+                    "name": "Saúde animal",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "72c337f4",
+                    "name": "Proteção aos animais",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -84,41 +80,40 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "321eabb3",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Cidadania",
-                    "services": [
-                        {
-                            "id": "3fd88c75",
-                            "name": "Assistência social",
-                            "description": ""
-                        },
-                        {
-                            "id": "0a888c78",
-                            "name": "Acessibilidade",
-                            "description": ""
-                        },
-                        {
-                            "id": "47f2bf0f",
-                            "name": "Direitos Humanos",
-                            "description": ""
-                        },
-                        {
-                            "id": "ac2c3528",
-                            "name": "Mulher carioca",
-                            "description": ""
-                        },
-                        {
-                            "id": "c7efa40d",
-                            "name": "PROCON carioca",
-                            "description": ""
-                        },
-                        {
-                            "id": "190c6caa",
-                            "name": "Participação social",
-                            "description": ""
-                        }
-                    ]
+                    "id": "3fd88c75",
+                    "name": "Assistência social",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "0a888c78",
+                    "name": "Acessibilidade",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "47f2bf0f",
+                    "name": "Direitos Humanos",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "ac2c3528",
+                    "name": "Mulher carioca",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "c7efa40d",
+                    "name": "PROCON carioca",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "190c6caa",
+                    "name": "Participação social",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -128,31 +123,28 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "c76fab6f",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Cultura, Esporte e Lazer",
-                    "services": [
-                        {
-                            "id": "eec86e94",
-                            "name": "Atividade física",
-                            "description": ""
-                        },
-                        {
-                            "id": "9051fadc",
-                            "name": "Audiovisual",
-                            "description": ""
-                        },
-                        {
-                            "id": "e602cd8c",
-                            "name": "Incentivo cultural",
-                            "description": ""
-                        },
-                        {
-                            "id": "56881367",
-                            "name": "Espaços culturais",
-                            "description": ""
-                        }
-                    ]
+                    "id": "eec86e94",
+                    "name": "Atividade física",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "9051fadc",
+                    "name": "Audiovisual",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "e602cd8c",
+                    "name": "Incentivo cultural",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "56881367",
+                    "name": "Espaços culturais",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -162,16 +154,10 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "029596bb",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Cursos",
-                    "services": [
-                        {
-                            "id": "bbb9add2",
-                            "name": "Oportunidades Cariocas (land page)",
-                            "description": ""
-                        }
-                    ]
+                    "id": "bbb9add2",
+                    "name": "Oportunidades Cariocas (land page)",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -181,56 +167,58 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "63396590",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Educação",
-                    "services": [
-                        {
-                            "id": "8985f262",
-                            "name": "Vida escolar",
-                            "description": ""
-                        },
-                        {
-                            "id": "e34d1769",
-                            "name": "MultiRio",
-                            "description": ""
-                        },
-                        {
-                            "id": "f61a5af0",
-                            "name": "Educação Infantil",
-                            "description": ""
-                        },
-                        {
-                            "id": "0b671d24",
-                            "name": "Ensino Fundamental e Médio",
-                            "description": ""
-                        },
-                        {
-                            "id": "7010205d",
-                            "name": "Educação Especial",
-                            "description": ""
-                        },
-                        {
-                            "id": "077669b0",
-                            "name": "Bibliotecas",
-                            "description": ""
-                        },
-                        {
-                            "id": "029b981b",
-                            "name": "Matrícula escolar",
-                            "description": ""
-                        },
-                        {
-                            "id": "42efd66f",
-                            "name": "Segurança escolar",
-                            "description": ""
-                        },
-                        {
-                            "id": "6e2b420f",
-                            "name": "Cursos",
-                            "description": ""
-                        }
-                    ]
+                    "id": "8985f262",
+                    "name": "Vida escolar",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "e34d1769",
+                    "name": "MultiRio",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "f61a5af0",
+                    "name": "Educação Infantil",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "0b671d24",
+                    "name": "Ensino Fundamental e Médio",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "7010205d",
+                    "name": "Educação Especial",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "077669b0",
+                    "name": "Bibliotecas",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "029b981b",
+                    "name": "Matrícula escolar",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "42efd66f",
+                    "name": "Segurança escolar",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "6e2b420f",
+                    "name": "Cursos",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -238,14 +226,7 @@
             "id": "n1_6",
             "name": "Empresas",
             "description": "",
-            "subthemes": [
-                {
-                    "id": "da42d228",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Empresas",
-                    "services": []
-                }
-            ]
+            "subthemes": []
         },
         {
             "id": "n1_7",
@@ -253,46 +234,46 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "6a614d5b",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Imóveis",
-                    "services": [
-                        {
-                            "id": "62cff6e3",
-                            "name": "IPTU",
-                            "description": ""
-                        },
-                        {
-                            "id": "818b1581",
-                            "name": "ITBI",
-                            "description": ""
-                        },
-                        {
-                            "id": "a23a6db3",
-                            "name": "Leilão",
-                            "description": ""
-                        },
-                        {
-                            "id": "2df5970a",
-                            "name": "Imóveis protegidos",
-                            "description": ""
-                        },
-                        {
-                            "id": "b59ac0d4",
-                            "name": "Certidões e Documentos",
-                            "description": ""
-                        },
-                        {
-                            "id": "fd2e97f4",
-                            "name": "Fiscalização de imóveis",
-                            "description": ""
-                        },
-                        {
-                            "id": "a8e784ec",
-                            "name": "Usucapião",
-                            "description": ""
-                        }
-                    ]
+                    "id": "62cff6e3",
+                    "name": "IPTU",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "818b1581",
+                    "name": "ITBI",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "a23a6db3",
+                    "name": "Leilão",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "2df5970a",
+                    "name": "Imóveis protegidos",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "b59ac0d4",
+                    "name": "Certidões e Documentos",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "fd2e97f4",
+                    "name": "Fiscalização de imóveis",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "a8e784ec",
+                    "name": "Usucapião",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -302,46 +283,46 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "b1ddc144",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Licenças, Alvarás e Permissões",
-                    "services": [
-                        {
-                            "id": "560a026c",
-                            "name": "Ambientais",
-                            "description": ""
-                        },
-                        {
-                            "id": "81ce01d9",
-                            "name": "Sanitárias",
-                            "description": ""
-                        },
-                        {
-                            "id": "284b04e7",
-                            "name": "Urbanísticas",
-                            "description": ""
-                        },
-                        {
-                            "id": "68106405",
-                            "name": "Publicidades",
-                            "description": ""
-                        },
-                        {
-                            "id": "9c49ea3c",
-                            "name": "Ocupação de área pública",
-                            "description": ""
-                        },
-                        {
-                            "id": "8ff2f7df",
-                            "name": "Atividade econômica",
-                            "description": ""
-                        },
-                        {
-                            "id": "08f375a5",
-                            "name": "Transportes",
-                            "description": ""
-                        }
-                    ]
+                    "id": "560a026c",
+                    "name": "Ambientais",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "81ce01d9",
+                    "name": "Sanitárias",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "284b04e7",
+                    "name": "Urbanísticas",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "68106405",
+                    "name": "Publicidades",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "9c49ea3c",
+                    "name": "Ocupação de área pública",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "8ff2f7df",
+                    "name": "Atividade econômica",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "08f375a5",
+                    "name": "Transportes",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -351,46 +332,46 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "a36b6de9",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Meio Ambiente",
-                    "services": [
-                        {
-                            "id": "e3f5b19c",
-                            "name": "Poluição urbana",
-                            "description": ""
-                        },
-                        {
-                            "id": "96a47137",
-                            "name": "Desmatamento",
-                            "description": ""
-                        },
-                        {
-                            "id": "b672dcc8",
-                            "name": "Arborização",
-                            "description": ""
-                        },
-                        {
-                            "id": "f05fac4a",
-                            "name": "Parques",
-                            "description": ""
-                        },
-                        {
-                            "id": "d46ff03a",
-                            "name": "Fiscalização ambiental",
-                            "description": ""
-                        },
-                        {
-                            "id": "326cf904",
-                            "name": "Educação Ambiental",
-                            "description": ""
-                        },
-                        {
-                            "id": "72c256a0",
-                            "name": "Certificados",
-                            "description": ""
-                        }
-                    ]
+                    "id": "e3f5b19c",
+                    "name": "Poluição urbana",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "96a47137",
+                    "name": "Desmatamento",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "b672dcc8",
+                    "name": "Arborização",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "f05fac4a",
+                    "name": "Parques",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "d46ff03a",
+                    "name": "Fiscalização ambiental",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "326cf904",
+                    "name": "Educação Ambiental",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "72c256a0",
+                    "name": "Certificados",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -400,36 +381,34 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "bbfa2f09",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Ordem pública",
-                    "services": [
-                        {
-                            "id": "51d82383",
-                            "name": "Perturbação do sossego",
-                            "description": ""
-                        },
-                        {
-                            "id": "45c36491",
-                            "name": "Comércio ambulante",
-                            "description": ""
-                        },
-                        {
-                            "id": "79dcc649",
-                            "name": "Estacionamento irregular",
-                            "description": ""
-                        },
-                        {
-                            "id": "11c47510",
-                            "name": "Feiras",
-                            "description": ""
-                        },
-                        {
-                            "id": "f51566ad",
-                            "name": "Fiscalização de área pública",
-                            "description": ""
-                        }
-                    ]
+                    "id": "51d82383",
+                    "name": "Perturbação do sossego",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "45c36491",
+                    "name": "Comércio ambulante",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "79dcc649",
+                    "name": "Estacionamento irregular",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "11c47510",
+                    "name": "Feiras",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "f51566ad",
+                    "name": "Fiscalização de área pública",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -439,36 +418,34 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "2788ae59",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Ouvidoria",
-                    "services": [
-                        {
-                            "id": "196709e6",
-                            "name": "Elogio",
-                            "description": ""
-                        },
-                        {
-                            "id": "fa1fd486",
-                            "name": "Sugestão",
-                            "description": ""
-                        },
-                        {
-                            "id": "5f0284d0",
-                            "name": "Reclamação",
-                            "description": ""
-                        },
-                        {
-                            "id": "25475734",
-                            "name": "Suporte técnico",
-                            "description": ""
-                        },
-                        {
-                            "id": "2b5768db",
-                            "name": "Insatisfação com teleatendimento",
-                            "description": ""
-                        }
-                    ]
+                    "id": "196709e6",
+                    "name": "Elogio",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "fa1fd486",
+                    "name": "Sugestão",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "5f0284d0",
+                    "name": "Reclamação",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "25475734",
+                    "name": "Suporte técnico",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "2b5768db",
+                    "name": "Insatisfação com teleatendimento",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -478,66 +455,70 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "5d3efa40",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Saúde",
-                    "services": [
-                        {
-                            "id": "f1748fd9",
-                            "name": "Atendimento hospitalar / Hospitais",
-                            "description": ""
-                        },
-                        {
-                            "id": "abf27ec2",
-                            "name": "Emergência / UPAs e Centros de Emergência",
-                            "description": ""
-                        },
-                        {
-                            "id": "159798c3",
-                            "name": "Atendimento ambulatorial / Consultas e exames / Clínicas da Família e Postos de Saúde",
-                            "description": ""
-                        },
-                        {
-                            "id": "5de2b063",
-                            "name": "Auxílios em saúde",
-                            "description": ""
-                        },
-                        {
-                            "id": "059b131b",
-                            "name": "Vacinação",
-                            "description": ""
-                        },
-                        {
-                            "id": "f9eed215",
-                            "name": "Gestação e Primeira infância",
-                            "description": ""
-                        },
-                        {
-                            "id": "158f4761",
-                            "name": "Medicamentos",
-                            "description": ""
-                        },
-                        {
-                            "id": "ebd5ee32",
-                            "name": "Dengue",
-                            "description": ""
-                        },
-                        {
-                            "id": "aa167e7f",
-                            "name": "Vigilância Sanitária",
-                            "description": ""
-                        },
-                        {
-                            "id": "4839708e",
-                            "name": "Reabilitação",
-                            "description": ""
-                        },
-                        {
-                            "id": "a3f422a2",
-                            "name": "Programas",
-                            "description": ""
-                        }
-                    ]
+                    "id": "f1748fd9",
+                    "name": "Atendimento hospitalar / Hospitais",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "abf27ec2",
+                    "name": "Emergência / UPAs e Centros de Emergência",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "159798c3",
+                    "name": "Atendimento ambulatorial / Consultas e exames / Clínicas da Família e Postos de Saúde",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "5de2b063",
+                    "name": "Auxílios em saúde",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "059b131b",
+                    "name": "Vacinação",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "f9eed215",
+                    "name": "Gestação e Primeira infância",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "158f4761",
+                    "name": "Medicamentos",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "ebd5ee32",
+                    "name": "Dengue",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "aa167e7f",
+                    "name": "Vigilância Sanitária",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "4839708e",
+                    "name": "Reabilitação",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "a3f422a2",
+                    "name": "Programas",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -547,41 +528,40 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "ec17499d",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Serviços urbanos",
-                    "services": [
-                        {
-                            "id": "3554e0e5",
-                            "name": "Limpeza",
-                            "description": ""
-                        },
-                        {
-                            "id": "bb986be9",
-                            "name": "Conservação",
-                            "description": ""
-                        },
-                        {
-                            "id": "8acf2645",
-                            "name": "Drenagem",
-                            "description": ""
-                        },
-                        {
-                            "id": "8a41ff8f",
-                            "name": "Iluminação pública",
-                            "description": ""
-                        },
-                        {
-                            "id": "d53c14c4",
-                            "name": "Árvores",
-                            "description": ""
-                        },
-                        {
-                            "id": "98d9a8be",
-                            "name": "Serviços funerários",
-                            "description": ""
-                        }
-                    ]
+                    "id": "3554e0e5",
+                    "name": "Limpeza",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "bb986be9",
+                    "name": "Conservação",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "8acf2645",
+                    "name": "Drenagem",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "8a41ff8f",
+                    "name": "Iluminação pública",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "d53c14c4",
+                    "name": "Árvores",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "98d9a8be",
+                    "name": "Serviços funerários",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -591,26 +571,22 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "efa0479a",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Defesa Civil",
-                    "services": [
-                        {
-                            "id": "90cd954d",
-                            "name": "Vistorias",
-                            "description": ""
-                        },
-                        {
-                            "id": "db0f70ab",
-                            "name": "Participação e Prevenção",
-                            "description": ""
-                        },
-                        {
-                            "id": "8e3dc50c",
-                            "name": "Interdição e Desinterdição",
-                            "description": ""
-                        }
-                    ]
+                    "id": "90cd954d",
+                    "name": "Vistorias",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "db0f70ab",
+                    "name": "Participação e Prevenção",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "8e3dc50c",
+                    "name": "Interdição e Desinterdição",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -620,31 +596,28 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "5d3245d9",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Trabalho",
-                    "services": [
-                        {
-                            "id": "20c93976",
-                            "name": "Pessoa Jurídica e Autônomo / Empresas",
-                            "description": ""
-                        },
-                        {
-                            "id": "2075c0d2",
-                            "name": "Emprego formal",
-                            "description": ""
-                        },
-                        {
-                            "id": "864e17df",
-                            "name": "Estágio",
-                            "description": ""
-                        },
-                        {
-                            "id": "b30a8a2c",
-                            "name": "Empreendedorismo",
-                            "description": ""
-                        }
-                    ]
+                    "id": "20c93976",
+                    "name": "Pessoa Jurídica e Autônomo / Empresas",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "2075c0d2",
+                    "name": "Emprego formal",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "864e17df",
+                    "name": "Estágio",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "b30a8a2c",
+                    "name": "Empreendedorismo",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -654,36 +627,34 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "d480389e",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Trânsito",
-                    "services": [
-                        {
-                            "id": "ac978a4f",
-                            "name": "Estacionamento",
-                            "description": ""
-                        },
-                        {
-                            "id": "ea05264b",
-                            "name": "Placas e sinal de trânsito",
-                            "description": ""
-                        },
-                        {
-                            "id": "3c045fa8",
-                            "name": "Multas",
-                            "description": ""
-                        },
-                        {
-                            "id": "fded1180",
-                            "name": "Fiscalização eletrônica",
-                            "description": ""
-                        },
-                        {
-                            "id": "540a06d4",
-                            "name": "Carteira Digital de Trânsito",
-                            "description": ""
-                        }
-                    ]
+                    "id": "ac978a4f",
+                    "name": "Estacionamento",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "ea05264b",
+                    "name": "Placas e sinal de trânsito",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "3c045fa8",
+                    "name": "Multas",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "fded1180",
+                    "name": "Fiscalização eletrônica",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "540a06d4",
+                    "name": "Carteira Digital de Trânsito",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -693,26 +664,22 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "9365f800",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Transparência",
-                    "services": [
-                        {
-                            "id": "e65460cb",
-                            "name": "Anticorrupção",
-                            "description": ""
-                        },
-                        {
-                            "id": "9edfb593",
-                            "name": "Acesso à Informação (LAI)",
-                            "description": ""
-                        },
-                        {
-                            "id": "08818037",
-                            "name": "Proteção de dados (LGPD)",
-                            "description": ""
-                        }
-                    ]
+                    "id": "e65460cb",
+                    "name": "Anticorrupção",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "9edfb593",
+                    "name": "Acesso à Informação (LAI)",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "08818037",
+                    "name": "Proteção de dados (LGPD)",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -722,61 +689,64 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "349e16be",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Transporte",
-                    "services": [
-                        {
-                            "id": "e7beebbe",
-                            "name": "Ônibus",
-                            "description": ""
-                        },
-                        {
-                            "id": "82d3025d",
-                            "name": "BRT",
-                            "description": ""
-                        },
-                        {
-                            "id": "16a800d7",
-                            "name": "Vans e kombis",
-                            "description": ""
-                        },
-                        {
-                            "id": "06b773c5",
-                            "name": "Transporte escolar",
-                            "description": ""
-                        },
-                        {
-                            "id": "e22863c2",
-                            "name": "VLT",
-                            "description": ""
-                        },
-                        {
-                            "id": "719257a9",
-                            "name": "Táxi",
-                            "description": ""
-                        },
-                        {
-                            "id": "468a57af",
-                            "name": "Bicicletas",
-                            "description": ""
-                        },
-                        {
-                            "id": "dd5e68a0",
-                            "name": "Jaé",
-                            "description": ""
-                        },
-                        {
-                            "id": "9d0c8ee1",
-                            "name": "Gratuidade",
-                            "description": ""
-                        },
-                        {
-                            "id": "f1df573c",
-                            "name": "Tarifas",
-                            "description": ""
-                        }
-                    ]
+                    "id": "e7beebbe",
+                    "name": "Ônibus",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "82d3025d",
+                    "name": "BRT",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "16a800d7",
+                    "name": "Vans e kombis",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "06b773c5",
+                    "name": "Transporte escolar",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "e22863c2",
+                    "name": "VLT",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "719257a9",
+                    "name": "Táxi",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "468a57af",
+                    "name": "Bicicletas",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "dd5e68a0",
+                    "name": "Jaé",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "9d0c8ee1",
+                    "name": "Gratuidade",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "f1df573c",
+                    "name": "Tarifas",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -786,26 +756,22 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "04089745",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Tributos",
-                    "services": [
-                        {
-                            "id": "64f1df91",
-                            "name": "Dívida Ativa",
-                            "description": ""
-                        },
-                        {
-                            "id": "cb0c497e",
-                            "name": "ISS",
-                            "description": ""
-                        },
-                        {
-                            "id": "ef4ce6a7",
-                            "name": "Nota Carioca",
-                            "description": ""
-                        }
-                    ]
+                    "id": "64f1df91",
+                    "name": "Dívida Ativa",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "cb0c497e",
+                    "name": "ISS",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "ef4ce6a7",
+                    "name": "Nota Carioca",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -815,31 +781,28 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "cebc45ab",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Turismo e Eventos",
-                    "services": [
-                        {
-                            "id": "e4189eb1",
-                            "name": "Transporte",
-                            "description": ""
-                        },
-                        {
-                            "id": "b728ab87",
-                            "name": "Saúde",
-                            "description": ""
-                        },
-                        {
-                            "id": "13c6971a",
-                            "name": "Turismo pela cidade",
-                            "description": ""
-                        },
-                        {
-                            "id": "2770ea7f",
-                            "name": "Grandes eventos",
-                            "description": ""
-                        }
-                    ]
+                    "id": "e4189eb1",
+                    "name": "Transporte",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "b728ab87",
+                    "name": "Saúde",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "13c6971a",
+                    "name": "Turismo pela cidade",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "2770ea7f",
+                    "name": "Grandes eventos",
+                    "description": "",
+                    "services": []
                 }
             ]
         },
@@ -849,26 +812,22 @@
             "description": "",
             "subthemes": [
                 {
-                    "id": "aca4e614",
-                    "name": "Geral",
-                    "description": "Serviços gerais de Carnaval",
-                    "services": [
-                        {
-                            "id": "2dde35c6",
-                            "name": "Blocos de rua",
-                            "description": ""
-                        },
-                        {
-                            "id": "152038a9",
-                            "name": "Trabalhadores do Carnaval",
-                            "description": ""
-                        },
-                        {
-                            "id": "cab0d022",
-                            "name": "Desfiles na Sapucaí",
-                            "description": ""
-                        }
-                    ]
+                    "id": "2dde35c6",
+                    "name": "Blocos de rua",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "152038a9",
+                    "name": "Trabalhadores do Carnaval",
+                    "description": "",
+                    "services": []
+                },
+                {
+                    "id": "cab0d022",
+                    "name": "Desfiles na Sapucaí",
+                    "description": "",
+                    "services": []
                 }
             ]
         }

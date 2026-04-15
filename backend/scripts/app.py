@@ -51,6 +51,19 @@ def save_data():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/api/restore-original", methods=["POST"])
+def restore_original():
+    import backend.scripts.servicos_organizacao as servicos_org
+    try:
+        success = servicos_org.restore_original_data()
+        if success:
+            items = servicos_org.extract_servicos()
+            return jsonify({"items": [item.model_dump() for item in items]})
+        else:
+            return jsonify({"error": "Backup original não encontrado"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route("/api/ai/generate-description", methods=["POST"])
 def ai_generate_description():
     import backend.scripts.ai_service as ai_service
