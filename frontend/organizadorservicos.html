@@ -168,7 +168,17 @@
 
         .item:hover { border-color: var(--accent); background: var(--accent-light); }
         .item.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 4px 12px rgba(0,74,128,0.2); }
-        .item.drag-over { border-color: var(--orange); border-width: 2px; background: #fff7ed; }
+        .item.drag-over { 
+            border-color: var(--accent) !important; 
+            border-width: 2px !important; 
+            background: var(--accent-light) !important; 
+            box-shadow: 0 0 0 4px var(--accent-glow) !important;
+            transform: scale(1.02);
+            z-index: 10;
+        }
+
+        /* Esconde o "espaço vazio" (ghost) quando arrastamos um subtema para a coluna de temas */
+        #list-themes .sortable-ghost { display: none !important; }
         
         .item-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
         .item.active .item-icon { color: white; }
@@ -460,6 +470,21 @@
             div.dataset.id = item.id;
             div.dataset.type = type;
             
+            // Eventos nativos para o destaque "estilo pasta"
+            if (type === 'theme') {
+                div.ondragover = (e) => {
+                    e.preventDefault();
+                    div.classList.add('drag-over');
+                    activeDropTargetId = item.id;
+                };
+                div.ondragleave = () => {
+                    div.classList.remove('drag-over');
+                };
+                div.ondrop = () => {
+                    div.classList.remove('drag-over');
+                };
+            }
+
             let icon = 'fa-layer-group';
             if (type === 'subtheme') icon = 'fa-folder-tree';
             if (type === 'service') icon = 'fa-circle-dot';
@@ -473,38 +498,47 @@
         }
 
         // SORTABLES & DRAG LOGIC
+        let activeDropTargetId = null;
+
         function initSortableThemes() {
             const el = document.getElementById('list-themes');
             if (el.sortable) el.sortable.destroy();
             el.sortable = new Sortable(el, {
-                group: { name: 'themes', put: ['subthemes'] }, // Permite receber subtemas
+                group: { name: 'themes', put: ['subthemes'] },
                 animation: 150,
                 onEnd: (evt) => {
-                    const ids = Array.from(el.children).filter(c => c.dataset.type === 'theme').map(c => c.dataset.id);
-                    appData = ids.map(id => appData.find(t => t.id === id));
+                    document.querySelectorAll('#list-themes .item').forEach(i => i.classList.remove('drag-over'));
+                    // Se for reordenação de temas (mesma lista)
+                    if (evt.from === evt.to && evt.item.dataset.type === 'theme') {
+                        const ids = Array.from(el.children).filter(c => c.dataset.type === 'theme').map(c => c.dataset.id);
+                        appData = ids.map(id => appData.find(t => t.id === id));
+                    }
                 },
                 onAdd: (evt) => {
-                    // Quando um subtema é arrastado da Col 2 para a Col 1
+                    // Quando um subtema é "solto" na coluna de temas
                     const subId = evt.item.dataset.id;
                     const fromTheme = appData.find(t => t.id === selectedThemeId);
                     const subIndex = fromTheme.subthemes.findIndex(s => s.id === subId);
                     const subthemeObj = fromTheme.subthemes.splice(subIndex, 1)[0];
                     
-                    // Encontra o tema de destino baseado em onde foi solto
-                    const targetIdx = evt.newIndex;
-                    const targetTheme = appData[targetIdx];
+                    // Usa o alvo capturado pelos eventos nativos
+                    const targetTheme = appData.find(t => t.id === activeDropTargetId);
                     
                     if (targetTheme && targetTheme.id !== fromTheme.id) {
                         targetTheme.subthemes.push(subthemeObj);
                         showToast(`Movido para ${targetTheme.name}`, 'success');
                     } else {
-                        // Se soltou no vácuo ou no mesmo tema, volta para o original
                         fromTheme.subthemes.splice(subIndex, 0, subthemeObj);
                         showToast('Movimentação cancelada', 'error');
                     }
                     
+                    // Cleanup visual
+                    evt.item.remove();
+                    document.querySelectorAll('#list-themes .item').forEach(i => i.classList.remove('drag-over'));
+                    
                     renderThemes();
                     renderSubthemes();
+                    activeDropTargetId = null;
                 }
             });
         }
