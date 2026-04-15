@@ -228,6 +228,21 @@
         .form-input:focus, .form-textarea:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px var(--accent-light); }
 
         .ai-btn-wrapper { display: flex; justify-content: space-between; align-items: center; }
+
+        /* FOOTER */
+        .app-footer {
+            padding: 1.5rem;
+            text-align: center;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            margin-top: auto;
+        }
+        .footer-text {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-sub);
+            letter-spacing: 0.02em;
+        }
         
         /* UTILS */
         .badge-type { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; color: var(--text-sub); margin-bottom: 0.25rem; }
@@ -722,5 +737,8 @@
 
         document.addEventListener('DOMContentLoaded', loadData);
     </script>
+    <footer class="app-footer">
+        <p class="footer-text">Desenvolvido por Patrick Ribeiro e Bruno Barbosa - SUBTD/CRC</p>
+    </footer>
 </body>
 </html>
