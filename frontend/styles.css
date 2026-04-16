@@ -24,6 +24,12 @@
     --prefrio-border: #0284c7;
     --prefrio-text: #0369a1;
     --prefrio-hover-bg: #e0f2fe;
+
+    /* Institutional Gov Tokens */
+    --gov-top-bg: #004a80;
+    --gov-top-text: #ffffff;
+    --gov-header-bg: #ffffff;
+    --gov-border: rgba(0, 74, 128, 0.1);
 }
 
 * {
@@ -37,10 +43,95 @@ body {
     background-color: var(--bg-color);
     color: var(--text-primary);
     -webkit-font-smoothing: antialiased;
-    padding: 2rem;
-    height: 100vh;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Institutional Top Bar */
+.gov-top-bar {
+    background: var(--gov-top-bg);
+    color: var(--gov-top-text);
+    padding: 0.5rem 2rem;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1001;
+}
+
+.gov-top-bar .brand-text {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.gov-top-bar .brand-text span {
+    opacity: 0.8;
+}
+
+.gov-top-bar .official-tag {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.6rem;
+}
+
+/* Main Institutional Header */
+.gov-header {
+    background: var(--gov-header-bg);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--gov-border);
+    box-shadow: 0 4px 12px rgba(0, 74, 128, 0.03);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.gov-branding {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.gov-logo {
+    height: 48px; /* Aumentado levemente para melhor visibilidade do asset 1746 */
+    width: auto;
+    object-fit: contain;
+}
+
+.gov-separator {
+    width: 1px;
+    height: 30px;
+    background: var(--gov-border);
+}
+
+.portal-name {
+    display: flex;
+    flex-direction: column;
+}
+
+.portal-title {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--accent-color);
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+.portal-subtitle {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
 }
 
 /* Header & Tabs */
@@ -128,6 +219,10 @@ h1 {
     flex: 1;
     display: flex;
     flex-direction: column;
+    padding: 3rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .view-section {
@@ -321,19 +416,50 @@ h2 {
 
 /* Footer Styles */
 .app-footer {
-    margin-top: auto;
-    padding: 1.5rem;
+    padding: 3rem 2rem;
     text-align: center;
-    background: var(--surface-color);
-    border: var(--border-main);
-    border-radius: var(--radius-main);
-    box-shadow: var(--shadow-main);
-    margin-top: 2rem;
+    background: #ffffff;
+    border-top: 1px solid var(--gov-border);
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footer-logo {
+    height: 60px;
+    opacity: 0.6;
+    filter: grayscale(1);
+    transition: all 0.3s ease;
+}
+
+.app-footer:hover .footer-logo {
+    opacity: 1;
+    filter: grayscale(0);
+}
+
+.footer-info {
+    max-width: 600px;
 }
 
 .footer-text {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: var(--text-secondary);
     letter-spacing: 0.02em;
+    line-height: 1.6;
+}
+
+.footer-bottom {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    width: 100%;
+}
+
+.footer-copyright {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    font-weight: 500;
 }

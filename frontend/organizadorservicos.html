@@ -277,12 +277,24 @@
     </style>
 </head>
 <body>
+    <div class="gov-top-bar">
+        <div class="brand-text">
+            <strong>RIO</strong> <span>|</span> PREFEITURA
+        </div>
+        <a href="https://www.1746.rio/hc/pt-br" target="_blank" class="official-tag" style="text-decoration: none; color: inherit;">Visitar Site Oficial ➔</a>
+    </div>
 
-    <nav class="navbar">
-        <a href="index.html" class="brand">
-            <i class="fa-solid fa-map-marked-alt"></i>
-            <h1>Gestão de Serviços CRC</h1>
-        </a>
+    <header class="gov-header">
+        <div class="gov-branding">
+            <img class="gov-logo" src="https://www.1746.rio/hc/theming_assets/01K8VJ5HYS34A9B2Q0N4QR6CXJ" alt="Logo Prefeitura">
+            <div class="gov-separator"></div>
+            <a href="index.html" class="brand" style="text-decoration: none;">
+                <div class="portal-name">
+                    <span class="portal-title">CRC</span>
+                    <span class="portal-subtitle">Coordenadoria de Relacionamento com o Cidadão</span>
+                </div>
+            </a>
+        </div>
         <div class="nav-actions">
             <button onclick="restoreOriginal()" class="btn btn-warning">
                 <i class="fa-solid fa-rotate-left"></i> Restaurar Inicial
@@ -294,7 +306,7 @@
                 <i class="fa-solid fa-file-excel"></i> Exportar
             </button>
         </div>
-    </nav>
+    </header>
 
     <main class="main-container">
         <div class="column-system">
@@ -738,7 +750,14 @@
         document.addEventListener('DOMContentLoaded', loadData);
     </script>
     <footer class="app-footer">
-        <p class="footer-text">Desenvolvido por Patrick Ribeiro e Bruno Barbosa - SUBTD/CRC</p>
+        <img class="footer-logo" src="https://www.1746.rio/hc/theming_assets/01K8VJ5HYS34A9B2Q0N4QR6CXJ" alt="Logo Prefeitura">
+        <div class="footer-info">
+            <p class="footer-text">O Organizador de Serviços CRC permite a gestão dinâmica da hierarquia municipal. Todas as alterações são sincronizadas com a base de dados central SGRC/Prefrio.</p>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-text">Desenvolvido por SUBTD/CRC</p>
+            <p class="footer-copyright">© 2026 Prefeitura do Rio de Janeiro</p>
+        </div>
     </footer>
 </body>
 </html>

@@ -98,20 +98,31 @@
         }
 
         @media print {
-            .app-header, .app-footer, .print-actions { display: none !important; }
+            .gov-top-bar, .gov-header, .app-footer, .print-actions { display: none !important; }
             .result-container { box-shadow: none; border: none; margin: 0; padding: 0; width: 100%; max-width: 100%; }
         }
     </style>
 </head>
 <body>
-    <header class="app-header">
-        <div class="logo-area">
-            <div class="logo-chip">IA CONSULTORIA</div>
-            <h1>Parecer Técnico do Contrato</h1>
+    <div class="gov-top-bar">
+        <div class="brand-text">
+            <strong>RIO</strong> <span>|</span> PREFEITURA
         </div>
-        <nav class="print-actions">
-            <a href="analisecontrato.html" class="primary-btn" style="text-decoration: none; border-color: #ddd; background: white; color: #333;">Novo Upload</a>
-            <button onclick="window.print()" class="print-btn">🖨️ Imprimir Parecer</button>
+        <a href="https://www.1746.rio/hc/pt-br" target="_blank" class="official-tag" style="text-decoration: none; color: inherit;">Visitar Site Oficial ➔</a>
+    </div>
+
+    <header class="gov-header">
+        <div class="gov-branding">
+            <img class="gov-logo" src="https://www.1746.rio/hc/theming_assets/01K8VJ5HYS34A9B2Q0N4QR6CXJ" alt="Logo Prefeitura">
+            <div class="gov-separator"></div>
+            <div class="portal-name">
+                <span class="portal-title">CRC</span>
+                <span class="portal-subtitle">Coordenadoria de Relacionamento com o Cidadão</span>
+            </div>
+        </div>
+        <nav class="print-actions" style="display: flex; gap: 1rem;">
+            <a href="analisecontrato.html" class="primary-btn" style="text-decoration: none; border-color: #ddd; background: white; color: #333; padding: 0.5rem 1rem; font-size: 0.75rem;">Novo Upload</a>
+            <button onclick="window.print()" class="print-btn" style="padding: 0.5rem 1rem; font-size: 0.75rem;">🖨️ Imprimir</button>
         </nav>
     </header>
 
@@ -132,7 +143,14 @@
     </main>
 
     <footer class="app-footer">
-        <p>Desenvolvido por Patrick Ribeiro e Bruno Barbosa - SUBTD/CRC</p>
+        <img class="footer-logo" src="https://www.1746.rio/hc/theming_assets/01K8VJ5HYS34A9B2Q0N4QR6CXJ" alt="Logo Prefeitura">
+        <div class="footer-info">
+            <p class="footer-text">O Parecer Técnico gerado por IA deve ser revisado por um fiscal competente. Esta ferramenta auxilia na identificação célere de cláusulas e riscos, mas não substitui o juízo humano.</p>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-text">Desenvolvido por SUBTD/CRC</p>
+            <p class="footer-copyright">© 2026 Prefeitura do Rio de Janeiro</p>
+        </div>
     </footer>
 
     <script>
