@@ -259,13 +259,8 @@ def standardize_service():
         prompt_id = f"prompt_{tipo}" if tipo in ['servico', 'informacao'] else "prompt_servico"
         regras = get_prompt(prompt_id, "Aja como um especialista em redação oficial e simplificação de serviços públicos.")
         
-        # Constrói o prompt final
-        if tipo == 'informacao':
-            instrucao_saida = "Retorne APENAS um JSON com os campos: o_que_e, como_funciona, publico_alvo, informacoes_importantes."
-        else:
-            instrucao_saida = "Retorne APENAS um JSON com os campos de padronização definidos nas regras (descricao_resumida, descricao_completa, etc)."
-            
-        prompt = f"{regras}\n\nTexto de Entrada:\n{data['text']}\n\n{instrucao_saida}\n\nOBS: Traga a resposta estritamente em um bloco JSON markdown."
+        # Constrói o prompt final respeitando as regras do arquivo .md
+        prompt = f"{regras}\n\nTexto de Entrada:\n{data['text']}\n\nIMPORTANTE: Siga rigorosamente o formato de saída especificado nas regras acima."
         
         response = client.models.generate_content(model=gemini_model, contents=prompt)
         text_response = response.text

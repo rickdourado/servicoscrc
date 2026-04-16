@@ -419,10 +419,10 @@
                 card.className = 'result-card';
                 card.innerHTML = `
                     <div class="result-header">
-                        \${fieldAppMap[key] || key}
+                        ${fieldAppMap[key] || key}
                         <span class="copy-tag" onclick="copyToClipboard(event)">Copiar</span>
                     </div>
-                    <div class="result-body">\${res[key]}</div>
+                    <div class="result-body">${res[key]}</div>
                 `;
                 area.appendChild(card);
             });
