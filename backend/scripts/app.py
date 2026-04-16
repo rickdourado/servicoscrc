@@ -12,8 +12,9 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 FRONTEND_DIR = BASE_DIR / "frontend"
 SERVICOS_JSON = BASE_DIR / "backend" / "data" / "servicos.json"
-PROMPTS_DIR = BASE_DIR / "backend" / "prompts"
-TEMP_DIR = BASE_DIR / "backend" / "temp"
+PROMPTS_DIR   = BASE_DIR / "backend" / "prompts"
+CONTRACTS_DIR = PROMPTS_DIR  # contratos .md ficam em prompts/<contrato_id>/
+TEMP_DIR      = BASE_DIR / "backend" / "temp"
 
 # Cria pasta temporária se não existir
 os.makedirs(TEMP_DIR, exist_ok=True)
@@ -25,21 +26,87 @@ CORS(app)
 # Detecta se está em Modo Produção (para desabilitar IA pesada se necessário)
 IS_PRODUCTION = os.environ.get("IS_PRODUCTION", "false").lower() == "true"
 
-def get_prompt(filename: str, default_text: str) -> str:
-    """Carrega um prompt do diretório de prompts ou retorna um padrão."""
+def get_prompt(filename: str, default_text: str, contract_id: str | None = None) -> str:
+    """
+    Carrega um prompt do diretório de prompts.
+    Se `contract_id` for fornecido, busca em prompts/<contract_id>/.
+    Caso contrário, busca na raiz de prompts/.
+    """
     if not filename.endswith(".md"):
         filename = f"{filename}.md"
-    
-    path = PROMPTS_DIR / filename
+
+    if contract_id:
+        path = PROMPTS_DIR / contract_id / filename
+    else:
+        path = PROMPTS_DIR / filename
+
     if path.exists():
         try:
             return path.read_text(encoding="utf-8")
         except Exception as e:
-            print(f"⚠️ Erro ao ler arquivo de prompt {filename}: {e}")
+            print(f"Aviso: Erro ao ler prompt {filename}: {e}")
     else:
-        print(f"⚠️ Prompt não encontrado: {path}")
-        
+        print(f"Aviso: Prompt nao encontrado: {path}")
+
     return default_text
+
+
+def get_contract_context(contract_id: str) -> str:
+    """
+    Carrega o arquivo .md do contrato anonimizado como contexto para a IA.
+    Busca o primeiro .md que contenha 'ANONIMIZADO' em prompts/<contract_id>/.
+    """
+    folder = PROMPTS_DIR / contract_id
+    if not folder.is_dir():
+        return ""
+
+    candidates = sorted(folder.glob("*ANONIMIZADO*.md"))
+    if not candidates:
+        # Fallback: qualquer .md que não seja prompt de instrução
+        candidates = [f for f in folder.glob("*.md")
+                      if not f.stem.startswith("prompt_")]
+
+    if not candidates:
+        return ""
+
+    try:
+        content = candidates[0].read_text(encoding="utf-8")
+        # Limita a 60.000 chars para não estourar a janela de contexto
+        if len(content) > 60_000:
+            content = content[:60_000] + "\n\n[... conteúdo truncado por limite de contexto ...]"
+        return content
+    except Exception as e:
+        print(f"Aviso: Erro ao ler contrato base {candidates[0]}: {e}")
+        return ""
+
+
+def list_available_contracts() -> list[dict]:
+    """
+    Retorna os contratos disponíveis: subpastas de PROMPTS_DIR que contenham
+    ao menos um arquivo *ANONIMIZADO*.md.
+    """
+    contracts = []
+    if not PROMPTS_DIR.is_dir():
+        return contracts
+
+    # Mapeamento de IDs para nomes amigáveis (adicionar novos contratos aqui)
+    contract_labels = {
+        "czrm": "Contrato CZRM — Empresa Municipal de Informática (IPLANRIO)",
+    }
+
+    for subfolder in sorted(PROMPTS_DIR.iterdir()):
+        if not subfolder.is_dir():
+            continue
+        has_contract = any(subfolder.glob("*ANONIMIZADO*.md"))
+        if not has_contract:
+            continue
+        cid = subfolder.name
+        contracts.append({
+            "id": cid,
+            "label": contract_labels.get(cid, cid.upper()),
+        })
+
+    return contracts
 
 @app.route("/")
 def serve_index():
@@ -99,53 +166,81 @@ def anonymize_contract():
 
 @app.route("/api/analyze-text", methods=["POST"])
 def analyze_text():
-    """Analisa o texto de um contrato usando Gemini com um prompt selecionado."""
+    """Analisa o texto de um relatório usando Gemini com prompt + contrato base como contexto."""
     from google import genai
-    
+
     data = request.get_json()
     if not data or "text" not in data:
-        return jsonify({"error": "Texto não fornecido"}), 400
-        
+        return jsonify({"error": "Texto nao fornecido"}), 400
+
     api_key = os.environ.get("GEMINI_API_KEY")
     gemini_model = os.environ.get("GEMINI_MODEL", "gemini-2.0-flash")
     if not api_key:
-        return jsonify({"error": "GEMINI_API_KEY não configurada"}), 500
-        
-    prompt_type = data.get("prompt_type", "prompt_generico")
-    
+        return jsonify({"error": "GEMINI_API_KEY nao configurada"}), 500
+
+    prompt_type  = data.get("prompt_type", "prompt_generico")
+    contract_id  = data.get("contract_id", "czrm")   # novo campo
+
     try:
         client = genai.Client(api_key=api_key)
-        
-        base_prompt = get_prompt(prompt_type, 
-            "Você é um especialista jurídico e de gestão de contratos do CRC. "
-            "Analise o texto abaixo e extraia os pontos principais."
+
+        # Carrega instrução do prompt (busca na pasta do contrato)
+        base_prompt = get_prompt(
+            prompt_type,
+            "Voce e um especialista juridico e de gestao de contratos do CRC. "
+            "Analise o texto abaixo e extraia os pontos principais.",
+            contract_id=contract_id,
         )
-        
-        prompt = f"{base_prompt}\n\nTexto para Análise:\n{data['text']}"
+
+        # Injeta o contrato anonimizado como contexto de referência
+        contract_context = get_contract_context(contract_id)
+        if contract_context:
+            context_block = (
+                "\n\n---\n"
+                "## CONTRATO BASE DE REFERENCIA\n"
+                "O documento abaixo é o contrato anonimizado que deve ser usado "
+                "como referência para interpretar o relatório mensalsubmetido:\n\n"
+                + contract_context
+                + "\n\n---\n"
+            )
+        else:
+            context_block = ""
+
+        # Monta o prompt final
+        prompt = (
+            base_prompt
+            + context_block
+            + "\n\n## RELATORIO MENSAL PARA ANALISE:\n"
+            + data["text"]
+        )
+
         response = client.models.generate_content(model=gemini_model, contents=prompt)
-        
         return jsonify({"result": response.text})
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/api/contracts", methods=["GET"])
+def api_list_contracts():
+    """Retorna os contratos base disponíveis para análise."""
+    return jsonify({"contracts": list_available_contracts()})
+
+
 @app.route("/api/get-prompts", methods=["GET"])
 def list_prompts():
-    """Retorna a lista de prompts disponíveis e seus conteúdos."""
-    # Mapeamento de IDs internos para Labels de interface
+    """Retorna a lista de prompts disponíveis para um contrato."""
+    contract_id = request.args.get("contract_id", "czrm")
+
     available_prompts = {
-        "prompt_generico": "Análise Completa (Padrão)",
-        "prompt_conciso": "Análise Executiva (Resumida)",
-        "prompt_ti": "Análise Técnica (TI)"
+        "prompt_generico": "Analise Completa (Padrao)",
+        "prompt_conciso":  "Analise Executiva (Resumida)",
+        "prompt_ti":       "Analise Tecnica (TI)",
     }
     result = []
     for prompt_id, label in available_prompts.items():
-        # get_prompt agora lida com o .md automaticamente
-        content = get_prompt(prompt_id, "Conteúdo não disponível.")
-        result.append({
-            "id": prompt_id,
-            "label": label,
-            "content": content
-        })
+        content = get_prompt(prompt_id, "Conteudo nao disponivel.", contract_id=contract_id)
+        result.append({"id": prompt_id, "label": label, "content": content})
+
     return jsonify({"prompts": result})
 
 @app.route("/api/standardize", methods=["POST"])

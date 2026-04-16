@@ -242,8 +242,8 @@
     <main class="app-main">
         <div class="contract-container">
             <div class="preview-header">
-                <h2>Envio de Documento</h2>
-                <p class="subtitle">Faça o upload do contrato (PDF/DOC) para detecção de irregularidades e anonimização automática.</p>
+                <h2>Envio de Relatório Mensal</h2>
+                <p class="subtitle">Faça o upload do relatório mensal de execução (PDF) para análise detalhada com base no contrato selecionado.</p>
             </div>
 
             <!-- Upload Area -->
@@ -272,6 +272,26 @@
                 <div id="anonymizedPreview" contenteditable="true" style="display: none; width: 100%; min-height: 300px; max-height: 500px; overflow-y: auto; border-radius: var(--radius-small); padding: 2rem; background: #fff; border: 1px solid #ddd; font-family: 'Inter', sans-serif; white-space: pre-wrap;"></div>
                 
                 <div class="preview-header" style="margin-top: 3rem; border-top: 1px solid #eee; padding-top: 2rem;">
+                    <h2>Selecione o Contrato Base</h2>
+                    <p class="subtitle">O contrato selecionado servirá como <b>contexto de referência</b> para a análise da IA.</p>
+                </div>
+
+                <div id="contractSelectorWrapper" style="margin-bottom: 2rem;">
+                    <select id="contractSelector" style="
+                        width: 100%; padding: 0.9rem 1rem;
+                        font-size: 0.95rem; font-family: 'Inter', sans-serif; font-weight: 600;
+                        border: 2px solid var(--border-color); border-radius: var(--radius-small);
+                        background: #fff; color: var(--text-primary); cursor: pointer; outline: none;
+                        transition: all 0.2s ease;
+                    ">
+                        <option value="" disabled selected>Carregando contratos disponíveis...</option>
+                    </select>
+                    <p style="margin: 0.5rem 0 0; font-size: 0.78rem; color: var(--text-gray);">
+                        ⚠️ O contrato será usado em modo anonimizado — nenhum dado sensível é exposto à IA.
+                    </p>
+                </div>
+
+                <div class="preview-header" style="border-top: 1px solid #eee; padding-top: 2rem;">
                     <h2>Escolha o Tipo de Análise</h2>
                     <p class="subtitle">Selecione o relatório que deseja gerar baseado nas instruções pré-definidas (Prompts).</p>
                 </div>
@@ -410,7 +430,8 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
                         text: anonymizedText,
-                        prompt_type: promptType 
+                        prompt_type: promptType,
+                        contract_id: document.getElementById('contractSelector')?.value || 'czrm'
                     })
                 });
                 
@@ -428,6 +449,34 @@
         }
 
         document.getElementById('cancelBtn').onclick = () => window.location.reload();
+
+        // Carrega os contratos disponíveis na API
+        async function loadContracts() {
+            try {
+                const res = await fetch(`${BASE_URL}/api/contracts`);
+                const data = await res.json();
+                const sel = document.getElementById('contractSelector');
+                sel.innerHTML = '';
+
+                if (!data.contracts || data.contracts.length === 0) {
+                    sel.innerHTML = '<option value="" disabled selected>Nenhum contrato disponível</option>';
+                    return;
+                }
+
+                data.contracts.forEach((c, i) => {
+                    const opt = document.createElement('option');
+                    opt.value = c.id;
+                    opt.textContent = c.label;
+                    if (i === 0) opt.selected = true;
+                    sel.appendChild(opt);
+                });
+            } catch (e) {
+                console.warn('Nao foi possivel carregar contratos:', e);
+            }
+        }
+
+        // Inicializa ao carregar a pagina
+        loadContracts();
     </script>
     <footer class="app-footer">
         <img class="footer-logo" src="https://www.1746.rio/hc/theming_assets/01K8VJ5HYS34A9B2Q0N4QR6CXJ" alt="Logo Prefeitura">
