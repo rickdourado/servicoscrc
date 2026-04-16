@@ -175,34 +175,10 @@
         }
 
         function applyOfflineLock() {
-            const card  = document.getElementById('card-contratos');
-            const desc  = document.getElementById('card-contratos-desc');
-            const badge = document.getElementById('card-contratos-badge');
-            const icon  = card.querySelector('.module-icon');
-
-            // Estilo visual de "bloqueado"
-            card.style.opacity       = '0.55';
-            card.style.cursor        = 'not-allowed';
-            card.style.filter        = 'grayscale(60%)';
-            card.style.pointerEvents = 'auto'; // mantém o clique para mostrar mensagem
-            card.dataset.locked      = 'true';
-
-            icon.textContent = '🔒';
-            desc.textContent = 'Disponível apenas no modo offline por medidas de segurança. Execute o sistema localmente para analisar contratos.';
-
-            // Badge de aviso
-            badge.style.display    = 'inline-block';
-            badge.textContent      = 'Apenas Offline';
-            badge.style.cssText   += `
-                margin-top: 0.8rem;
-                padding: 3px 10px;
-                border-radius: 20px;
-                font-size: 0.72rem;
-                font-weight: 700;
-                background: #fef3c7;
-                color: #92400e;
-                border: 1px solid #fcd34d;
-            `;
+            const card = document.getElementById('card-contratos');
+            if (card) {
+                card.style.display = 'none';
+            }
         }
 
         function handleContractCard() {
