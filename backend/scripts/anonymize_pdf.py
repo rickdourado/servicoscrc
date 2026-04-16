@@ -201,12 +201,16 @@ def redact_images_in_page(page: fitz.Page) -> int:
 #  Funcao principal de anonimizacao                                            #
 # --------------------------------------------------------------------------- #
 
-def anonymize_pdf(input_path: Path, output_suffix: str = "_ANONIMIZADO") -> Path:
+def anonymize_pdf(input_path: Path, output_path: Path | None = None, output_suffix: str = "_ANONIMIZADO") -> Path:
     """
-    Anonimiza o PDF em `input_path` e salva com `output_suffix` no nome.
+    Anonimiza o PDF em `input_path`.
+    Se `output_path` for None, salva em refs/anonimizados/<nome>_ANONIMIZADO.pdf.
     Retorna o caminho do arquivo gerado.
     """
-    output_path = input_path.with_stem(input_path.stem + output_suffix)
+    if output_path is None:
+        anon_dir = Path(__file__).parents[2] / "refs" / "anonimizados"
+        anon_dir.mkdir(parents=True, exist_ok=True)
+        output_path = anon_dir / (input_path.stem + output_suffix + input_path.suffix)
     doc = fitz.open(str(input_path))
 
     total_text = 0
@@ -271,4 +275,4 @@ if __name__ == "__main__":
         print(f"[ERRO] Arquivo nao encontrado: {pdf_path}")
         sys.exit(1)
 
-    anonymize_pdf(pdf_path, output_suffix=args.suffix)
+    anonymize_pdf(pdf_path)

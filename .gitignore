@@ -1,7 +1,17 @@
 .venv/
 __pycache__/
 *.pyc
-refs/PlanilhaGerada.xlsx
 .DS_Store
+
+# Dados e Planilhas geradas
+refs/PlanilhaGerada.xlsx
+
+# Uploads e arquivos temporários do servidor
 backend/temp/
-refs/contratos//.agent/
+
+# Contratos ORIGINAIS - NUNCA devem ser versionados
+refs/contratos/
+
+# PDFs anonimizados são armazenados localmente, não no repositório
+# (apenas os .md extraídos são commitados dentro de backend/prompts/)
+refs/anonimizados/

@@ -173,7 +173,7 @@ if __name__ == "__main__":
     else:
         pdf_path = (
             Path(__file__).parents[2]
-            / "refs" / "contratos" / "ContratoCZRM_ANONIMIZADO.pdf"
+            / "refs" / "anonimizados" / "ContratoCZRM_ANONIMIZADO.pdf"
         )
 
     if not pdf_path.exists():
