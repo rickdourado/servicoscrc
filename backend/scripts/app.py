@@ -117,11 +117,6 @@ def serve_temp(filename):
     """Serve arquivos temporários (PDFs anonimizados)."""
     return send_from_directory(str(TEMP_DIR), filename)
 
-@app.route("/<path:path>")
-def serve_static(path):
-    if os.path.exists(os.path.join(app.static_folder, path)):
-        return send_from_directory(app.static_folder, path)
-    return send_from_directory(app.static_folder, "index.html")
 
 @app.route("/api/servicos-organizacao")
 def get_servicos_organizacao():
@@ -346,6 +341,12 @@ def api_env():
 @app.route("/api/ping")
 def ping():
     return jsonify({"status": "ok"})
+
+@app.route("/<path:path>")
+def serve_static(path):
+    if os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
+    return send_from_directory(app.static_folder, "index.html")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)

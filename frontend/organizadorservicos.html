@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Icons (FontAwesome) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
     
     <style>
         :root {
@@ -231,17 +232,32 @@
 
         /* FOOTER */
         .app-footer {
-            padding: 1.5rem;
+            padding: 0.5rem 1.5rem;
             text-align: center;
             background: var(--surface);
             border-top: 1px solid var(--border);
             margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
         }
         .footer-text {
-            font-size: 0.8rem;
-            font-weight: 600;
+            font-size: 0.7rem;
+            font-weight: 500;
             color: var(--text-sub);
-            letter-spacing: 0.02em;
+            letter-spacing: 0.01em;
+            line-height: 1.2;
+        }
+        .footer-copyright {
+            font-size: 0.6rem;
+            color: #94a3b8;
+            margin-top: 2px;
+        }
+        .footer-bottom {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            align-items: center;
         }
         
         /* UTILS */
@@ -750,10 +766,6 @@
         document.addEventListener('DOMContentLoaded', loadData);
     </script>
     <footer class="app-footer">
-        <img class="footer-logo" src="https://www.1746.rio/hc/theming_assets/01K8VJ5HYS34A9B2Q0N4QR6CXJ" alt="Logo Prefeitura">
-        <div class="footer-info">
-            <p class="footer-text">O Organizador de Serviços CRC permite a gestão dinâmica da hierarquia municipal. Todas as alterações são sincronizadas com a base de dados central SGRC/Prefrio.</p>
-        </div>
         <div class="footer-bottom">
             <p class="footer-text">Desenvolvido por SUBTD/CRC</p>
             <p class="footer-copyright">© 2026 Prefeitura do Rio de Janeiro</p>
