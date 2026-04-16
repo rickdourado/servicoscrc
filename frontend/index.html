@@ -11,23 +11,23 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start; /* Subir o conteúdo */
             flex: 1;
-            gap: 3.5rem;
-            max-width: 1200px; /* Aumentado para suportar 3 cards por linha */
+            gap: 2rem; /* Reduzido de 3.5rem */
+            max-width: 1300px;
             margin: 0 auto;
             text-align: center;
-            padding: 2rem 0;
+            padding: 1rem 0; /* Reduzido de 2rem */
         }
 
         .home-title {
-            font-size: 3rem;
+            font-size: 2.25rem; /* Reduzido de 3rem */
             font-weight: 900;
             color: var(--accent-color);
             text-transform: uppercase;
             letter-spacing: -0.05em;
             text-shadow: 2px 2px 0px rgba(0, 74, 128, 0.15);
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem; /* Reduzido de 1rem */
         }
 
         .home-subtitle {
@@ -38,15 +38,15 @@
 
         .modules-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Reduzido para caber 3 mais facilmente */
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
             width: 100%;
         }
 
-        /* Forçar 3 colunas em telas de desktop para garantir o visual desejado */
+        /* Suporte para 4 colunas em telas grandes */
         @media (min-width: 1024px) {
             .modules-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(4, 1fr);
             }
         }
 
@@ -55,13 +55,13 @@
             border: var(--border-main);
             box-shadow: var(--shadow-main);
             border-radius: var(--radius-main);
-            padding: 3rem 2rem;
+            padding: 2rem 1.5rem;
             text-decoration: none;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 1rem;
             transition: var(--spring-transition, all 0.4s ease);
             color: var(--text-primary);
         }
@@ -78,22 +78,23 @@
         }
 
         .module-icon {
-            font-size: 3.5rem;
+            font-size: 2.5rem;
         }
 
         .module-title {
-            font-size: 1.35rem;
+            font-size: 1.1rem;
             font-weight: 900;
             text-transform: uppercase;
             color: var(--accent-color);
         }
 
         .module-desc {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
             font-weight: 500;
-            line-height: 1.5;
+            line-height: 1.4;
         }
+
     </style>
 </head>
 <body>
@@ -237,9 +238,6 @@
         checkEnvironment();
     </script>
     <footer class="app-footer">
-        <div class="footer-info">
-            <p class="footer-text">Este portal integra ferramentas de inteligência artificial para otimização de fluxos de trabalho da CRC.</p>
-        </div>
         <div class="footer-bottom">
             <p class="footer-text">Desenvolvido por SUBTD/CRC</p>
             <p class="footer-copyright">© 2026 Prefeitura do Rio de Janeiro</p>
