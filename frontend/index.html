@@ -143,14 +143,99 @@
                     <p class="module-desc">Limpeza de textos, resumo informacional e padronização oficial de descrições para o Pref.rio.</p>
                 </a>
 
-                <a href="analisecontrato.html" class="module-card">
+                <div href="analisecontrato.html" class="module-card" id="card-contratos" onclick="handleContractCard()">
                     <div class="module-icon">🛡️</div>
                     <h2 class="module-title">Análise de Contratos</h2>
-                    <p class="module-desc">Extração de texto, anonimização automática de dados sensíveis e análise técnica por IA.</p>
-                </a>
+                    <p class="module-desc" id="card-contratos-desc">Extração de texto, anonimização automática de dados sensíveis e análise técnica por IA.</p>
+                    <span id="card-contratos-badge" style="display:none;"></span>
+                </div>
             </div>
         </div>
     </main>
+
+    <script>
+        // Verifica o ambiente e aplica restrições de acordo
+        async function checkEnvironment() {
+            try {
+                const res  = await fetch('/api/env');
+                const data = await res.json();
+
+                if (data.is_production) {
+                    applyOfflineLock();
+                } else {
+                    // Modo local: card funciona normalmente como link
+                    const card = document.getElementById('card-contratos');
+                    card.style.cursor = 'pointer';
+                }
+            } catch (e) {
+                // Fallback seguro: se nao conseguir checar, bloqueia
+                applyOfflineLock();
+            }
+        }
+
+        function applyOfflineLock() {
+            const card  = document.getElementById('card-contratos');
+            const desc  = document.getElementById('card-contratos-desc');
+            const badge = document.getElementById('card-contratos-badge');
+            const icon  = card.querySelector('.module-icon');
+
+            // Estilo visual de "bloqueado"
+            card.style.opacity       = '0.55';
+            card.style.cursor        = 'not-allowed';
+            card.style.filter        = 'grayscale(60%)';
+            card.style.pointerEvents = 'auto'; // mantém o clique para mostrar mensagem
+            card.dataset.locked      = 'true';
+
+            icon.textContent = '🔒';
+            desc.textContent = 'Disponível apenas no modo offline por medidas de segurança. Execute o sistema localmente para analisar contratos.';
+
+            // Badge de aviso
+            badge.style.display    = 'inline-block';
+            badge.textContent      = 'Apenas Offline';
+            badge.style.cssText   += `
+                margin-top: 0.8rem;
+                padding: 3px 10px;
+                border-radius: 20px;
+                font-size: 0.72rem;
+                font-weight: 700;
+                background: #fef3c7;
+                color: #92400e;
+                border: 1px solid #fcd34d;
+            `;
+        }
+
+        function handleContractCard() {
+            const card = document.getElementById('card-contratos');
+            if (card.dataset.locked === 'true') {
+                // Em modo producao: exibe aviso ao inves de navegar
+                showToast('⚠️ Análise de Contratos disponível apenas no modo offline.');
+                return;
+            }
+            window.location.href = 'analisecontrato.html';
+        }
+
+        function showToast(msg) {
+            let toast = document.getElementById('env-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'env-toast';
+                toast.style.cssText = `
+                    position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+                    background: #1e293b; color: #fff; padding: 0.8rem 1.6rem;
+                    border-radius: 999px; font-size: 0.88rem; font-weight: 600;
+                    box-shadow: 0 8px 32px rgba(0,0,0,0.2); z-index: 9999;
+                    opacity: 0; transition: opacity 0.3s ease;
+                `;
+                document.body.appendChild(toast);
+            }
+            toast.textContent = msg;
+            toast.style.opacity = '1';
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(() => { toast.style.opacity = '0'; }, 3500);
+        }
+
+        checkEnvironment();
+    </script>
     <footer class="app-footer">
         <img class="footer-logo" src="https://www.1746.rio/hc/theming_assets/01K8VJ5HYS34A9B2Q0N4QR6CXJ" alt="Logo Prefeitura">
         <div class="footer-info">

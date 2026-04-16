@@ -337,6 +337,12 @@ def ai_generate_description():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/api/env")
+def api_env():
+    """Expoe o modo de execucao atual (producao ou local) ao frontend."""
+    return jsonify({"is_production": IS_PRODUCTION})
+
+
 @app.route("/api/ping")
 def ping():
     return jsonify({"status": "ok"})
