@@ -95,6 +95,26 @@
             line-height: 1.4;
         }
 
+        .placeholder-card {
+            border: 2px dashed rgba(0, 74, 128, 0.2) !important;
+            background: rgba(255, 255, 255, 0.3) !important;
+            box-shadow: none !important;
+            cursor: default !important;
+            opacity: 0.7;
+        }
+
+        .placeholder-card:hover {
+            transform: translateY(-4px) !important;
+            opacity: 1;
+            background: var(--surface-color) !important;
+            border-color: var(--accent-color) !important;
+        }
+
+        .placeholder-card .module-icon {
+            opacity: 0.5;
+            filter: grayscale(1);
+        }
+
     </style>
 </head>
 <body>
@@ -149,6 +169,12 @@
                     <h2 class="module-title">Análise de Contratos</h2>
                     <p class="module-desc" id="card-contratos-desc">Extração de texto, anonimização automática de dados sensíveis e análise técnica por IA.</p>
                     <span id="card-contratos-badge" style="display:none;"></span>
+                </div>
+
+                <div class="module-card placeholder-card">
+                    <div class="module-icon">➕</div>
+                    <h2 class="module-title" style="color: var(--text-secondary);">Novos Módulos</h2>
+                    <p class="module-desc">Novas automações e ferramentas inteligentes estão sendo preparadas para o CRC.</p>
                 </div>
             </div>
         </div>
