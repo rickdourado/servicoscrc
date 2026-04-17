@@ -214,17 +214,7 @@ funeral de dependente do servidor.
 
 ```json
 {
-  "descricao_resumida": "string (Resumo curto)",
-  "descricao_completa": "string (Markdown estruturado)",
-  "servico_nao_cobre": "string (Lista md)",
-  "tempo_atendimento": "string (Prazo)",
-  "custo": "string (Valor ou Isento)",
-  "resultado_solicitacao": "string (Entrega)",
-  "documentos_necessarios": "string (Lista md)",
-  "instrucoes_solicitante": "string (Lista md ou parágrafos)",
-  "canais_digitais": "string (URLs)",
-  "canais_presenciais": "string (Endereços)",
-  "legislacao_relacionada": "string (Referências)"
+  "descricao_completa": "string (Markdown estruturado, max 1500 chars)"
 }
 ```
 

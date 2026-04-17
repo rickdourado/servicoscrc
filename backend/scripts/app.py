@@ -255,13 +255,44 @@ def standardize_service():
     try:
         client = genai.Client(api_key=api_key)
         
-        # Carrega regras do prompt (get_prompt já adiciona .md)
-        prompt_id = f"prompt_{tipo}" if tipo in ['servico', 'informacao'] else "prompt_servico"
-        regras = get_prompt(prompt_id, "Aja como um especialista em redação oficial e simplificação de serviços públicos.")
+        # Carrega regras do prompt original (servico.md ou informacao.md)
+        # get_prompt já adiciona .md
+        regras = get_prompt(tipo, "Aja como um especialista em redação oficial e simplificação de serviços públicos.")
         
-        # Constrói o prompt final respeitando as regras do arquivo .md
-        prompt = f"{regras}\n\nTexto de Entrada:\n{data['text']}\n\nIMPORTANTE: Siga rigorosamente o formato de saída especificado nas regras acima."
-        
+        # Constrói o prompt final com estrutura JSON explícita conforme ServicosClean/app.py
+        if tipo == 'informacao':
+            prompt = f"{regras}\n\n"
+            prompt += "---\n\n## Conteúdo a Processar\n\n"
+            prompt += f"**Texto de entrada:**\n\n{data['text']}\n\n"
+            prompt += "---\n\n## Instruções de Saída\n\n"
+            prompt += "Retorne APENAS um JSON com os seguintes campos (use os nomes exatos das chaves):\n"
+            prompt += "- `o_que_e`: string (Markdown)\n"
+            prompt += "- `como_funciona`: string (Markdown)\n"
+            prompt += "- `publico_alvo`: string (Markdown)\n"
+            prompt += "- `informacoes_importantes`: string (Markdown)\n\n"
+            prompt += "Se uma informação não estiver disponível, retorne string vazia."
+        else: # servico
+            prompt = f"{regras}\n\n"
+            prompt += "---\n\n## PROMPT PRINCIPAL - PADRONIZAÇÃO DE SERVIÇOS\n\n"
+            prompt += "Siga a estrutura definida nas regras acima para padronizar o serviço.\n\n"
+            prompt += "---\n\n## Serviço a Processar\n\n"
+            prompt += f"**Texto de entrada (texto livre):**\n\n{data['text']}\n\n"
+            prompt += "---\n\n## Instruções\n\n"
+            prompt += "Analise o texto livre acima e extraia/processe as informações para criar uma descrição completa.\n"
+            prompt += "Siga TODAS as regras especificadas.\n\n"
+            prompt += "Retorne APENAS um JSON com os seguintes campos:\n"
+            prompt += "- `descricao_resumida`\n"
+            prompt += "- `descricao_completa` (Texto completo em Markdown conforme regras do servico.md)\n"
+            prompt += "- `servico_nao_cobre`\n"
+            prompt += "- `tempo_atendimento`\n"
+            prompt += "- `custo`\n"
+            prompt += "- `resultado_solicitacao`\n"
+            prompt += "- `documentos_necessarios`\n"
+            prompt += "- `instrucoes_solicitante`\n"
+            prompt += "- `canais_digitais`\n"
+            prompt += "- `canais_presenciais`\n"
+            prompt += "- `legislacao_relacionada`"
+
         response = client.models.generate_content(model=gemini_model, contents=prompt)
         text_response = response.text
         
@@ -276,6 +307,21 @@ def standardize_service():
                 result = json.loads(json_match.group(0))
             else:
                 raise Exception("Não foi possível extrair um JSON válido da resposta da IA.")
+        
+        # Normaliza campos dependendo do tipo (Garante que todas as chaves existam)
+        if tipo == 'informacao':
+            campos = ['o_que_e', 'como_funciona', 'publico_alvo', 'informacoes_importantes']
+        else:
+            campos = [
+                'descricao_resumida', 'descricao_completa', 
+                'servico_nao_cobre', 'tempo_atendimento', 'custo', 'resultado_solicitacao',
+                'documentos_necessarios', 'instrucoes_solicitante',
+                'canais_digitais', 'canais_presenciais', 'legislacao_relacionada'
+            ]
+            
+        for c in campos:
+            if c not in result:
+                result[c] = ''
                 
         return jsonify({"sucesso": True, "resultado": result})
         
