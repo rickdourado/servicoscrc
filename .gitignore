@@ -16,3 +16,4 @@ refs/contratos/
 # (apenas os .md extraídos são commitados dentro de backend/prompts/)
 refs/anonimizados/
 .env
+documentacao/
