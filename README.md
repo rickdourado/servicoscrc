@@ -1,6 +1,6 @@
 # 🏛️ Serviços CRC - Portal de Inteligência e Padronização
 
-> **Modernizando a comunicação pública e a análise contratual da Prefeitura do Rio de Janeiro através de Inteligência Artificial.**
+> **Modernizando a comunicação pública da Prefeitura do Rio de Janeiro através de Inteligência Artificial.**
 
 ---
 
@@ -22,11 +22,7 @@ Módulo avançado que processa descrições brutas e as organiza em um formato e
 - **Campos**: Título, O que é, Para que serve, Público-alvo, Legislação e Canais de Atendimento.
 - **IA**: Utiliza o motor **Gemini 2.0 Flash** com prompts altamente refinados para garantir a fidelidade e a clareza.
 
-### 2. 📝 Análise de Contratos Inteligente
-Sistema de auditoria que compara relatórios mensais de prestação de contas com contratos base anonimizados.
-- **Diferencial**: Identifica discrepâncias, metas não atingidas e pontos de atenção juridicamente relevantes de forma automatizada.
-
-### 3. 📊 Sincronização de Dados (Excel Sync)
+### 2. 📊 Sincronização de Dados (Excel Sync)
 Automação para manter a rastreabilidade entre planilhas legadas (AS-IS) e o novo cenário de serviços (TO-BE), garantindo que nada se perca na transição.
 
 ---
@@ -71,7 +67,6 @@ Acesse em: `http://localhost:8000`
 ## 🛡️ Segurança e Boas Práticas
 
 *   **Proteção de Chaves**: O projeto está configurado para ignorar arquivos `.env`. Caso exponha uma chave acidentalmente, revogue-a imediatamente no painel do Google AI Studio.
-*   **Anonimização**: Dados sensíveis (PII) são filtrados através do módulo `anonymizer.py` antes de serem processados pela IA em ambientes de produção.
 
 ---
 
