@@ -502,10 +502,16 @@
 
             if (tipo === "informacao") {
                 camposOrdem = [
-                    { key: "o_que_e", title: "O que é" },
-                    { key: "como_funciona", title: "Como funciona" },
-                    { key: "publico_alvo", title: "Público-alvo" },
-                    { key: "informacoes_importantes", title: "Informações importantes" }
+                    { key: "titulo_informacao", title: "Título da Informação" },
+                    { key: "descricao_resumida", title: "Descrição Resumida" },
+                    { key: "descricao_completa", title: "Descrição Completa" },
+                    { key: "custo", title: "Custo (se houver)" },
+                    { key: "legislacao_relacionada", title: "Legislação" },
+                    { key: "canais_presenciais", title: "Atendimento Presencial" },
+                    { key: "canais_digitais", title: "Canais Digitais" },
+                    { key: "instrucoes_solicitante", title: "Instruções para o Solicitante" },
+                    { key: "documentos_necessarios", title: "Documentos Necessários" },
+                    { key: "tempo_atendimento", title: "Tempo para Atendimento" }
                 ];
             } else {
                 camposOrdem = [
@@ -533,7 +539,7 @@
 
                 const content = String(v).trim();
                 
-                if (tipo !== "informacao" && c.key === "descricao_completa") {
+                if (c.key === "descricao_completa") {
                     // Descrição Completa é um título principal que já contém subseções
                     md += `## ${c.title}\n\n${content}\n\n`;
                     return;
@@ -589,7 +595,7 @@
             const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
             link.href = url;
-            link.download = "padronizacao_servico.md";
+            link.download = `padronizacao_${currentMode}.md`;
             link.click();
         }
 
@@ -606,7 +612,7 @@
             const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
             link.href = url;
-            link.download = "padronizacao_servico.txt";
+            link.download = `padronizacao_${currentMode}.txt`;
             link.click();
         }
     </script>

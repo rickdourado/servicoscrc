@@ -266,10 +266,16 @@ def standardize_service():
             prompt += f"**Texto de entrada:**\n\n{data['text']}\n\n"
             prompt += "---\n\n## Instruções de Saída\n\n"
             prompt += "Retorne APENAS um JSON com os seguintes campos (use os nomes exatos das chaves):\n"
-            prompt += "- `o_que_e`: string (Markdown)\n"
-            prompt += "- `como_funciona`: string (Markdown)\n"
-            prompt += "- `publico_alvo`: string (Markdown)\n"
-            prompt += "- `informacoes_importantes`: string (Markdown)\n\n"
+            prompt += "- `titulo_informacao`: string\n"
+            prompt += "- `descricao_resumida`: string\n"
+            prompt += "- `descricao_completa`: string (Markdown estruturado)\n"
+            prompt += "- `custo`: string\n"
+            prompt += "- `legislacao_relacionada`: string\n"
+            prompt += "- `canais_presenciais`: string\n"
+            prompt += "- `canais_digitais`: string\n"
+            prompt += "- `instrucoes_solicitante`: string\n"
+            prompt += "- `documentos_necessarios`: string\n"
+            prompt += "- `tempo_atendimento`: string\n\n"
             prompt += "Se uma informação não estiver disponível, retorne string vazia."
         else: # servico
             prompt = f"{regras}\n\n"
@@ -310,7 +316,12 @@ def standardize_service():
         
         # Normaliza campos dependendo do tipo (Garante que todas as chaves existam)
         if tipo == 'informacao':
-            campos = ['o_que_e', 'como_funciona', 'publico_alvo', 'informacoes_importantes']
+            campos = [
+                'titulo_informacao', 'descricao_resumida', 'descricao_completa', 
+                'custo', 'legislacao_relacionada', 'canais_presenciais',
+                'canais_digitais', 'instrucoes_solicitante',
+                'documentos_necessarios', 'tempo_atendimento'
+            ]
         else:
             campos = [
                 'descricao_resumida', 'descricao_completa', 
