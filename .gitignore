@@ -15,3 +15,4 @@ refs/contratos/
 # PDFs anonimizados são armazenados localmente, não no repositório
 # (apenas os .md extraídos são commitados dentro de backend/prompts/)
 refs/anonimizados/
+.env
