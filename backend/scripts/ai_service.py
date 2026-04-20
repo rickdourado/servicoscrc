@@ -9,12 +9,9 @@ GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
 
 def generate_description(item_type, item_name, parent_name=""):
     """
-    Gera uma descrição curta e objetiva usando a API do Gemini.
+    Gera uma descrição curta e objetiva usando a API do Gemini com suporte a rotação de chaves.
     """
-    if not GEMINI_API_KEY:
-        return {"error": "Chave da API do Gemini não configurada."}
-
-    client = genai.Client(api_key=GEMINI_API_KEY)
+    from ai_utils import call_gemini_with_rotation
     
     prompt_context = f"Tema principal: {item_name}" if item_type == "theme" else f"Tema principal: {parent_name}\nSubtema: {item_name}"
     
@@ -30,11 +27,7 @@ Contexto a ser descrito:
 {prompt_context}"""
 
     try:
-        response = client.models.generate_content(
-            model=GEMINI_MODEL,
-            contents=prompt_text
-        )
-        
+        response = call_gemini_with_rotation(prompt_text, model=GEMINI_MODEL)
         return {"description": response.text.strip()}
     except Exception as e:
         return {"error": str(e)}
