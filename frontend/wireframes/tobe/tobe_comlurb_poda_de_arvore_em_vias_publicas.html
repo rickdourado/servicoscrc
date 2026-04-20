@@ -1,39 +1,189 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Poda de árvore em vias públicas - TO BE 1:1</title>
-<style>
-  body { font-family: 'Inter', sans-serif; background: #f8fafc; padding: 20px; }
-  .card { background: white; padding: 30px; border-radius: 8px; border: 1px solid #e2e8f0; max-width: 600px; margin: auto; }
-  h2 { color: #004a80; margin-top: 0; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Chamado — Poda de árvore em vias públicas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #004a80; --primary-light: #e6f0f9; --accent: #f78b1f; --bg: #f8fafc; --surface: #ffffff; --text-dark: #0f172a; --text-gray: #64748b; --border: #e2e8f0; --success: #10b981; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg); color: var(--text-dark); padding: 2rem; display: flex; justify-content: center; }
+        .wizard-container { background: var(--surface); border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); width: 100%; max-width: 600px; overflow: hidden; border: 1px solid var(--border); }
+        .service-title { background: var(--primary-light); color: var(--primary); font-size: 1.15rem; font-weight: 900; padding: 1.25rem 2rem; border-bottom: 1px solid var(--border); text-align: center; text-transform: uppercase; letter-spacing: -0.01em; }
+        .stepper-header { display: flex; justify-content: space-between; padding: 2rem 2rem 1.5rem; border-bottom: 1px solid var(--border); background: #fff; position: relative; }
+        .stepper-progress-bar { position: absolute; top: 50%; left: 3rem; right: 3rem; height: 4px; background: var(--border); z-index: 1; transform: translateY(-50%); }
+        .stepper-progress-fill { position: absolute; top: 0; left: 0; height: 100%; background: var(--primary); width: 0%; transition: width 0.3s ease; }
+        .step-indicator { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; background: #fff; padding: 0 0.5rem; }
+        .step-circle { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.85rem; background: var(--surface); border: 2px solid var(--border); color: var(--text-gray); transition: all 0.2s ease; }
+        .step-indicator.completed .step-circle { background: var(--primary); border-color: var(--primary); color: white; }
+        .step-indicator.active .step-circle { border-color: var(--primary); color: var(--primary); box-shadow: 0 0 0 4px var(--primary-light); }
+        .step-label { font-size: 0.75rem; font-weight: 600; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
+        .step-indicator.active .step-label { color: var(--primary); }
+        .step-content-section { padding: 2.5rem 2rem; display: none; }
+        .step-title { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); margin-bottom: 0.5rem; }
+        .step-subtitle { font-size: 0.95rem; color: var(--text-gray); margin-bottom: 2rem; line-height: 1.5; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-dark); }
+        .form-label span.req { color: #ef4444; margin-left: 2px; }
+        .form-control { width: 100%; padding: 0.875rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; color: var(--text-dark); background: #fff; transition: all 0.2s ease; }
+        .form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); }
+        .wizard-footer { padding: 1.5rem 2rem; background: #f8fafc; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .btn { padding: 0.75rem 1.5rem; border-radius: 8px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: none; }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-gray); }
+        .btn-outline:hover { background: var(--border); color: var(--text-dark); }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 6px -1px rgba(0, 74, 128, 0.2); }
+        .btn-primary:hover { background: #003865; transform: translateY(-1px); }
+    </style>
 </head>
 <body>
-  <div class="card">
-    <h2>Poda de árvore em vias públicas (COMLURB)</h2>
-    <p style="color:#64748b; margin-bottom:20px;">Versão Salesforce 1:1</p>
-    
-        <div style="margin-bottom: 15px;">
-            <label style="display:block; font-weight:bold; margin-bottom:5px;">Identificação </label>
-            <input type="text" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;" />
+    <div class="wizard-container">
+        <div class="service-title">Poda de árvore em vias públicas</div>
+        <div class="stepper-header">
+            <div class="stepper-progress-bar">
+                <div class="stepper-progress-fill"></div>
+            </div>
+            <div class="step-indicator active"><div class="step-circle">1</div><div class="step-label">Local</div></div>
+            <div class="step-indicator"><div class="step-circle">2</div><div class="step-label">Detalhes</div></div>
+            <div class="step-indicator"><div class="step-circle">3</div><div class="step-label">Fotos</div></div>
+            <div class="step-indicator"><div class="step-circle">4</div><div class="step-label">Contato</div></div>
         </div>
-        <div style="margin-bottom: 15px;">
-            <label style="display:block; font-weight:bold; margin-bottom:5px;">Endereço <span style="color:red">*</span></label>
-            <input type="text" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;" />
+
+        <div class="step-content-section" id="step1" style="display: block;">
+            <h2 class="step-title">Onde é o local da ocorrência?</h2>
+            <p class="step-subtitle">Forneça o endereço exato ou clique no mapa para marcar a localização.</p>
+
+            <div class="form-group">
+                <label class="form-label">Pesquisar Endereço <span class="req">*</span></label>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" class="form-control" placeholder="Ex: Av. Presidente Vargas, 1000">
+                    <button class="btn btn-outline" style="padding: 0.875rem;">🔍</button>
+                </div>
+            </div>
+            
+            <div style="width: 100%; height: 220px; background: #e2e8f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; border: 1px dashed #94a3b8; flex-direction: column;">
+                <span style="font-size: 2.5rem;">📍</span>
+                <span style="color: #475569; font-weight: 600; font-size: 0.95rem;">Avenida Presidente Vargas, 1000</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Ponto de Referência</label>
+                <input type="text" class="form-control" placeholder="Perto da padaria, em frente à praça...">
+            </div>
         </div>
-        <div style="margin-bottom: 15px;">
-            <label style="display:block; font-weight:bold; margin-bottom:5px;">Número <span style="color:red">*</span></label>
-            <input type="text" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;" />
+
+        <div class="step-content-section" id="step2">
+            <h2 class="step-title">Atributos Específicos</h2>
+            <p class="step-subtitle">Forneça os detalhes específicos deste chamado conforme o modelo tradicional.</p>
+            
+            <div class="form-group">
+                <label class="form-label">Identificação </label>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Endereço <span class="req">*</span></label>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Número <span class="req">*</span></label>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Descrição <span class="req">*</span></label>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Complemento </label>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Ponto de Referência </label>
+                <input type="text" class="form-control" />
+            </div>
         </div>
-        <div style="margin-bottom: 15px;">
-            <label style="display:block; font-weight:bold; margin-bottom:5px;">Descrição </label>
-            <input type="text" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;" />
+
+        <div class="step-content-section" id="step3">
+            <h2 class="step-title">Evidências e Fotos</h2>
+            <p class="step-subtitle">As fotos nos ajudam a identificar o problema mais rapidamente.</p>
+            <div style="border: 2px dashed var(--primary); background: var(--primary-light); border-radius: 12px; padding: 3rem 2rem; text-align: center; cursor: pointer;">
+                <div style="font-size: 2.5rem;">📸</div>
+                <h3 style="color: var(--primary);">Arraste suas fotos para cá</h3>
+            </div>
         </div>
-        <div style="margin-bottom: 15px;">
-            <label style="display:block; font-weight:bold; margin-bottom:5px;">Ponto de Referência </label>
-            <input type="text" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;" />
+
+        <div class="step-content-section" id="step4">
+            <h2 class="step-title">Finalizar Chamado</h2>
+            <p class="step-subtitle">Quase lá! Como você prefere se identificar neste chamado?</p>
+            <div class="form-group">
+                <label class="form-label">Nível de Sigilo <span class="req">*</span></label>
+                <select class="form-control">
+                    <option selected>Público - Quero acompanhar com meus dados</option>
+                    <option>Sigiloso - Meus dados ficam restritos ao órgão</option>
+                    <option>Anônimo - Não desejo me identificar</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Telefone / WhatsApp</label>
+                <input type="text" class="form-control" placeholder="(21) 90000-0000">
+            </div>
+            <div class="form-group">
+                <label class="form-label">E-mail para acompanhamento</label>
+                <input type="email" class="form-control" placeholder="seu.email@exemplo.com">
+            </div>
         </div>
-  </div>
+
+        <div class="wizard-footer">
+            <button class="btn btn-outline" id="btn-back" style="visibility: hidden;" onclick="prevStep()">Voltar</button>
+            <button class="btn btn-primary" id="btn-next" onclick="nextStep()">Próximo Passo</button>
+        </div>
+    </div>
+
+    <script>
+        const steps = document.querySelectorAll('.step-content-section');
+        const indicators = document.querySelectorAll('.step-indicator');
+        const progressFill = document.querySelector('.stepper-progress-fill');
+        const btnNext = document.getElementById('btn-next');
+        const btnBack = document.getElementById('btn-back');
+        let currentStep = 0;
+
+        function updateStepper() {
+            indicators.forEach((ind, index) => {
+                ind.classList.remove('active', 'completed');
+                if (index === currentStep) {
+                    ind.classList.add('active');
+                } else if (index < currentStep) {
+                    ind.classList.add('completed');
+                }
+            });
+            
+            const progress = (currentStep / (indicators.length - 1)) * 100;
+            progressFill.style.width = progress + '%';
+
+            steps.forEach((step, index) => {
+                step.style.display = index === currentStep ? 'block' : 'none';
+            });
+
+            btnBack.style.visibility = currentStep === 0 ? 'hidden' : 'visible';
+            
+            if (currentStep === steps.length - 1) {
+                btnNext.innerHTML = 'Finalizar Chamado';
+                btnNext.style.background = 'var(--success)';
+            } else {
+                btnNext.innerHTML = 'Próximo Passo 👉';
+                btnNext.style.background = 'var(--primary)';
+            }
+        }
+
+        function nextStep() {
+            if (currentStep < steps.length - 1) { currentStep++; updateStepper(); }
+            else { alert('Chamado registrado com sucesso!'); }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) { currentStep--; updateStepper(); }
+        }
+        
+        updateStepper();
+    </script>
 </body>
 </html>

@@ -46,7 +46,10 @@
             color: var(--text-primary);
             cursor: pointer;
             outline: none;
-            min-width: 380px;
+            width: 300px; /* Reduzido de 380px */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             transition: all 0.2s ease;
         }
 
@@ -193,41 +196,40 @@
                 <div style="display: flex; align-items: center; gap: 1.5rem;">
                     <div class="controls-title">Formulário:</div>
                     <select id="formSelector" class="form-select">
-<option value="" disabled selected>Selecione um serviço para analisar...</option>
-                        <option value="wireframes/sgrc/wireframe_cet_rio_reparo_de_sinal_de_transito_apagado.html">Reparo de sinal de trânsito apagado (CET-RIO)</option>
-                        <option value="wireframes/sgrc/wireframe_clf_fiscalizacao_da_ocupacao_irregular_de_area_publica_por_estabelecimentos_comerciais_industriais_ou_servicos.html">Fiscalização da ocupação irregular de área pública por estabelecimentos comerciais, industriais ou serviços (CLF)</option>
-                        <option value="wireframes/sgrc/wireframe_clf_fiscalizacao_de_atividades_economicas_sem_alvara.html">Fiscalização de atividades econômicas sem alvará (CLF)</option>
-                        <option value="wireframes/sgrc/wireframe_comlurb_remocao_de_entulho.html">Remoção de entulho (COMLURB)</option>
-                        <option value="wireframes/sgrc/wireframe_comlurb_remocao_de_residuos_em_vias_publicas.html">Remoção de resíduos em vias públicas (COMLURB)</option>
-                        <option value="wireframes/sgrc/wireframe_comlurb_controle_de_roedores_e_caramujos_africanos.html">Controle de roedores e caramujos africanos (COMLURB)</option>
-                        <option value="wireframes/sgrc/wireframe_comlurb_poda_de_arvore_em_vias_publicas.html">Poda de árvore em vias públicas (COMLURB)</option>
-                        <option value="wireframes/sgrc/wireframe_comlurb_varricao_de_vias_publicas.html">Varrição de vias públicas (COMLURB)</option>
-                        <option value="wireframes/sgrc/wireframe_comlurb_verificacao_de_frequencia_irregular_da_coleta_domiciliar_com_retirada_do_residuo.html">Verificação de frequência irregular da coleta domiciliar com retirada do resíduo (COMLURB)</option>
-                        <option value="wireframes/sgrc/wireframe_comlurb_capina_em_vias_publicas.html">Capina em vias públicas (COMLURB)</option>
-                        <option value="wireframes/sgrc/wireframe_comlurb_remocao_de_residuos_de_poda.html">Remoção de resíduos de poda (COMLURB)</option>
-                        <option value="wireframes/sgrc/wireframe_comlurb_remocao_de_arvore_em_logradouro.html">Remoção de árvore em logradouro (COMLURB)</option>
-                        <option value="wireframes/sgrc/wireframe_comlurb_avaliacao_de_risco_de_queda_da_arvore.html">Avaliação de risco de queda da árvore (COMLURB)</option>
-                        <option value="wireframes/sgrc/wireframe_comlurb_limpeza_de_ralos.html">Limpeza de ralos (COMLURB)</option>
-                        <option value="wireframes/sgrc/wireframe_comlurb_limpeza_de_pracas_e_parques.html">Limpeza de praças e parques (COMLURB)</option>
-                        <option value="wireframes/sgrc/wireframe_defesa_civil_vistoria_em_imovel_com_rachadura_e_infiltracao.html">Vistoria em imóvel com rachadura e infiltração (DEFESA CIVIL)</option>
-                        <option value="wireframes/sgrc/wireframe_defesa_civil_vistoria_em_ameaca_de_desabamento_de_estrutura.html">Vistoria em ameaça de desabamento de estrutura (DEFESA CIVIL)</option>
-                        <option value="wireframes/sgrc/wireframe_gfer_remocao_de_veiculo_abandonado_em_via_publica.html">Remoção de veículo abandonado em via pública (GFER)</option>
-                        <option value="wireframes/sgrc/wireframe_gm_rio_fiscalizacao_de_estacionamento_irregular_de_veiculo.html">Fiscalização de estacionamento irregular de veículo (GM-RIO)</option>
-                        <option value="wireframes/sgrc/wireframe_gm_rio_fiscalizacao_de_perturbacao_do_sossego.html">Fiscalização de perturbação do sossego (GM-RIO)</option>
-                        <option value="wireframes/sgrc/wireframe_rioluz_reparo_de_luminaria.html">Reparo de luminária (RIOLUZ)</option>
-                        <option value="wireframes/sgrc/wireframe_rioluz_reparo_de_cabo_de_iluminacao_publica.html">Reparo de cabo de iluminação pública (RIOLUZ)</option>
-                        <option value="wireframes/sgrc/wireframe_seconserva_reparo_de_buraco_deformacao_ou_afundamento_na_pista.html">Reparo de buraco, deformação ou afundamento na pista (SECONSERVA)</option>
-                        <option value="wireframes/sgrc/wireframe_seconserva_manutencaodesobstrucao_de_ramais_de_aguas_pluviais_e_ralos.html">Manutenção/Desobstrução de ramais de águas pluviais e ralos (SECONSERVA)</option>
-                        <option value="wireframes/sgrc/wireframe_seconserva_reposicao_de_grelha_ou_tampao.html">Reposição de Grelha ou Tampão (SECONSERVA)</option>
-                        <option value="wireframes/sgrc/wireframe_seconserva_fiscalizacao_de_buraco_na_calcada.html">Fiscalização de buraco na calçada (SECONSERVA)</option>
-                        <option value="wireframes/sgrc/wireframe_seconserva_fiscalizacao_de_obstaculo_fixo_na_calcada.html">Fiscalização de obstáculo fixo na calçada (SECONSERVA)</option>
-                        <option value="wireframes/sgrc/wireframe_smac_resgate_de_animais_silvestres.html">Resgate de animais silvestres (SMAC)</option>
-                        <option value="wireframes/sgrc/wireframe_smdu_fiscalizacao_de_obras_em_imovel_privado.html">Fiscalização de obras em imóvel privado (SMDU)</option>
-                        <option value="wireframes/sgrc/wireframe_smpda_vistoria_tecnica_em_situacoes_de_mais_tratos_de_animais_domesticos.html">Vistoria técnica em situações de mais tratos de animais domésticos (SMPDA)</option>
-                        <option value="wireframes/sgrc/wireframe_smtr_fiscalizacao_de_ma_conduta_do_motoristadespachante.html">Fiscalização de má conduta do motorista/despachante (SMTR)</option>
-                        <option value="wireframes/sgrc/wireframe_smtr_verificacao_de_ar_condicionado_inoperante_no_onibus.html">Verificação de ar condicionado inoperante no ônibus (SMTR)</option>
-                        <option value="wireframes/sgrc/wireframe_smtr_fiscalizacao_de_ma_condicao_do_onibus.html">Fiscalização de má condição do ônibus (SMTR)</option>
-                    </select>
+                <option value="wireframes/sgrc/wireframe_comlurb_avaliacao_de_risco_de_queda_da_arvore.html">Avaliação de risco de queda da árvore (COMLURB)</option>
+                <option value="wireframes/sgrc/wireframe_comlurb_capina_em_vias_publicas.html">Capina em vias públicas (COMLURB)</option>
+                <option value="wireframes/sgrc/wireframe_comlurb_controle_de_roedores_e_caramujos_africanos.html">Controle de roedores e caramujos africanos (COMLURB)</option>
+                <option value="wireframes/sgrc/wireframe_alvara_ocupacao.html">Fiscalização da ocupação irregular de área pública por estabelecimentos comerciais, industriais ou serviços (CLF)</option>
+                <option value="wireframes/sgrc/wireframe_atividades_economicas.html">Fiscalização de atividades econômicas sem alvará (CLF)</option>
+                <option value="wireframes/sgrc/wireframe_seconserva_fiscalizacao_de_buraco_na_calcada.html">Fiscalização de buraco na calçada (SECONSERVA)</option>
+                <option value="wireframes/sgrc/wireframe_gm_rio_fiscalizacao_de_estacionamento_irregular_de_veiculo.html">Fiscalização de estacionamento irregular de veículo (GM-RIO)</option>
+                <option value="wireframes/sgrc/wireframe_smtr_fiscalizacao_de_ma_condicao_do_onibus.html">Fiscalização de má condição do ônibus (SMTR)</option>
+                <option value="wireframes/sgrc/wireframe_smtr_fiscalizacao_de_ma_conduta_do_motoristadespachante.html">Fiscalização de má conduta do motorista/despachante (SMTR)</option>
+                <option value="wireframes/sgrc/wireframe_fiscalizacao_obras.html">Fiscalização de obras em imóvel privado (SMDU)</option>
+                <option value="wireframes/sgrc/wireframe_seconserva_fiscalizacao_de_obstaculo_fixo_na_calcada.html">Fiscalização de obstáculo fixo na calçada (SECONSERVA)</option>
+                <option value="wireframes/sgrc/wireframe_sossego.html">Fiscalização de perturbação do sossego (GM-RIO)</option>
+                <option value="wireframes/sgrc/wireframe_comlurb_limpeza_de_pracas_e_parques.html">Limpeza de praças e parques (COMLURB)</option>
+                <option value="wireframes/sgrc/wireframe_comlurb_limpeza_de_ralos.html">Limpeza de ralos (COMLURB)</option>
+                <option value="wireframes/sgrc/wireframe_seconserva_manutencaodesobstrucao_de_ramais_de_aguas_pluviais_e_ralos.html">Manutenção/Desobstrução de ramais de águas pluviais e ralos (SECONSERVA)</option>
+                <option value="wireframes/sgrc/wireframe_comlurb_poda_de_arvore_em_vias_publicas.html">Poda de árvore em vias públicas (COMLURB)</option>
+                <option value="wireframes/sgrc/wireframe_comlurb_remocao_de_entulho.html">Remoção de entulho (COMLURB)</option>
+                <option value="wireframes/sgrc/wireframe_comlurb_remocao_de_residuos_de_poda.html">Remoção de resíduos de poda (COMLURB)</option>
+                <option value="wireframes/sgrc/wireframe_comlurb_remocao_de_residuos_em_vias_publicas.html">Remoção de resíduos em vias públicas (COMLURB)</option>
+                <option value="wireframes/sgrc/wireframe_veiculo_abandonado.html">Remoção de veículo abandonado em via pública (GFER)</option>
+                <option value="wireframes/sgrc/wireframe_comlurb_remocao_de_arvore_em_logradouro.html">Remoção de árvore em logradouro (COMLURB)</option>
+                <option value="wireframes/sgrc/wireframe_seconserva_reparo_de_buraco_deformacao_ou_afundamento_na_pista.html">Reparo de buraco, deformação ou afundamento na pista (SECONSERVA)</option>
+                <option value="wireframes/sgrc/wireframe_rioluz_reparo_de_cabo_de_iluminacao_publica.html">Reparo de cabo de iluminação pública (RIOLUZ)</option>
+                <option value="wireframes/sgrc/wireframe_rioluz_reparo_de_luminaria.html">Reparo de luminária (RIOLUZ)</option>
+                <option value="wireframes/sgrc/wireframe_cet_rio_reparo_de_sinal_de_transito_apagado.html">Reparo de sinal de trânsito apagado (CET-RIO)</option>
+                <option value="wireframes/sgrc/wireframe_seconserva_reposicao_de_grelha_ou_tampao.html">Reposição de Grelha ou Tampão (SECONSERVA)</option>
+                <option value="wireframes/sgrc/wireframe_meio_ambiente.html">Resgate de animais silvestres (SMAC)</option>
+                <option value="wireframes/sgrc/wireframe_comlurb_varricao_de_vias_publicas.html">Varrição de vias públicas (COMLURB)</option>
+                <option value="wireframes/sgrc/wireframe_smtr_verificacao_de_ar_condicionado_inoperante_no_onibus.html">Verificação de ar condicionado inoperante no ônibus (SMTR)</option>
+                <option value="wireframes/sgrc/wireframe_comlurb_verificacao_de_frequencia_irregular_da_coleta_domiciliar_com_retirada_do_residuo.html">Verificação de frequência irregular da coleta domiciliar com retirada do resíduo (COMLURB)</option>
+                <option value="wireframes/sgrc/wireframe_desabamento.html">Vistoria em ameaça de desabamento de estrutura (DEFESA CIVIL)</option>
+                <option value="wireframes/sgrc/wireframe_estrutura_imovel.html">Vistoria em imóvel com rachadura e infiltração (DEFESA CIVIL)</option>
+                <option value="wireframes/sgrc/wireframe_smpda_vistoria_tecnica_em_situacoes_de_mais_tratos_de_animais_domesticos.html">Vistoria técnica em situações de mais tratos de animais domésticos (SMPDA)</option>
+            </select>
                 </div>
 
                 <div class="view-toggle" id="viewToggle" style="visibility: hidden;">
@@ -239,7 +241,7 @@
                 <div class="upload-section">
                     <input type="file" id="excelUpload" accept=".xlsx" style="display: none;">
                     <button class="primary-btn" onclick="document.getElementById('excelUpload').click()" style="background: var(--success); border: none; font-size: 0.8rem;">
-                        📤 Subir Planilha (.xlsx)
+                        📤 Inserir Novo Serviço
                     </button>
                 </div>
             </div>
@@ -278,76 +280,76 @@
         let currentView = 'asis';
 
         const toBeMapping = {
-            "wireframes/sgrc/wireframe_cet_rio_reparo_de_sinal_de_transito_apagado.html": "wireframes/tobe/tobe_cet_rio_reparo_de_sinal_de_transito_apagado.html",
-            "wireframes/sgrc/wireframe_clf_fiscalizacao_da_ocupacao_irregular_de_area_publica_por_estabelecimentos_comerciais_industriais_ou_servicos.html": "wireframes/tobe/tobe_clf_fiscalizacao_da_ocupacao_irregular_de_area_publica_por_estabelecimentos_comerciais_industriais_ou_servicos.html",
-            "wireframes/sgrc/wireframe_clf_fiscalizacao_de_atividades_economicas_sem_alvara.html": "wireframes/tobe/tobe_clf_fiscalizacao_de_atividades_economicas_sem_alvara.html",
-            "wireframes/sgrc/wireframe_comlurb_remocao_de_entulho.html": "wireframes/tobe/tobe_comlurb_remocao_de_entulho.html",
-            "wireframes/sgrc/wireframe_comlurb_remocao_de_residuos_em_vias_publicas.html": "wireframes/tobe/tobe_comlurb_remocao_de_residuos_em_vias_publicas.html",
-            "wireframes/sgrc/wireframe_comlurb_controle_de_roedores_e_caramujos_africanos.html": "wireframes/tobe/tobe_comlurb_controle_de_roedores_e_caramujos_africanos.html",
-            "wireframes/sgrc/wireframe_comlurb_poda_de_arvore_em_vias_publicas.html": "wireframes/tobe/tobe_comlurb_poda_de_arvore_em_vias_publicas.html",
-            "wireframes/sgrc/wireframe_comlurb_varricao_de_vias_publicas.html": "wireframes/tobe/tobe_comlurb_varricao_de_vias_publicas.html",
-            "wireframes/sgrc/wireframe_comlurb_verificacao_de_frequencia_irregular_da_coleta_domiciliar_com_retirada_do_residuo.html": "wireframes/tobe/tobe_comlurb_verificacao_de_frequencia_irregular_da_coleta_domiciliar_com_retirada_do_residuo.html",
-            "wireframes/sgrc/wireframe_comlurb_capina_em_vias_publicas.html": "wireframes/tobe/tobe_comlurb_capina_em_vias_publicas.html",
-            "wireframes/sgrc/wireframe_comlurb_remocao_de_residuos_de_poda.html": "wireframes/tobe/tobe_comlurb_remocao_de_residuos_de_poda.html",
-            "wireframes/sgrc/wireframe_comlurb_remocao_de_arvore_em_logradouro.html": "wireframes/tobe/tobe_comlurb_remocao_de_arvore_em_logradouro.html",
             "wireframes/sgrc/wireframe_comlurb_avaliacao_de_risco_de_queda_da_arvore.html": "wireframes/tobe/tobe_comlurb_avaliacao_de_risco_de_queda_da_arvore.html",
-            "wireframes/sgrc/wireframe_comlurb_limpeza_de_ralos.html": "wireframes/tobe/tobe_comlurb_limpeza_de_ralos.html",
-            "wireframes/sgrc/wireframe_comlurb_limpeza_de_pracas_e_parques.html": "wireframes/tobe/tobe_comlurb_limpeza_de_pracas_e_parques.html",
-            "wireframes/sgrc/wireframe_defesa_civil_vistoria_em_imovel_com_rachadura_e_infiltracao.html": "wireframes/tobe/tobe_defesa_civil_vistoria_em_imovel_com_rachadura_e_infiltracao.html",
-            "wireframes/sgrc/wireframe_defesa_civil_vistoria_em_ameaca_de_desabamento_de_estrutura.html": "wireframes/tobe/tobe_defesa_civil_vistoria_em_ameaca_de_desabamento_de_estrutura.html",
-            "wireframes/sgrc/wireframe_gfer_remocao_de_veiculo_abandonado_em_via_publica.html": "wireframes/tobe/tobe_gfer_remocao_de_veiculo_abandonado_em_via_publica.html",
-            "wireframes/sgrc/wireframe_gm_rio_fiscalizacao_de_estacionamento_irregular_de_veiculo.html": "wireframes/tobe/tobe_gm_rio_fiscalizacao_de_estacionamento_irregular_de_veiculo.html",
-            "wireframes/sgrc/wireframe_gm_rio_fiscalizacao_de_perturbacao_do_sossego.html": "wireframes/tobe/tobe_gm_rio_fiscalizacao_de_perturbacao_do_sossego.html",
-            "wireframes/sgrc/wireframe_rioluz_reparo_de_luminaria.html": "wireframes/tobe/tobe_rioluz_reparo_de_luminaria.html",
-            "wireframes/sgrc/wireframe_rioluz_reparo_de_cabo_de_iluminacao_publica.html": "wireframes/tobe/tobe_rioluz_reparo_de_cabo_de_iluminacao_publica.html",
-            "wireframes/sgrc/wireframe_seconserva_reparo_de_buraco_deformacao_ou_afundamento_na_pista.html": "wireframes/tobe/tobe_seconserva_reparo_de_buraco_deformacao_ou_afundamento_na_pista.html",
-            "wireframes/sgrc/wireframe_seconserva_manutencaodesobstrucao_de_ramais_de_aguas_pluviais_e_ralos.html": "wireframes/tobe/tobe_seconserva_manutencaodesobstrucao_de_ramais_de_aguas_pluviais_e_ralos.html",
-            "wireframes/sgrc/wireframe_seconserva_reposicao_de_grelha_ou_tampao.html": "wireframes/tobe/tobe_seconserva_reposicao_de_grelha_ou_tampao.html",
+            "wireframes/sgrc/wireframe_comlurb_capina_em_vias_publicas.html": "wireframes/tobe/tobe_comlurb_capina_em_vias_publicas.html",
+            "wireframes/sgrc/wireframe_comlurb_controle_de_roedores_e_caramujos_africanos.html": "wireframes/tobe/tobe_comlurb_controle_de_roedores_e_caramujos_africanos.html",
+            "wireframes/sgrc/wireframe_alvara_ocupacao.html": "wireframes/tobe/tobe_atividades_economicas.html",
+            "wireframes/sgrc/wireframe_atividades_economicas.html": "wireframes/tobe/tobe_atividades_economicas.html",
             "wireframes/sgrc/wireframe_seconserva_fiscalizacao_de_buraco_na_calcada.html": "wireframes/tobe/tobe_seconserva_fiscalizacao_de_buraco_na_calcada.html",
-            "wireframes/sgrc/wireframe_seconserva_fiscalizacao_de_obstaculo_fixo_na_calcada.html": "wireframes/tobe/tobe_seconserva_fiscalizacao_de_obstaculo_fixo_na_calcada.html",
-            "wireframes/sgrc/wireframe_smac_resgate_de_animais_silvestres.html": "wireframes/tobe/tobe_smac_resgate_de_animais_silvestres.html",
-            "wireframes/sgrc/wireframe_smdu_fiscalizacao_de_obras_em_imovel_privado.html": "wireframes/tobe/tobe_smdu_fiscalizacao_de_obras_em_imovel_privado.html",
-            "wireframes/sgrc/wireframe_smpda_vistoria_tecnica_em_situacoes_de_mais_tratos_de_animais_domesticos.html": "wireframes/tobe/tobe_smpda_vistoria_tecnica_em_situacoes_de_mais_tratos_de_animais_domesticos.html",
-            "wireframes/sgrc/wireframe_smtr_fiscalizacao_de_ma_conduta_do_motoristadespachante.html": "wireframes/tobe/tobe_smtr_fiscalizacao_de_ma_conduta_do_motoristadespachante.html",
-            "wireframes/sgrc/wireframe_smtr_verificacao_de_ar_condicionado_inoperante_no_onibus.html": "wireframes/tobe/tobe_smtr_verificacao_de_ar_condicionado_inoperante_no_onibus.html",
+            "wireframes/sgrc/wireframe_gm_rio_fiscalizacao_de_estacionamento_irregular_de_veiculo.html": "wireframes/tobe/tobe_gm_rio_fiscalizacao_de_estacionamento_irregular_de_veiculo.html",
             "wireframes/sgrc/wireframe_smtr_fiscalizacao_de_ma_condicao_do_onibus.html": "wireframes/tobe/tobe_smtr_fiscalizacao_de_ma_condicao_do_onibus.html",
-        };
+            "wireframes/sgrc/wireframe_smtr_fiscalizacao_de_ma_conduta_do_motoristadespachante.html": "wireframes/tobe/tobe_smtr_fiscalizacao_de_ma_conduta_do_motoristadespachante.html",
+            "wireframes/sgrc/wireframe_fiscalizacao_obras.html": "wireframes/tobe/tobe_fiscalizacao_obras.html",
+            "wireframes/sgrc/wireframe_seconserva_fiscalizacao_de_obstaculo_fixo_na_calcada.html": "wireframes/tobe/tobe_seconserva_fiscalizacao_de_obstaculo_fixo_na_calcada.html",
+            "wireframes/sgrc/wireframe_sossego.html": "wireframes/tobe/tobe_sossego.html",
+            "wireframes/sgrc/wireframe_comlurb_limpeza_de_pracas_e_parques.html": "wireframes/tobe/tobe_comlurb_limpeza_de_pracas_e_parques.html",
+            "wireframes/sgrc/wireframe_comlurb_limpeza_de_ralos.html": "wireframes/tobe/tobe_comlurb_limpeza_de_ralos.html",
+            "wireframes/sgrc/wireframe_seconserva_manutencaodesobstrucao_de_ramais_de_aguas_pluviais_e_ralos.html": "wireframes/tobe/tobe_seconserva_manutencaodesobstrucao_de_ramais_de_aguas_pluviais_e_ralos.html",
+            "wireframes/sgrc/wireframe_comlurb_poda_de_arvore_em_vias_publicas.html": "wireframes/tobe/tobe_comlurb_poda_de_arvore_em_vias_publicas.html",
+            "wireframes/sgrc/wireframe_comlurb_remocao_de_entulho.html": "wireframes/tobe/tobe_comlurb_remocao_de_entulho.html",
+            "wireframes/sgrc/wireframe_comlurb_remocao_de_residuos_de_poda.html": "wireframes/tobe/tobe_comlurb_remocao_de_residuos_de_poda.html",
+            "wireframes/sgrc/wireframe_comlurb_remocao_de_residuos_em_vias_publicas.html": "wireframes/tobe/tobe_comlurb_remocao_de_residuos_em_vias_publicas.html",
+            "wireframes/sgrc/wireframe_veiculo_abandonado.html": "wireframes/tobe/tobe_irregular_veiculo.html",
+            "wireframes/sgrc/wireframe_comlurb_remocao_de_arvore_em_logradouro.html": "wireframes/tobe/tobe_comlurb_remocao_de_arvore_em_logradouro.html",
+            "wireframes/sgrc/wireframe_seconserva_reparo_de_buraco_deformacao_ou_afundamento_na_pista.html": "wireframes/tobe/tobe_seconserva_reparo_de_buraco_deformacao_ou_afundamento_na_pista.html",
+            "wireframes/sgrc/wireframe_rioluz_reparo_de_cabo_de_iluminacao_publica.html": "wireframes/tobe/tobe_rioluz_reparo_de_cabo_de_iluminacao_publica.html",
+            "wireframes/sgrc/wireframe_rioluz_reparo_de_luminaria.html": "wireframes/tobe/tobe_rioluz_reparo_de_luminaria.html",
+            "wireframes/sgrc/wireframe_cet_rio_reparo_de_sinal_de_transito_apagado.html": "wireframes/tobe/tobe_cet_rio_reparo_de_sinal_de_transito_apagado.html",
+            "wireframes/sgrc/wireframe_seconserva_reposicao_de_grelha_ou_tampao.html": "wireframes/tobe/tobe_seconserva_reposicao_de_grelha_ou_tampao.html",
+            "wireframes/sgrc/wireframe_meio_ambiente.html": "wireframes/tobe/tobe_meio_ambiente.html",
+            "wireframes/sgrc/wireframe_comlurb_varricao_de_vias_publicas.html": "wireframes/tobe/tobe_comlurb_varricao_de_vias_publicas.html",
+            "wireframes/sgrc/wireframe_smtr_verificacao_de_ar_condicionado_inoperante_no_onibus.html": "wireframes/tobe/tobe_smtr_verificacao_de_ar_condicionado_inoperante_no_onibus.html",
+            "wireframes/sgrc/wireframe_comlurb_verificacao_de_frequencia_irregular_da_coleta_domiciliar_com_retirada_do_residuo.html": "wireframes/tobe/tobe_comlurb_verificacao_de_frequencia_irregular_da_coleta_domiciliar_com_retirada_do_residuo.html",
+            "wireframes/sgrc/wireframe_desabamento.html": "wireframes/tobe/tobe_desabamento.html",
+            "wireframes/sgrc/wireframe_estrutura_imovel.html": "wireframes/tobe/tobe_estrutura_imovel.html",
+            "wireframes/sgrc/wireframe_smpda_vistoria_tecnica_em_situacoes_de_mais_tratos_de_animais_domesticos.html": "wireframes/tobe/tobe_smpda_vistoria_tecnica_em_situacoes_de_mais_tratos_de_animais_domesticos.html"
+};
 
         const desirableMapping = {
-            "wireframes/sgrc/wireframe_cet_rio_reparo_de_sinal_de_transito_apagado.html": "wireframes/tobewish/tobe_cet_rio_reparo_de_sinal_de_transito_apagado_wish.html",
-            "wireframes/sgrc/wireframe_clf_fiscalizacao_da_ocupacao_irregular_de_area_publica_por_estabelecimentos_comerciais_industriais_ou_servicos.html": "wireframes/tobewish/tobe_clf_fiscalizacao_da_ocupacao_irregular_de_area_publica_por_estabelecimentos_comerciais_industriais_ou_servicos_wish.html",
-            "wireframes/sgrc/wireframe_clf_fiscalizacao_de_atividades_economicas_sem_alvara.html": "wireframes/tobewish/tobe_clf_fiscalizacao_de_atividades_economicas_sem_alvara_wish.html",
-            "wireframes/sgrc/wireframe_comlurb_remocao_de_entulho.html": "wireframes/tobewish/tobe_comlurb_remocao_de_entulho_wish.html",
-            "wireframes/sgrc/wireframe_comlurb_remocao_de_residuos_em_vias_publicas.html": "wireframes/tobewish/tobe_comlurb_remocao_de_residuos_em_vias_publicas_wish.html",
-            "wireframes/sgrc/wireframe_comlurb_controle_de_roedores_e_caramujos_africanos.html": "wireframes/tobewish/tobe_comlurb_controle_de_roedores_e_caramujos_africanos_wish.html",
-            "wireframes/sgrc/wireframe_comlurb_poda_de_arvore_em_vias_publicas.html": "wireframes/tobewish/tobe_comlurb_poda_de_arvore_em_vias_publicas_wish.html",
-            "wireframes/sgrc/wireframe_comlurb_varricao_de_vias_publicas.html": "wireframes/tobewish/tobe_comlurb_varricao_de_vias_publicas_wish.html",
-            "wireframes/sgrc/wireframe_comlurb_verificacao_de_frequencia_irregular_da_coleta_domiciliar_com_retirada_do_residuo.html": "wireframes/tobewish/tobe_comlurb_verificacao_de_frequencia_irregular_da_coleta_domiciliar_com_retirada_do_residuo_wish.html",
-            "wireframes/sgrc/wireframe_comlurb_capina_em_vias_publicas.html": "wireframes/tobewish/tobe_comlurb_capina_em_vias_publicas_wish.html",
-            "wireframes/sgrc/wireframe_comlurb_remocao_de_residuos_de_poda.html": "wireframes/tobewish/tobe_comlurb_remocao_de_residuos_de_poda_wish.html",
-            "wireframes/sgrc/wireframe_comlurb_remocao_de_arvore_em_logradouro.html": "wireframes/tobewish/tobe_comlurb_remocao_de_arvore_em_logradouro_wish.html",
             "wireframes/sgrc/wireframe_comlurb_avaliacao_de_risco_de_queda_da_arvore.html": "wireframes/tobewish/tobe_comlurb_avaliacao_de_risco_de_queda_da_arvore_wish.html",
-            "wireframes/sgrc/wireframe_comlurb_limpeza_de_ralos.html": "wireframes/tobewish/tobe_comlurb_limpeza_de_ralos_wish.html",
-            "wireframes/sgrc/wireframe_comlurb_limpeza_de_pracas_e_parques.html": "wireframes/tobewish/tobe_comlurb_limpeza_de_pracas_e_parques_wish.html",
-            "wireframes/sgrc/wireframe_defesa_civil_vistoria_em_imovel_com_rachadura_e_infiltracao.html": "wireframes/tobewish/tobe_defesa_civil_vistoria_em_imovel_com_rachadura_e_infiltracao_wish.html",
-            "wireframes/sgrc/wireframe_defesa_civil_vistoria_em_ameaca_de_desabamento_de_estrutura.html": "wireframes/tobewish/tobe_defesa_civil_vistoria_em_ameaca_de_desabamento_de_estrutura_wish.html",
-            "wireframes/sgrc/wireframe_gfer_remocao_de_veiculo_abandonado_em_via_publica.html": "wireframes/tobewish/tobe_gfer_remocao_de_veiculo_abandonado_em_via_publica_wish.html",
-            "wireframes/sgrc/wireframe_gm_rio_fiscalizacao_de_estacionamento_irregular_de_veiculo.html": "wireframes/tobewish/tobe_gm_rio_fiscalizacao_de_estacionamento_irregular_de_veiculo_wish.html",
-            "wireframes/sgrc/wireframe_gm_rio_fiscalizacao_de_perturbacao_do_sossego.html": "wireframes/tobewish/tobe_gm_rio_fiscalizacao_de_perturbacao_do_sossego_wish.html",
-            "wireframes/sgrc/wireframe_rioluz_reparo_de_luminaria.html": "wireframes/tobewish/tobe_rioluz_reparo_de_luminaria_wish.html",
-            "wireframes/sgrc/wireframe_rioluz_reparo_de_cabo_de_iluminacao_publica.html": "wireframes/tobewish/tobe_rioluz_reparo_de_cabo_de_iluminacao_publica_wish.html",
-            "wireframes/sgrc/wireframe_seconserva_reparo_de_buraco_deformacao_ou_afundamento_na_pista.html": "wireframes/tobewish/tobe_seconserva_reparo_de_buraco_deformacao_ou_afundamento_na_pista_wish.html",
-            "wireframes/sgrc/wireframe_seconserva_manutencaodesobstrucao_de_ramais_de_aguas_pluviais_e_ralos.html": "wireframes/tobewish/tobe_seconserva_manutencaodesobstrucao_de_ramais_de_aguas_pluviais_e_ralos_wish.html",
-            "wireframes/sgrc/wireframe_seconserva_reposicao_de_grelha_ou_tampao.html": "wireframes/tobewish/tobe_seconserva_reposicao_de_grelha_ou_tampao_wish.html",
+            "wireframes/sgrc/wireframe_comlurb_capina_em_vias_publicas.html": "wireframes/tobewish/tobe_comlurb_capina_em_vias_publicas_wish.html",
+            "wireframes/sgrc/wireframe_comlurb_controle_de_roedores_e_caramujos_africanos.html": "wireframes/tobewish/tobe_comlurb_controle_de_roedores_e_caramujos_africanos_wish.html",
+            "wireframes/sgrc/wireframe_alvara_ocupacao.html": "wireframes/tobewish/tobe_clf_fiscalizacao_da_ocupacao_irregular_de_area_publica_por_estabelecimentos_comerciais_industriais_ou_servicos_wish.html",
+            "wireframes/sgrc/wireframe_atividades_economicas.html": "wireframes/tobewish/tobe_clf_fiscalizacao_de_atividades_economicas_sem_alvara_wish.html",
             "wireframes/sgrc/wireframe_seconserva_fiscalizacao_de_buraco_na_calcada.html": "wireframes/tobewish/tobe_seconserva_fiscalizacao_de_buraco_na_calcada_wish.html",
-            "wireframes/sgrc/wireframe_seconserva_fiscalizacao_de_obstaculo_fixo_na_calcada.html": "wireframes/tobewish/tobe_seconserva_fiscalizacao_de_obstaculo_fixo_na_calcada_wish.html",
-            "wireframes/sgrc/wireframe_smac_resgate_de_animais_silvestres.html": "wireframes/tobewish/tobe_smac_resgate_de_animais_silvestres_wish.html",
-            "wireframes/sgrc/wireframe_smdu_fiscalizacao_de_obras_em_imovel_privado.html": "wireframes/tobewish/tobe_smdu_fiscalizacao_de_obras_em_imovel_privado_wish.html",
-            "wireframes/sgrc/wireframe_smpda_vistoria_tecnica_em_situacoes_de_mais_tratos_de_animais_domesticos.html": "wireframes/tobewish/tobe_smpda_vistoria_tecnica_em_situacoes_de_mais_tratos_de_animais_domesticos_wish.html",
-            "wireframes/sgrc/wireframe_smtr_fiscalizacao_de_ma_conduta_do_motoristadespachante.html": "wireframes/tobewish/tobe_smtr_fiscalizacao_de_ma_conduta_do_motoristadespachante_wish.html",
-            "wireframes/sgrc/wireframe_smtr_verificacao_de_ar_condicionado_inoperante_no_onibus.html": "wireframes/tobewish/tobe_smtr_verificacao_de_ar_condicionado_inoperante_no_onibus_wish.html",
+            "wireframes/sgrc/wireframe_gm_rio_fiscalizacao_de_estacionamento_irregular_de_veiculo.html": "wireframes/tobewish/tobe_gm_rio_fiscalizacao_de_estacionamento_irregular_de_veiculo_wish.html",
             "wireframes/sgrc/wireframe_smtr_fiscalizacao_de_ma_condicao_do_onibus.html": "wireframes/tobewish/tobe_smtr_fiscalizacao_de_ma_condicao_do_onibus_wish.html",
-        };
+            "wireframes/sgrc/wireframe_smtr_fiscalizacao_de_ma_conduta_do_motoristadespachante.html": "wireframes/tobewish/tobe_smtr_fiscalizacao_de_ma_conduta_do_motoristadespachante_wish.html",
+            "wireframes/sgrc/wireframe_fiscalizacao_obras.html": "wireframes/tobewish/tobe_smdu_fiscalizacao_de_obras_em_imovel_privado_wish.html",
+            "wireframes/sgrc/wireframe_seconserva_fiscalizacao_de_obstaculo_fixo_na_calcada.html": "wireframes/tobewish/tobe_seconserva_fiscalizacao_de_obstaculo_fixo_na_calcada_wish.html",
+            "wireframes/sgrc/wireframe_sossego.html": "wireframes/tobewish/tobe_gm_rio_fiscalizacao_de_perturbacao_do_sossego_wish.html",
+            "wireframes/sgrc/wireframe_comlurb_limpeza_de_pracas_e_parques.html": "wireframes/tobewish/tobe_comlurb_limpeza_de_pracas_e_parques_wish.html",
+            "wireframes/sgrc/wireframe_comlurb_limpeza_de_ralos.html": "wireframes/tobewish/tobe_comlurb_limpeza_de_ralos_wish.html",
+            "wireframes/sgrc/wireframe_seconserva_manutencaodesobstrucao_de_ramais_de_aguas_pluviais_e_ralos.html": "wireframes/tobewish/tobe_seconserva_manutencaodesobstrucao_de_ramais_de_aguas_pluviais_e_ralos_wish.html",
+            "wireframes/sgrc/wireframe_comlurb_poda_de_arvore_em_vias_publicas.html": "wireframes/tobewish/tobe_comlurb_poda_de_arvore_em_vias_publicas_wish.html",
+            "wireframes/sgrc/wireframe_comlurb_remocao_de_entulho.html": "wireframes/tobewish/tobe_comlurb_remocao_de_entulho_wish.html",
+            "wireframes/sgrc/wireframe_comlurb_remocao_de_residuos_de_poda.html": "wireframes/tobewish/tobe_comlurb_remocao_de_residuos_de_poda_wish.html",
+            "wireframes/sgrc/wireframe_comlurb_remocao_de_residuos_em_vias_publicas.html": "wireframes/tobewish/tobe_comlurb_remocao_de_residuos_em_vias_publicas_wish.html",
+            "wireframes/sgrc/wireframe_veiculo_abandonado.html": "wireframes/tobewish/tobe_gfer_remocao_de_veiculo_abandonado_em_via_publica_wish.html",
+            "wireframes/sgrc/wireframe_comlurb_remocao_de_arvore_em_logradouro.html": "wireframes/tobewish/tobe_comlurb_remocao_de_arvore_em_logradouro_wish.html",
+            "wireframes/sgrc/wireframe_seconserva_reparo_de_buraco_deformacao_ou_afundamento_na_pista.html": "wireframes/tobewish/tobe_seconserva_reparo_de_buraco_deformacao_ou_afundamento_na_pista_wish.html",
+            "wireframes/sgrc/wireframe_rioluz_reparo_de_cabo_de_iluminacao_publica.html": "wireframes/tobewish/tobe_rioluz_reparo_de_cabo_de_iluminacao_publica_wish.html",
+            "wireframes/sgrc/wireframe_rioluz_reparo_de_luminaria.html": "wireframes/tobewish/tobe_rioluz_reparo_de_luminaria_wish.html",
+            "wireframes/sgrc/wireframe_cet_rio_reparo_de_sinal_de_transito_apagado.html": "wireframes/tobewish/tobe_cet_rio_reparo_de_sinal_de_transito_apagado_wish.html",
+            "wireframes/sgrc/wireframe_seconserva_reposicao_de_grelha_ou_tampao.html": "wireframes/tobewish/tobe_seconserva_reposicao_de_grelha_ou_tampao_wish.html",
+            "wireframes/sgrc/wireframe_meio_ambiente.html": "wireframes/tobewish/tobe_smac_resgate_de_animais_silvestres_wish.html",
+            "wireframes/sgrc/wireframe_comlurb_varricao_de_vias_publicas.html": "wireframes/tobewish/tobe_comlurb_varricao_de_vias_publicas_wish.html",
+            "wireframes/sgrc/wireframe_smtr_verificacao_de_ar_condicionado_inoperante_no_onibus.html": "wireframes/tobewish/tobe_smtr_verificacao_de_ar_condicionado_inoperante_no_onibus_wish.html",
+            "wireframes/sgrc/wireframe_comlurb_verificacao_de_frequencia_irregular_da_coleta_domiciliar_com_retirada_do_residuo.html": "wireframes/tobewish/tobe_comlurb_verificacao_de_frequencia_irregular_da_coleta_domiciliar_com_retirada_do_residuo_wish.html",
+            "wireframes/sgrc/wireframe_desabamento.html": "wireframes/tobewish/tobe_defesa_civil_vistoria_em_ameaca_de_desabamento_de_estrutura_wish.html",
+            "wireframes/sgrc/wireframe_estrutura_imovel.html": "wireframes/tobewish/tobe_defesa_civil_vistoria_em_imovel_com_rachadura_e_infiltracao_wish.html",
+            "wireframes/sgrc/wireframe_smpda_vistoria_tecnica_em_situacoes_de_mais_tratos_de_animais_domesticos.html": "wireframes/tobewish/tobe_smpda_vistoria_tecnica_em_situacoes_de_mais_tratos_de_animais_domesticos_wish.html"
+};
 
         function showLoader() { loader.classList.add('active'); }
         function hideLoader() { loader.classList.remove('active'); }
