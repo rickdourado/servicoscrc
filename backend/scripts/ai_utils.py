@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("AI_Utils")
 
+import time
 from pathlib import Path
 load_dotenv(Path(__file__).resolve().parent.parent.parent / ".env")
 
@@ -55,7 +56,8 @@ def call_gemini_with_rotation(prompt, model=None):
             is_quota_error = (status_code == 429) or ("429" in str(e)) or ("RESOURCE_EXHAUSTED" in str(e))
             
             if is_quota_error:
-                logger.warning(f"Chave {idx + 1} atingiu o limite de cota (429). Tentando próxima...")
+                logger.warning(f"Chave {idx + 1} atingiu o limite de cota (429). Aguardando 3s para tentar próxima...")
+                time.sleep(3)
                 last_exception = e
                 continue
             
