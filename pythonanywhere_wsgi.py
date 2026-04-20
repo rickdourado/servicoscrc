@@ -5,6 +5,7 @@ import os
 path = '/home/projetocrc/servicoscrc'
 if path not in sys.path:
     sys.path.insert(0, path)
+    sys.path.insert(0, os.path.join(path, 'backend/scripts'))
 
 # 2. Força modo producao ANTES de qualquer import do app.
 # Isso garante que IS_PRODUCTION seja True no PythonAnywhere
