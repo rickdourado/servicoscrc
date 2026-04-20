@@ -5,9 +5,6 @@ import json
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Carrega variáveis de ambiente
-load_dotenv()
-
 # Configuração de caminhos
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 FRONTEND_DIR = BASE_DIR / "frontend"
@@ -15,6 +12,9 @@ SERVICOS_JSON = BASE_DIR / "backend" / "data" / "servicos.json"
 PROMPTS_DIR   = BASE_DIR / "backend" / "prompts"
 CONTRACTS_DIR = PROMPTS_DIR  # contratos .md ficam em prompts/<contrato_id>/
 TEMP_DIR      = BASE_DIR / "backend" / "temp"
+
+# Carrega variáveis de ambiente do arquivo .env na raiz
+load_dotenv(BASE_DIR / ".env")
 
 # Cria pasta temporária se não existir
 os.makedirs(TEMP_DIR, exist_ok=True)

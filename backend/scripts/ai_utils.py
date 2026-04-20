@@ -8,7 +8,8 @@ from dotenv import load_dotenv
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("AI_Utils")
 
-load_dotenv()
+from pathlib import Path
+load_dotenv(Path(__file__).resolve().parent.parent.parent / ".env")
 
 def get_api_keys():
     """Retorna uma lista de todas as chaves GEMINI_API_KEY_N configuradas."""
@@ -22,6 +23,8 @@ def get_api_keys():
         single_key = os.getenv("GEMINI_API_KEY")
         if single_key:
             keys.append(single_key)
+    
+    logger.info(f"Total de chaves carregadas: {len(keys)}")
     return keys
 
 def call_gemini_with_rotation(prompt, model=None):
