@@ -338,6 +338,35 @@ def standardize_service():
     except Exception as e:
         return jsonify({"error": str(e), "sucesso": False}), 500
 
+@app.route("/api/upload-form", methods=["POST"])
+def upload_form():
+    """Recebe uma planilha Excel e gera automaticamente os wireframes."""
+    import backend.scripts.process_excel_forms as form_gen
+    
+    if "file" not in request.files:
+        return jsonify({"error": "Nenhum arquivo enviado"}), 400
+        
+    file = request.files["file"]
+    if not file.filename.endswith(".xlsx"):
+        return jsonify({"error": "Formato inválido. Envie um arquivo .xlsx"}), 400
+        
+    try:
+        # Salva o arquivo na pasta refs/Formulários Avulsos para backup e processamento
+        save_path = BASE_DIR / "refs" / "Formulários Avulsos" / file.filename
+        file.save(str(save_path))
+        
+        # Processa e gera os HTMLs
+        # Nota: sync_all_existing atualiza a UI e retorna todos os mapeamentos
+        mappings = form_gen.sync_all_existing()
+        
+        return jsonify({
+            "sucesso": True,
+            "mensagem": f"Processado com sucesso! {len(mappings)} serviços atualizados.",
+            "mappings": mappings
+        })
+    except Exception as e:
+        return jsonify({"error": str(e), "sucesso": False}), 500
+
 @app.route("/api/save", methods=["POST"])
 def save_data():
     try:

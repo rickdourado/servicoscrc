@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Fiscalização de má condição do ônibus - Otimizado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #004a80; --accent: #f78b1f; --bg: #f8fafc; --surface: #ffffff; --text-dark: #0f172a; --text-gray: #64748b; --border: #e2e8f0; --success: #10b981; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg); padding: 20px; display: flex; justify-content: center; }
+        .wizard-container { background: var(--surface); border-radius: 12px; border: 1px solid var(--border); width: 100%; max-width: 600px; overflow: hidden; }
+        .service-title { background: #e6f0f9; color: var(--primary); font-weight: 800; padding: 15px; text-align: center; text-transform: uppercase; }
+        .step-content { padding: 30px; }
+        .form-group { margin-bottom: 15px; }
+        .form-label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
+        .form-control { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; }
+        .req { color: red; }
+        .wizard-footer { background: #f8fafc; padding: 15px; border-top: 1px solid var(--border); text-align: right; }
+        .btn { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="wizard-container">
+        <div class="service-title">Fiscalização de má condição do ônibus</div>
+        <div class="step-content">
+            <h2 style="font-size:1.2rem; margin-bottom:15px;">Detalhes do Chamado (Passo 2)</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Identificação </label>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Descrição <span class="req">*</span></label>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Data e hora da ocorrência <span class="req">*</span></label>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Má condição do ônibus <span class="req">*</span></label>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Horário da ocorrência </label>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Número da linha de ônibus <span class="req">*</span></label>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Nº de ordem do Ônibus </label>
+                <input type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="wizard-footer">
+            <button class="btn">Próximo Passo</button>
+        </div>
+    </div>
+</body>
+</html>
