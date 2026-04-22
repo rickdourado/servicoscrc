@@ -177,7 +177,7 @@ def analyze_text():
     contract_id  = data.get("contract_id", "czrm")   # novo campo
 
     try:
-        from ai_utils import call_gemini_with_rotation
+        from ai_utils import call_gemini
         
         # Carrega instrução do prompt (busca na pasta do contrato)
         base_prompt = get_prompt(
@@ -209,7 +209,7 @@ def analyze_text():
             + data["text"]
         )
 
-        response = call_gemini_with_rotation(prompt, model=gemini_model)
+        response = call_gemini(prompt, model=gemini_model)
         return jsonify({"result": response.text})
 
     except Exception as e:
@@ -252,7 +252,7 @@ def standardize_service():
     api_key = os.environ.get("GEMINI_API_KEY")
     gemini_model = os.environ.get("GEMINI_MODEL", "gemini-2.0-flash")
     try:
-        from ai_utils import call_gemini_with_rotation
+        from ai_utils import call_gemini
         
         # Carrega regras do prompt original (servico.md ou informacao.md)
         # get_prompt já adiciona .md
@@ -298,7 +298,7 @@ def standardize_service():
             prompt += "- `canais_presenciais`\n"
             prompt += "- `legislacao_relacionada`"
 
-        response = call_gemini_with_rotation(prompt, model=gemini_model)
+        response = call_gemini(prompt, model=gemini_model)
         text_response = response.text
         
         # Extrai JSON do bloco de código

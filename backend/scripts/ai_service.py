@@ -11,7 +11,7 @@ def generate_description(item_type, item_name, parent_name=""):
     """
     Gera uma descrição curta e objetiva usando a API do Gemini com suporte a rotação de chaves.
     """
-    from ai_utils import call_gemini_with_rotation
+    from ai_utils import call_gemini
     
     prompt_context = f"Tema principal: {item_name}" if item_type == "theme" else f"Tema principal: {parent_name}\nSubtema: {item_name}"
     
@@ -27,7 +27,7 @@ Contexto a ser descrito:
 {prompt_context}"""
 
     try:
-        response = call_gemini_with_rotation(prompt_text, model=GEMINI_MODEL)
+        response = call_gemini(prompt_text, model=GEMINI_MODEL)
         return {"description": response.text.strip()}
     except Exception as e:
         return {"error": str(e)}

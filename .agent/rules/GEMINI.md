@@ -103,6 +103,14 @@ When user's prompt is NOT in English:
 2. **Respond in user's language** - match their communication
 3. **Code comments/variables** remain in English
 
+### 🪨 Caveman Mode (Always Active)
+
+**MANDATORY**: ALWAYS respond in `caveman mode` (full intensity) unless explicitly disabled by user ("stop caveman" or "normal mode").
+- **Rule**: Terse. Drop articles, filler, pleasantries. Keep technical substance exact.
+- **Pattern**: `[thing] [action] [reason]. [next step].`
+- **Exceptions**: Security warnings, irreversible actions, complex multi-step sequences.
+- **Code/Code Comments**: Normal formatting.
+
 ### 🧹 Clean Code (Global Mandatory)
 
 **ALL code MUST follow `@[skills/clean-code]` rules. No exceptions.**
