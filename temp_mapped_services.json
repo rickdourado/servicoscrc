@@ -1,0 +1,602 @@
+[
+    {
+        "titulo_servico": "IPTU - Alteração de dados do destinatário",
+        "subtheme_id": "62cff6e3",
+        "subtheme_name": "IPTU",
+        "theme_name": "Imóveis"
+    },
+    {
+        "titulo_servico": "Vistoria em imóvel com rachadura e infiltração",
+        "subtheme_id": "90cd954d",
+        "subtheme_name": "Vistorias",
+        "theme_name": "Defesa Civil"
+    },
+    {
+        "titulo_servico": "Cópia digital de Planta de Arquitetura",
+        "subtheme_id": "b59ac0d4",
+        "subtheme_name": "Certidões e Documentos",
+        "theme_name": "Imóveis"
+    },
+    {
+        "titulo_servico": "ITBI - Correção de dados da guia paga (folha suplementar)",
+        "subtheme_id": "818b1581",
+        "subtheme_name": "ITBI",
+        "theme_name": "Imóveis"
+    },
+    {
+        "titulo_servico": "Solicitação de transporte da gestante para a maternidade",
+        "subtheme_id": "f9eed215",
+        "subtheme_name": "Gestação e Primeira infância",
+        "theme_name": "Saúde"
+    },
+    {
+        "titulo_servico": "Autorização de poda ou remoção de árvore em área particular",
+        "subtheme_id": "b672dcc8",
+        "subtheme_name": "Arborização",
+        "theme_name": "Meio Ambiente"
+    },
+    {
+        "titulo_servico": "Certidão de Habite-se/Aceitação",
+        "subtheme_id": "b59ac0d4",
+        "subtheme_name": "Certidões e Documentos",
+        "theme_name": "Imóveis"
+    },
+    {
+        "titulo_servico": "Declaração de rendimentos de servidor ativo",
+        "subtheme_id": "5bae7a33",
+        "subtheme_name": "Solicitações do servidor",
+        "theme_name": "Administração pública"
+    },
+    {
+        "titulo_servico": "Informações sobre o Benefício de Prestação Continuada",
+        "subtheme_id": "3fd88c75",
+        "subtheme_name": "Assistência social",
+        "theme_name": "Cidadania"
+    },
+    {
+        "titulo_servico": "Isenção de Imposto de Renda",
+        "subtheme_id": "ffb5ca47",
+        "subtheme_name": "Benefícios",
+        "theme_name": "Administração pública"
+    },
+    {
+        "titulo_servico": "Informações sobre pedido de aposentadoria",
+        "subtheme_id": "e83cfa03",
+        "subtheme_name": "Previdência do servidor",
+        "theme_name": "Administração pública"
+    },
+    {
+        "titulo_servico": "Previ-Rio – atendimento ao público",
+        "subtheme_id": "e83cfa03",
+        "subtheme_name": "Previdência do servidor",
+        "theme_name": "Administração pública"
+    },
+    {
+        "titulo_servico": "Reviver Centro",
+        "subtheme_id": "284b04e7",
+        "subtheme_name": "Urbanísticas",
+        "theme_name": "Licenças, Alvarás e Permissões"
+    },
+    {
+        "titulo_servico": "Reparo de cabo de iluminação pública",
+        "subtheme_id": "8a41ff8f",
+        "subtheme_name": "Iluminação pública",
+        "theme_name": "Serviços urbanos"
+    },
+    {
+        "titulo_servico": "Cadastramento de vagas de emprego",
+        "subtheme_id": "2075c0d2",
+        "subtheme_name": "Emprego formal",
+        "theme_name": "Trabalho"
+    },
+    {
+        "titulo_servico": "Fiscalização da ocupação irregular de área pública por estabelecimentos comerciais, industriais ou serviços",
+        "subtheme_id": "f51566ad",
+        "subtheme_name": "Fiscalização de área pública",
+        "theme_name": "Ordem pública"
+    },
+    {
+        "titulo_servico": "Informações sobre reboque ou remoção de veículos enguiçados ou acidentados",
+        "subtheme_id": "ac978a4f",
+        "subtheme_name": "Estacionamento",
+        "theme_name": "Trânsito"
+    },
+    {
+        "titulo_servico": "Emissão de guia para pagamento à vista em Dívida Ativa",
+        "subtheme_id": "64f1df91",
+        "subtheme_name": "Dívida Ativa",
+        "theme_name": "Tributos"
+    },
+    {
+        "titulo_servico": "Alistamento Militar nas Gerências Executivas Locais (GEL’s)",
+        "subtheme_id": "5bae7a33",
+        "subtheme_name": "Solicitações do servidor",
+        "theme_name": "Administração pública"
+    },
+    {
+        "titulo_servico": "Limpeza de papeleira, contêiner e caçamba da COMLURB",
+        "subtheme_id": "3554e0e5",
+        "subtheme_name": "Limpeza",
+        "theme_name": "Serviços urbanos"
+    },
+    {
+        "titulo_servico": "Solicitação de autorização de filmagem - Rio Film Commission",
+        "subtheme_id": "9051fadc",
+        "subtheme_name": "Audiovisual",
+        "theme_name": "Cultura, Esporte e Lazer"
+    },
+    {
+        "titulo_servico": "Solicitação de atendimento social",
+        "subtheme_id": "3fd88c75",
+        "subtheme_name": "Assistência social",
+        "theme_name": "Cidadania"
+    },
+    {
+        "titulo_servico": "Certidão Municipal de Inexigibilidade de Licenciamento Ambiental para atividades industriais, de comércio e serviços (CMI)",
+        "subtheme_id": "560a026c",
+        "subtheme_name": "Ambientais",
+        "theme_name": "Licenças, Alvarás e Permissões"
+    },
+    {
+        "titulo_servico": "Taxa de incêndio - Informações",
+        "subtheme_id": "64f1df91",
+        "subtheme_name": "Dívida Ativa",
+        "theme_name": "Tributos"
+    },
+    {
+        "titulo_servico": "Atendimento em Unidades de Pronto Atendimento (UPA 24 Horas)",
+        "subtheme_id": "abf27ec2",
+        "subtheme_name": "Emergência / UPAs e Centros de Emergência",
+        "theme_name": "Saúde"
+    },
+    {
+        "titulo_servico": "Notificação ao proprietário para limpeza de resíduos em terreno baldio",
+        "subtheme_id": "3554e0e5",
+        "subtheme_name": "Limpeza",
+        "theme_name": "Serviços urbanos"
+    },
+    {
+        "titulo_servico": "Cópia ou Certidão de inteiro teor de documento ou processo",
+        "subtheme_id": "817d45a8",
+        "subtheme_name": "Consulta a processos",
+        "theme_name": "Administração pública"
+    },
+    {
+        "titulo_servico": "Reparo de buraco em calçada de Pedra Portuguesa",
+        "subtheme_id": "bb986be9",
+        "subtheme_name": "Conservação",
+        "theme_name": "Serviços urbanos"
+    },
+    {
+        "titulo_servico": "Cartão de estacionamento para idosos",
+        "subtheme_id": "ac978a4f",
+        "subtheme_name": "Estacionamento",
+        "theme_name": "Trânsito"
+    },
+    {
+        "titulo_servico": "Atendimento em Policlínicas",
+        "subtheme_id": "159798c3",
+        "subtheme_name": "Atendimento ambulatorial / Consultas e exames / Clínicas da Família e Postos de Saúde",
+        "theme_name": "Saúde"
+    },
+    {
+        "titulo_servico": "Imóveis penhorados como garantia para o pagamento de Execuções Fiscais",
+        "subtheme_id": "64f1df91",
+        "subtheme_name": "Dívida Ativa",
+        "theme_name": "Tributos"
+    },
+    {
+        "titulo_servico": "Distribuição de kit enxoval do bebê",
+        "subtheme_id": "f9eed215",
+        "subtheme_name": "Gestação e Primeira infância",
+        "theme_name": "Saúde"
+    },
+    {
+        "titulo_servico": "Reparo em equipamentos de poste de iluminação pública",
+        "subtheme_id": "8a41ff8f",
+        "subtheme_name": "Iluminação pública",
+        "theme_name": "Serviços urbanos"
+    },
+    {
+        "titulo_servico": "Taxas – Taxa de Coleta Domiciliar de Lixo (TCL)",
+        "subtheme_id": "64f1df91",
+        "subtheme_name": "Dívida Ativa",
+        "theme_name": "Tributos"
+    },
+    {
+        "titulo_servico": "IPTU - Autenticidade da Certidão de Elementos Cadastrais",
+        "subtheme_id": "62cff6e3",
+        "subtheme_name": "IPTU",
+        "theme_name": "Imóveis"
+    },
+    {
+        "titulo_servico": "Informações sobre desentupimento ou reparo de rede de esgoto em logradouros públicos",
+        "subtheme_id": "8acf2645",
+        "subtheme_name": "Drenagem",
+        "theme_name": "Serviços urbanos"
+    },
+    {
+        "titulo_servico": "Informações sobre o material Rioeduca",
+        "subtheme_id": "e34d1769",
+        "subtheme_name": "MultiRio",
+        "theme_name": "Educação"
+    },
+    {
+        "titulo_servico": "Remoção de carcaça de veículo não identificável",
+        "subtheme_id": "3554e0e5",
+        "subtheme_name": "Limpeza",
+        "theme_name": "Serviços urbanos"
+    },
+    {
+        "titulo_servico": "Informações sobre avaliação de aluno incluído",
+        "subtheme_id": "7010205d",
+        "subtheme_name": "Educação Especial",
+        "theme_name": "Educação"
+    },
+    {
+        "titulo_servico": "Verificação do número do processo aberto na Secretaria Municipal de Transportes",
+        "subtheme_id": "08f375a5",
+        "subtheme_name": "Transportes",
+        "theme_name": "Licenças, Alvarás e Permissões"
+    },
+    {
+        "titulo_servico": "Patrimônio – Remição de Foro",
+        "subtheme_id": "62cff6e3",
+        "subtheme_name": "IPTU",
+        "theme_name": "Imóveis"
+    },
+    {
+        "titulo_servico": "Manutenção de mobiliário, brinquedos e equipamentos esportivos em praças e parques públicos",
+        "subtheme_id": "bb986be9",
+        "subtheme_name": "Conservação",
+        "theme_name": "Serviços urbanos"
+    },
+    {
+        "titulo_servico": "Informações sobre pecúlio",
+        "subtheme_id": "e83cfa03",
+        "subtheme_name": "Previdência do servidor",
+        "theme_name": "Administração pública"
+    },
+    {
+        "titulo_servico": "Informações sobre fiscalização de irregularidades em linhas de ônibus",
+        "subtheme_id": "e7beebbe",
+        "subtheme_name": "Ônibus",
+        "theme_name": "Transporte"
+    },
+    {
+        "titulo_servico": "Reinstalação de ponto de luz",
+        "subtheme_id": "8a41ff8f",
+        "subtheme_name": "Iluminação pública",
+        "theme_name": "Serviços urbanos"
+    },
+    {
+        "titulo_servico": "Licenciamento Truck Rio",
+        "subtheme_id": "08f375a5",
+        "subtheme_name": "Transportes",
+        "theme_name": "Licenças, Alvarás e Permissões"
+    },
+    {
+        "titulo_servico": "Solicitação de vacinação em domicílio",
+        "subtheme_id": "059b131b",
+        "subtheme_name": "Vacinação",
+        "theme_name": "Saúde"
+    },
+    {
+        "titulo_servico": "Requerimento de adiantamento de décimo terceiro salário para servidor ativo",
+        "subtheme_id": "5bae7a33",
+        "subtheme_name": "Solicitações do servidor",
+        "theme_name": "Administração pública"
+    },
+    {
+        "titulo_servico": "Programa Trabalha Rio",
+        "subtheme_id": "2075c0d2",
+        "subtheme_name": "Emprego formal",
+        "theme_name": "Trabalho"
+    },
+    {
+        "titulo_servico": "Reparo de poste caído ou em risco de queda",
+        "subtheme_id": "8a41ff8f",
+        "subtheme_name": "Iluminação pública",
+        "theme_name": "Serviços urbanos"
+    },
+    {
+        "titulo_servico": "ISS Visto Fiscal/Inclusão Predial – Gerar DARM para pagamento à vista (exclusivo para Processos abertos na Gerência de Visto Fiscal)",
+        "subtheme_id": "cb0c497e",
+        "subtheme_name": "ISS",
+        "theme_name": "Tributos"
+    },
+    {
+        "titulo_servico": "Informações sobre o Programa Rio + Cursos",
+        "subtheme_id": "bbb9add2",
+        "subtheme_name": "Oportunidades Cariocas (land page)",
+        "theme_name": "Cursos"
+    },
+    {
+        "titulo_servico": "Comunicação de Autovistoria",
+        "subtheme_id": "90cd954d",
+        "subtheme_name": "Vistorias",
+        "theme_name": "Defesa Civil"
+    },
+    {
+        "titulo_servico": "Nota Carioca - cancelamento e substituição de nota fiscal eletrônica",
+        "subtheme_id": "ef4ce6a7",
+        "subtheme_name": "Nota Carioca",
+        "theme_name": "Tributos"
+    },
+    {
+        "titulo_servico": "Nota Carioca – Cadastro: alteração de dados do tomador e obrigatoriedade de cadastro",
+        "subtheme_id": "ef4ce6a7",
+        "subtheme_name": "Nota Carioca",
+        "theme_name": "Tributos"
+    },
+    {
+        "titulo_servico": "Informações sobre o Centro de Referência Especializado para População em Situação de Rua – CENTRO POP",
+        "subtheme_id": "3fd88c75",
+        "subtheme_name": "Assistência social",
+        "theme_name": "Cidadania"
+    },
+    {
+        "titulo_servico": "Sessões de cúpula no Planetário do Rio",
+        "subtheme_id": "56881367",
+        "subtheme_name": "Espaços culturais",
+        "theme_name": "Cultura, Esporte e Lazer"
+    },
+    {
+        "titulo_servico": "Patrimônio – Consulta Enfiteuse",
+        "subtheme_id": "b59ac0d4",
+        "subtheme_name": "Certidões e Documentos",
+        "theme_name": "Imóveis"
+    },
+    {
+        "titulo_servico": "Solicitação de plantio de árvore em área pública",
+        "subtheme_id": "b672dcc8",
+        "subtheme_name": "Arborização",
+        "theme_name": "Meio Ambiente"
+    },
+    {
+        "titulo_servico": "Informações e serviços nos postos de atendimento da Secretaria Municipal de Fazenda",
+        "subtheme_id": "9edfb593",
+        "subtheme_name": "Acesso à Informação (LAI)",
+        "theme_name": "Transparência"
+    },
+    {
+        "titulo_servico": "Avaliação para instalação e/ou retirada de papeleira",
+        "subtheme_id": "3554e0e5",
+        "subtheme_name": "Limpeza",
+        "theme_name": "Serviços urbanos"
+    },
+    {
+        "titulo_servico": "ISS – Restituição de indébitos de ISS de autônomos e de taxas",
+        "subtheme_id": "cb0c497e",
+        "subtheme_name": "ISS",
+        "theme_name": "Tributos"
+    },
+    {
+        "titulo_servico": "Fiscalização dos serviços de esgoto da Zona Oeste Mais Saneamento",
+        "subtheme_id": "d46ff03a",
+        "subtheme_name": "Fiscalização ambiental",
+        "theme_name": "Meio Ambiente"
+    },
+    {
+        "titulo_servico": "Reparo de calçada danificada por raiz",
+        "subtheme_id": "bb986be9",
+        "subtheme_name": "Conservação",
+        "theme_name": "Serviços urbanos"
+    },
+    {
+        "titulo_servico": "Reparo de sinal de trânsito travado",
+        "subtheme_id": "ea05264b",
+        "subtheme_name": "Placas e sinal de trânsito",
+        "theme_name": "Trânsito"
+    },
+    {
+        "titulo_servico": "Nota Carioca – Autenticidade: Verificação",
+        "subtheme_id": "ef4ce6a7",
+        "subtheme_name": "Nota Carioca",
+        "theme_name": "Tributos"
+    },
+    {
+        "titulo_servico": "Informações sobre abertura de escola de Educação Infantil",
+        "subtheme_id": "f61a5af0",
+        "subtheme_name": "Educação Infantil",
+        "theme_name": "Educação"
+    },
+    {
+        "titulo_servico": "Realização de exames laboratoriais em animais",
+        "subtheme_id": "2006fe09",
+        "subtheme_name": "Saúde animal",
+        "theme_name": "Animais"
+    },
+    {
+        "titulo_servico": "Informações sobre o GeoPAL",
+        "subtheme_id": "9edfb593",
+        "subtheme_name": "Acesso à Informação (LAI)",
+        "theme_name": "Transparência"
+    },
+    {
+        "titulo_servico": "Fiscalização sanitária de estabelecimentos comerciais em geral",
+        "subtheme_id": "81ce01d9",
+        "subtheme_name": "Sanitárias",
+        "theme_name": "Licenças, Alvarás e Permissões"
+    },
+    {
+        "titulo_servico": "Taxas – Emissão de DARM da Taxa de Fiscalização de Cemitérios",
+        "subtheme_id": "98d9a8be",
+        "subtheme_name": "Serviços funerários",
+        "theme_name": "Serviços urbanos"
+    },
+    {
+        "titulo_servico": "Remoção de toco e raiz (destoca)",
+        "subtheme_id": "d53c14c4",
+        "subtheme_name": "Árvores",
+        "theme_name": "Serviços urbanos"
+    },
+    {
+        "titulo_servico": "ITBI – Revalidação de protocolo com instrumento já lavrado (fiscalização)",
+        "subtheme_id": "818b1581",
+        "subtheme_name": "ITBI",
+        "theme_name": "Imóveis"
+    },
+    {
+        "titulo_servico": "Autorização de Táxi/Mototáxi para Motoristas Auxiliares - Abertura de Termo",
+        "subtheme_id": "719257a9",
+        "subtheme_name": "Táxi",
+        "theme_name": "Transporte"
+    },
+    {
+        "titulo_servico": "Consulta ao andamento de processos administrativos da Coordenadoria de Licenciamento e Fiscalização",
+        "subtheme_id": "817d45a8",
+        "subtheme_name": "Consulta a processos",
+        "theme_name": "Administração pública"
+    },
+    {
+        "titulo_servico": "ISS - Restituição e crédito na Nota Carioca de ISS/Taxas, autônomos e Visto Fiscal",
+        "subtheme_id": "cb0c497e",
+        "subtheme_name": "ISS",
+        "theme_name": "Tributos"
+    },
+    {
+        "titulo_servico": "ITBI – Dúvidas sobre avaliação, interpretação e aplicação da legislação tributária",
+        "subtheme_id": "818b1581",
+        "subtheme_name": "ITBI",
+        "theme_name": "Imóveis"
+    },
+    {
+        "titulo_servico": "Informações sobre Família Acolhedora – FACO",
+        "subtheme_id": "3fd88c75",
+        "subtheme_name": "Assistência social",
+        "theme_name": "Cidadania"
+    },
+    {
+        "titulo_servico": "Concessão de autorização de matrícula nova em Feiras Livres, Feiras Móveis, Feiras Especiais e Antiquários",
+        "subtheme_id": "11c47510",
+        "subtheme_name": "Feiras",
+        "theme_name": "Ordem pública"
+    },
+    {
+        "titulo_servico": "ITBI – Cumprimento de exigência em processo administrativo",
+        "subtheme_id": "818b1581",
+        "subtheme_name": "ITBI",
+        "theme_name": "Imóveis"
+    },
+    {
+        "titulo_servico": "Consulta de multas por permissão em táxi",
+        "subtheme_id": "719257a9",
+        "subtheme_name": "Táxi",
+        "theme_name": "Transporte"
+    },
+    {
+        "titulo_servico": "Informações sobre aferição dos equipamentos de fiscalização eletrônica",
+        "subtheme_id": "fded1180",
+        "subtheme_name": "Fiscalização eletrônica",
+        "theme_name": "Trânsito"
+    },
+    {
+        "titulo_servico": "Certidão de cadastro de taxista/mototaxista - Verificação do tempo de serviço",
+        "subtheme_id": "719257a9",
+        "subtheme_name": "Táxi",
+        "theme_name": "Transporte"
+    },
+    {
+        "titulo_servico": "IPTU – Verificação da Autenticidade da Certidão de Valor Venal",
+        "subtheme_id": "62cff6e3",
+        "subtheme_name": "IPTU",
+        "theme_name": "Imóveis"
+    },
+    {
+        "titulo_servico": "Emissão de carta de isenção tributária por permissão de Táxi/Mototáxi",
+        "subtheme_id": "719257a9",
+        "subtheme_name": "Táxi",
+        "theme_name": "Transporte"
+    },
+    {
+        "titulo_servico": "ISS – Apropriação de guia de pagamento (exceto código de receita 129-5)",
+        "subtheme_id": "cb0c497e",
+        "subtheme_name": "ISS",
+        "theme_name": "Tributos"
+    },
+    {
+        "titulo_servico": "Tesouro – Auto de Infração Administrativo SMFP",
+        "subtheme_id": "9edfb593",
+        "subtheme_name": "Acesso à Informação (LAI)",
+        "theme_name": "Transparência"
+    },
+    {
+        "titulo_servico": "Informações sobre empresas conveniadas com a Prefeitura",
+        "subtheme_id": "9edfb593",
+        "subtheme_name": "Acesso à Informação (LAI)",
+        "theme_name": "Transparência"
+    },
+    {
+        "titulo_servico": "Certidão Municipal de Dispensa de Licenciamento Ambiental (CMD)",
+        "subtheme_id": "560a026c",
+        "subtheme_name": "Ambientais",
+        "theme_name": "Licenças, Alvarás e Permissões"
+    },
+    {
+        "titulo_servico": "ID Jovem",
+        "subtheme_id": "3fd88c75",
+        "subtheme_name": "Assistência social",
+        "theme_name": "Cidadania"
+    },
+    {
+        "titulo_servico": "Informações sobre os Centro de Referência Especializado de Assistência Social – CREAS",
+        "subtheme_id": "3fd88c75",
+        "subtheme_name": "Assistência social",
+        "theme_name": "Cidadania"
+    },
+    {
+        "titulo_servico": "ISS – Emissão de Certidão de Elementos Cadastrais",
+        "subtheme_id": "cb0c497e",
+        "subtheme_name": "ISS",
+        "theme_name": "Tributos"
+    },
+    {
+        "titulo_servico": "Averbação de tempo de contribuição / serviço",
+        "subtheme_id": "e83cfa03",
+        "subtheme_name": "Previdência do servidor",
+        "theme_name": "Administração pública"
+    },
+    {
+        "titulo_servico": "Fiscalização da higiene em mercados e supermercados",
+        "subtheme_id": "81ce01d9",
+        "subtheme_name": "Sanitárias",
+        "theme_name": "Licenças, Alvarás e Permissões"
+    },
+    {
+        "titulo_servico": "Informações sobre concursos públicos",
+        "subtheme_id": "26ff8f67",
+        "subtheme_name": "Concursos e Processos seletivos",
+        "theme_name": "Administração pública"
+    },
+    {
+        "titulo_servico": "Informações sobre o Conselho Tutelar",
+        "subtheme_id": "3fd88c75",
+        "subtheme_name": "Assistência social",
+        "theme_name": "Cidadania"
+    },
+    {
+        "titulo_servico": "Nota Carioca – Cadastro Municipal: Número de Inscrição",
+        "subtheme_id": "ef4ce6a7",
+        "subtheme_name": "Nota Carioca",
+        "theme_name": "Tributos"
+    },
+    {
+        "titulo_servico": "Fiscalização de poluição sonora",
+        "subtheme_id": "e3f5b19c",
+        "subtheme_name": "Poluição urbana",
+        "theme_name": "Meio Ambiente"
+    },
+    {
+        "titulo_servico": "Multa de trânsito paga/não recebida",
+        "subtheme_id": "3c045fa8",
+        "subtheme_name": "Multas",
+        "theme_name": "Trânsito"
+    },
+    {
+        "titulo_servico": "Informações sobre ações de ordenamento urbano",
+        "subtheme_id": "284b04e7",
+        "subtheme_name": "Urbanísticas",
+        "theme_name": "Licenças, Alvarás e Permissões"
+    }
+]
