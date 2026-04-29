@@ -181,6 +181,7 @@
 
         /* Esconde o "espaço vazio" (ghost) quando arrastamos um subtema para a coluna de temas */
         #list-themes .sortable-ghost { display: none !important; }
+        #list-subthemes .sortable-ghost { display: none !important; }
         
         .item-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
         .item.active .item-icon { color: white; }
@@ -293,11 +294,22 @@
             </a>
         </div>
         <div class="nav-actions">
+            <!-- Versões -->
+            <div class="version-control" style="display: flex; gap: 0.5rem; align-items: center; background: var(--surface-alt); padding: 0.3rem 0.6rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
+                <label style="font-size: 0.7rem; font-weight: 800; color: var(--text-sub); text-transform: uppercase;">Versão:</label>
+                <select id="version-select" onchange="loadSpecificVersion()" class="form-input" style="padding: 0.2rem; width: 160px; font-size: 0.8rem; background: white;">
+                    <option value="live">Atual (servicos.json)</option>
+                </select>
+                <button onclick="updateVersionsList()" class="btn btn-outline" style="padding: 0.3rem; border: none; background: transparent;" title="Atualizar Lista">
+                    <i class="fa-solid fa-sync"></i>
+                </button>
+            </div>
+
             <button onclick="restoreOriginal()" class="btn btn-warning">
                 <i class="fa-solid fa-rotate-left"></i> Restaurar Inicial
             </button>
             <button onclick="saveChanges()" class="btn btn-primary">
-                <i class="fa-solid fa-cloud-upload-alt"></i> Sincronizar Tudo
+                <i class="fa-solid fa-save"></i> Salvar Versão
             </button>
             <button onclick="exportToExcel()" class="btn btn-outline" title="Baixar Backup Excel">
                 <i class="fa-solid fa-file-excel"></i> Exportar
@@ -403,8 +415,63 @@
                 const data = await res.json();
                 appData = data.items || [];
                 renderThemes();
+                await updateVersionsList();
             } catch (e) {
                 showToast('Erro ao carregar dados', 'error');
+            } finally {
+                showLoader(false);
+            }
+        }
+
+        async function updateVersionsList() {
+            try {
+                const res = await fetch(`${API_BASE}/list-versions`);
+                const data = await res.json();
+                const select = document.getElementById('version-select');
+                
+                // Mantém apenas a opção "live" e adiciona as novas
+                select.innerHTML = '<option value="live">Atual (servicos.json)</option>';
+                
+                if (data.versions && data.versions.length > 0) {
+                    data.versions.forEach(v => {
+                        const opt = document.createElement('option');
+                        opt.value = v;
+                        opt.textContent = v;
+                        select.appendChild(opt);
+                    });
+                }
+            } catch (e) {
+                console.error("Erro ao carregar lista de versões:", e);
+            }
+        }
+
+        async function loadSpecificVersion() {
+            const version = document.getElementById('version-select').value;
+            showLoader(true);
+            try {
+                let url = `${API_BASE}/servicos-organizacao`;
+                if (version !== 'live') {
+                    url = `${API_BASE}/load-version/${version}`;
+                }
+                
+                const res = await fetch(url);
+                const data = await res.json();
+                
+                // Se a versão for customizada, ela pode retornar o objeto com .items ou o array direto
+                appData = data.items || data;
+                
+                // Reset de seleção
+                selectedThemeId = null;
+                selectedSubthemeId = null;
+                selectedServiceId = null;
+                
+                renderThemes();
+                renderSubthemes();
+                renderServices();
+                
+                showToast(`Versão ${version === 'live' ? 'atual' : version} carregada!`, 'success');
+            } catch (e) {
+                showToast('Erro ao carregar versão', 'error');
             } finally {
                 showLoader(false);
             }
@@ -493,7 +560,7 @@
             div.dataset.type = type;
             
             // Eventos nativos para o destaque "estilo pasta"
-            if (type === 'theme') {
+            if (type === 'theme' || type === 'subtheme') {
                 div.ondragover = (e) => {
                     e.preventDefault();
                     div.classList.add('drag-over');
@@ -570,15 +637,44 @@
             const el = document.getElementById('list-subthemes');
             if (el.sortable) el.sortable.destroy();
             el.sortable = new Sortable(el, {
-                group: { name: 'subthemes', pull: true, put: true },
+                group: { name: 'subthemes', pull: true, put: true, put: ['services'] },
                 animation: 150,
                 onEnd: (evt) => {
+                    document.querySelectorAll('#list-subthemes .item').forEach(i => i.classList.remove('drag-over'));
                     // Se foi movido dentro da própria lista
-                    if(evt.to === evt.from) {
+                    if(evt.to === evt.from && evt.item.dataset.type === 'subtheme') {
                         const theme = appData.find(t => t.id === selectedThemeId);
                         const ids = Array.from(el.children).map(c => c.dataset.id);
                         theme.subthemes = ids.map(id => theme.subthemes.find(s => s.id === id));
                     }
+                },
+                onAdd: (evt) => {
+                    // Quando um serviço é "solto" na coluna de subtemas
+                    const serviceId = evt.item.dataset.id;
+                    const fromTheme = appData.find(t => t.id === selectedThemeId);
+                    const fromSubtheme = fromTheme.subthemes.find(s => s.id === selectedSubthemeId);
+                    
+                    const serviceIndex = fromSubtheme.services.findIndex(s => s.id === serviceId);
+                    const serviceObj = fromSubtheme.services.splice(serviceIndex, 1)[0];
+                    
+                    // Usa o alvo capturado pelos eventos nativos
+                    const targetSubtheme = fromTheme.subthemes.find(s => s.id === activeDropTargetId);
+                    
+                    if (targetSubtheme && targetSubtheme.id !== fromSubtheme.id) {
+                        targetSubtheme.services.push(serviceObj);
+                        showToast(`Serviço movido para ${targetSubtheme.name}`, 'success');
+                    } else {
+                        fromSubtheme.services.splice(serviceIndex, 0, serviceObj);
+                        showToast('Movimentação cancelada', 'error');
+                    }
+                    
+                    // Cleanup visual
+                    evt.item.remove();
+                    document.querySelectorAll('#list-subthemes .item').forEach(i => i.classList.remove('drag-over'));
+                    
+                    renderSubthemes();
+                    renderServices();
+                    activeDropTargetId = null;
                 }
             });
         }
@@ -587,7 +683,7 @@
             const el = document.getElementById('list-services');
             if (el.sortable) el.sortable.destroy();
             el.sortable = new Sortable(el, {
-                group: 'services',
+                group: { name: 'services', pull: true, put: true },
                 animation: 150,
                 onEnd: (evt) => {
                     const theme = appData.find(t => t.id === selectedThemeId);
@@ -725,8 +821,15 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ items: appData })
                 });
-                if (res.ok) showToast('Sincronizado com sucesso!', 'success');
-                else showToast('Erro ao salvar', 'error');
+                const result = await res.json();
+                if (res.ok) {
+                    showToast(`Versão ${result.version} salva com sucesso!`, 'success');
+                    await updateVersionsList();
+                    // Seleciona a versão recém criada
+                    document.getElementById('version-select').value = result.version;
+                } else {
+                    showToast('Erro ao salvar', 'error');
+                }
             } catch (e) { showToast('Erro de conexão', 'error'); }
             finally { showLoader(false); }
         }

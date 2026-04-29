@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 FRONTEND_DIR = BASE_DIR / "frontend"
 SERVICOS_JSON = BASE_DIR / "backend" / "data" / "servicos.json"
+VERSIONS_DIR  = BASE_DIR / "backend" / "data" / "versions"
 PROMPTS_DIR   = BASE_DIR / "backend" / "prompts"
 CONTRACTS_DIR = PROMPTS_DIR  # contratos .md ficam em prompts/<contrato_id>/
 TEMP_DIR      = BASE_DIR / "backend" / "temp"
@@ -16,8 +17,9 @@ TEMP_DIR      = BASE_DIR / "backend" / "temp"
 # Carrega variáveis de ambiente do arquivo .env na raiz
 load_dotenv(BASE_DIR / ".env")
 
-# Cria pasta temporária se não existir
+# Cria pastas necessárias se não existirem
 os.makedirs(TEMP_DIR, exist_ok=True)
+os.makedirs(VERSIONS_DIR, exist_ok=True)
 
 # Inicializa Flask configurado para servir o frontend como estático
 app = Flask(__name__, static_folder=str(FRONTEND_DIR), static_url_path="")
@@ -374,11 +376,51 @@ def save_data():
         if not data or "items" not in data:
             return jsonify({"error": "Dados inválidos"}), 400
         
-        # Salva a hierarquia no JSON
+        # Salva a hierarquia no JSON principal (live)
         with open(SERVICOS_JSON, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=4, ensure_ascii=False)
             
-        return jsonify({"message": "Dados salvos com sucesso!"})
+        # Também gera uma versão AAAAMMDD_HHMMSS.json
+        from datetime import datetime
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        version_filename = f"{timestamp}.json"
+        version_path = VERSIONS_DIR / version_filename
+        
+        with open(version_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+
+        return jsonify({
+            "message": "Dados salvos com sucesso!",
+            "version": version_filename
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/api/list-versions", methods=["GET"])
+def list_versions():
+    """Lista todos os arquivos JSON de versões disponíveis."""
+    try:
+        versions = []
+        for file in sorted(VERSIONS_DIR.glob("*.json"), reverse=True):
+            versions.append(file.name)
+        return jsonify({"versions": versions})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/api/load-version/<filename>", methods=["GET"])
+def load_version(filename):
+    """Carrega o conteúdo de uma versão específica."""
+    try:
+        # Segurança: impede Path Traversal
+        filename = os.path.basename(filename)
+        path = VERSIONS_DIR / filename
+        if not path.exists():
+            return jsonify({"error": "Versão não encontrada"}), 404
+            
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            
+        return jsonify(data)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

@@ -81,7 +81,7 @@ MUITO IMPORTANTE: A resposta deve ser estritamente JSON puro (sem blocos de cód
         max_retries = 20
         for attempt in range(max_retries):
             try:
-                response = call_gemini(prompt, model="gemini-2.0-flash")
+                response = call_gemini(prompt, model="gemini-2.5-flash")
                 text = response.text.strip()
                 if text.startswith('```json'): text = text[7:]
                 if text.startswith('```'): text = text[3:]
