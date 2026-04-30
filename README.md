@@ -20,7 +20,7 @@ O **Serviços CRC** é uma plataforma centralizadora projetada para transformar 
 ### 1. 📂 Padronização de Serviços & Informações
 Módulo avançado que processa descrições brutas e as organiza em um formato estruturado ("Premium").
 - **Campos**: Título, O que é, Para que serve, Público-alvo, Legislação e Canais de Atendimento.
-- **IA**: Utiliza o motor **Gemini 2.0 Flash** com prompts altamente refinados para garantir a fidelidade e a clareza.
+- **IA**: Utiliza o motor **Gemini 3 Flash (Preview)** com prompts altamente refinados para garantir a fidelidade e a clareza.
 
 ### 2. 📊 Sincronização de Dados (Excel Sync)
 Automação para manter a rastreabilidade entre planilhas legadas (AS-IS) e o novo cenário de serviços (TO-BE), garantindo que nada se perca na transição.
@@ -52,7 +52,7 @@ O projeto utiliza o gerenciador de pacotes **`uv`** para máxima velocidade e is
 Crie um arquivo `.env` na raiz do projeto (nunca comite este arquivo!):
 ```env
 GEMINI_API_KEY=sua_chave_aqui
-GEMINI_MODEL=gemini-2.0-flash
+GEMINI_MODEL=gemini-3-flash-preview
 ```
 
 ### 2. Rodar a aplicação

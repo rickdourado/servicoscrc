@@ -18,7 +18,7 @@ def call_gemini(prompt, model=None):
     if not key:
         raise ValueError("Nenhuma chave de API do Gemini encontrada no ambiente (.env)")
 
-    model_name = model or os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+    model_name = model or os.getenv("GEMINI_MODEL", "gemini-3-flash-preview")
 
     try:
         logger.info(f"Enviando requisição ao Gemini (Modelo: {model_name})...")

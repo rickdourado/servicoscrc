@@ -171,7 +171,7 @@ def analyze_text():
         return jsonify({"error": "Texto nao fornecido"}), 400
 
     api_key = os.environ.get("GEMINI_API_KEY")
-    gemini_model = os.environ.get("GEMINI_MODEL", "gemini-2.0-flash")
+    gemini_model = os.environ.get("GEMINI_MODEL", "gemini-3-flash-preview")
     if not api_key:
         return jsonify({"error": "GEMINI_API_KEY nao configurada"}), 500
 
@@ -252,7 +252,7 @@ def standardize_service():
         
     tipo = data.get("type", "servico") # 'servico' ou 'informacao'
     api_key = os.environ.get("GEMINI_API_KEY")
-    gemini_model = os.environ.get("GEMINI_MODEL", "gemini-2.0-flash")
+    gemini_model = os.environ.get("GEMINI_MODEL", "gemini-3-flash-preview")
     try:
         from ai_utils import call_gemini
         
