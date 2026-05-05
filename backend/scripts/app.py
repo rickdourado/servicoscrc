@@ -460,6 +460,18 @@ def api_env():
     return jsonify({"is_production": IS_PRODUCTION})
 
 
+@app.route("/api/tasks-login", methods=["POST"])
+def tasks_login():
+    """Verifica a senha para edicao de tarefas."""
+    data = request.get_json()
+    password = data.get("password")
+    env_password = os.environ.get("TASKS_PASSWORD", "admin")
+    
+    if password == env_password:
+        return jsonify({"success": True})
+    return jsonify({"success": False, "message": "Senha incorreta"}), 401
+
+
 @app.route("/api/ping")
 def ping():
     return jsonify({"status": "ok"})

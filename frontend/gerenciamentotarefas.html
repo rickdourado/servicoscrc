@@ -184,8 +184,14 @@
             color: var(--text-secondary);
         }
 
+        .tasks-table th:nth-child(1), .tasks-table td:nth-child(1) { width: 90px; }
+        .tasks-table th:nth-child(2), .tasks-table td:nth-child(2) { width: 180px; }
+        .tasks-table th:nth-child(4), .tasks-table td:nth-child(4) { width: 130px; }
+        .tasks-table th:nth-child(5), .tasks-table td:nth-child(5) { width: 150px; }
+        .tasks-table th:nth-child(6), .tasks-table td:nth-child(6) { width: 140px; }
+
         .tasks-table td {
-            padding: 1rem 1.25rem;
+            padding: 0.75rem 1.25rem;
             border-bottom: 1px solid #f1f5f9;
             font-size: 0.875rem;
         }
@@ -198,14 +204,57 @@
             background: #f8fafc;
         }
 
-        .tasks-table tbody tr:last-child td {
-            border-bottom: none;
+        .tasks-table tbody tr.subtask-row {
+            background: #fafbfc;
+        }
+
+        .tasks-table tbody tr.hidden {
+            display: none;
+        }
+
+        .task-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .task-indent {
+            display: inline-block;
+            width: 24px;
+            flex-shrink: 0;
+        }
+
+        .toggle-btn {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #64748b;
+            transition: transform 0.2s ease;
+        }
+
+        .toggle-btn.expanded {
+            transform: rotate(90deg);
+        }
+
+        .toggle-btn.empty {
+            cursor: default;
+            color: #cbd5e1;
+        }
+
+        .directory-icon {
+            color: var(--accent-color);
+            font-size: 1rem;
+            margin-right: 0.25rem;
         }
 
         .task-id {
             font-weight: 700;
             color: var(--accent-color);
             font-family: 'Inter', monospace;
+            font-size: 0.75rem;
         }
 
         .member-cell {
@@ -233,7 +282,7 @@
         }
 
         .activity-cell {
-            max-width: 300px;
+            min-width: 300px;
         }
 
         .activity-title {
@@ -260,6 +309,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.025em;
+            white-space: nowrap;
         }
 
         .badge-priority {
@@ -347,6 +397,12 @@
             border-color: var(--accent-color);
             color: var(--accent-color);
             background: #f8fafc;
+        }
+
+        .action-btn.add-sub:hover {
+            border-color: #16a34a;
+            color: #16a34a;
+            background: #f0fdf4;
         }
 
         .action-btn.delete:hover {
@@ -567,6 +623,182 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        /* Auth Styles */
+        body:not(.authenticated) .auth-only { display: none !important; }
+        
+        .auth-status {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-right: 1rem;
+        }
+
+        .login-badge {
+            background: #f8fafc;
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .authenticated .login-badge {
+            background: #f0fdf4;
+            color: #16a34a;
+            border-color: #bbf7d0;
+        }
+
+        /* Login Modal Enhancements */
+        #loginModal .modal {
+            max-width: 400px;
+            border-radius: 28px;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 25px 50px -12px rgba(0, 74, 128, 0.25);
+        }
+
+        .login-header {
+            background: var(--accent-color);
+            color: #ffffff;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .login-header h2 {
+            color: #ffffff;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .login-header p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .login-icon-bg {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.75rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .login-body {
+            padding: 2rem;
+            background: #ffffff;
+        }
+
+        #loginForm .form-group label {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        #loginForm input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border-radius: 14px;
+            border: 2px solid #e2e8f0;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            background: #f8fafc;
+        }
+
+        #loginForm input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(0, 74, 128, 0.1);
+        }
+
+        .login-footer {
+            padding: 0 2rem 2rem;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .login-footer .btn {
+            width: 100%;
+            padding: 1rem;
+            justify-content: center;
+        }
+
+        /* Confirm Modal Styles */
+        .confirm-modal .modal {
+            max-width: 450px;
+        }
+
+        .confirm-modal-content {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .confirm-icon {
+            font-size: 4rem;
+            color: #dc2626;
+            margin-bottom: 1.5rem;
+            display: block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .confirm-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .confirm-message {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
+        }
+
+        .btn-danger:active {
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -595,12 +827,23 @@
         <div class="tasks-page">
             <div class="tasks-header">
                 <h1><i class="fas fa-tasks"></i> Gerenciamento de Tarefas</h1>
-                <div class="btn-group">
-                    <button class="btn btn-secondary" id="btnExport">
+                <div class="btn-group" style="align-items: center;">
+                    <div class="auth-status">
+                        <div class="login-badge" id="authBadge">
+                            <i class="fas fa-eye"></i> Modo Visualização
+                        </div>
+                        <button class="btn btn-secondary" id="btnLogin">
+                            <i class="fas fa-sign-in-alt"></i> Entrar
+                        </button>
+                        <button class="btn btn-secondary auth-only" id="btnLogout">
+                            <i class="fas fa-sign-out-alt"></i> Sair
+                        </button>
+                    </div>
+                    <button class="btn btn-secondary auth-only" id="btnExport">
                         <i class="fas fa-download"></i> Exportar
                     </button>
-                    <button class="btn btn-primary" id="btnAddTask">
-                        <i class="fas fa-plus"></i> Nova Tarefa
+                    <button class="btn btn-primary auth-only" id="btnAddTask">
+                        <i class="fas fa-plus"></i> Nova Atividade
                     </button>
                 </div>
             </div>
@@ -668,7 +911,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Membro</th>
-                            <th>Atividade</th>
+                            <th>Atividade / Tarefa</th>
                             <th>Prioridade</th>
                             <th>Status</th>
                             <th>Ações</th>
@@ -689,7 +932,7 @@
     <div class="modal-overlay" id="taskModal">
         <div class="modal">
             <div class="modal-header">
-                <h2 id="modalTitle">Nova Tarefa</h2>
+                <h2 id="modalTitle">Nova Atividade</h2>
                 <button class="modal-close" id="modalClose">
                     <i class="fas fa-times"></i>
                 </button>
@@ -710,7 +953,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="taskTitle">Título da Atividade</label>
+                        <label class="form-label" for="taskTitle" id="taskTitleLabel">Título da Atividade</label>
                         <input type="text" class="form-input" id="taskTitle" placeholder="Ex: Revisar documentação do serviço XYZ" required>
                     </div>
                     <div class="form-group">
@@ -739,11 +982,64 @@
                             </select>
                         </div>
                     </div>
+                    <input type="hidden" id="taskParentId">
+                    <div id="parentInfo" style="display: none; margin-bottom: 1rem; padding: 0.75rem; background: #f8fafc; border-radius: 8px; border: 1px dashed #cbd5e1;">
+                        <span style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--text-secondary); display: block; margin-bottom: 0.25rem;">Tarefa da Atividade:</span>
+                        <span id="parentTitleText" style="font-weight: 600; color: var(--accent-color);"></span>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" id="btnCancel">Cancelar</button>
-                <button class="btn btn-primary" id="btnSave">Salvar Tarefa</button>
+                <button class="btn btn-primary" id="btnSave">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <div class="login-header">
+                <div class="login-icon-bg">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2>Acesso Restrito</h2>
+                <p>Identifique-se para gerenciar as atividades</p>
+            </div>
+            <div class="login-body">
+                <form id="loginForm">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="tasksPassword">Senha Administrativa</label>
+                        <input type="password" id="tasksPassword" placeholder="••••••••" required>
+                    </div>
+                </form>
+            </div>
+            <div class="login-footer">
+                <button class="btn btn-primary" id="btnDoLogin">
+                    <i class="fas fa-check-circle"></i> Confirmar Acesso
+                </button>
+                <button class="btn btn-secondary" id="btnCancelLogin" style="background: transparent; border: none; box-shadow: none; color: var(--text-secondary);">
+                    Voltar para Visualização
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Deletion Modal -->
+    <div class="modal-overlay confirm-modal" id="confirmModal">
+        <div class="modal">
+            <div class="modal-body">
+                <div class="confirm-modal-content">
+                    <i class="fas fa-exclamation-triangle confirm-icon"></i>
+                    <h2 class="confirm-title">Confirmar Exclusão</h2>
+                    <p class="confirm-message" id="confirmMessage">
+                        Tem certeza que deseja excluir este item? Esta ação não pode ser desfeita e removerá todas as sub-tarefas associadas.
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer" style="justify-content: center; border-top: none; padding-top: 0;">
+                <button class="btn btn-secondary" id="confirmCancel">Não, Cancelar</button>
+                <button class="btn btn-danger" id="confirmOk">Sim, Excluir</button>
             </div>
         </div>
     </div>
@@ -759,7 +1055,63 @@
         const avatarColors = ['#004a80', '#f59e0b', '#dc2626', '#16a34a', '#9333ea', '#2563eb'];
         
         let tasks = JSON.parse(localStorage.getItem('crc-tasks') || '[]');
+        let expandedTasks = new Set(JSON.parse(localStorage.getItem('crc-expanded-tasks') || '[]'));
         let editingTaskId = null;
+        let deletingTaskId = null;
+        let isAuthenticated = sessionStorage.getItem('crc-auth') === 'true';
+
+        function updateAuthState() {
+            if (isAuthenticated) {
+                document.body.classList.add('authenticated');
+                document.getElementById('authBadge').innerHTML = '<i class="fas fa-user-shield"></i> Modo Editor';
+                document.getElementById('btnLogin').style.display = 'none';
+                document.getElementById('btnLogout').style.display = 'inline-flex';
+            } else {
+                document.body.classList.remove('authenticated');
+                document.getElementById('authBadge').innerHTML = '<i class="fas fa-eye"></i> Modo Visualização';
+                document.getElementById('btnLogin').style.display = 'inline-flex';
+                document.getElementById('btnLogout').style.display = 'none';
+            }
+        }
+
+        async function handleLogin() {
+            const password = document.getElementById('tasksPassword').value;
+            try {
+                const response = await fetch('/api/tasks-login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+                
+                if (response.ok) {
+                    isAuthenticated = true;
+                    sessionStorage.setItem('crc-auth', 'true');
+                    updateAuthState();
+                    closeLoginModal();
+                    showToast('Acesso concedido!', 'success');
+                } else {
+                    showToast('Senha incorreta!', 'error');
+                }
+            } catch (error) {
+                showToast('Erro ao conectar ao servidor', 'error');
+            }
+        }
+
+        function handleLogout() {
+            isAuthenticated = false;
+            sessionStorage.removeItem('crc-auth');
+            updateAuthState();
+            showToast('Sessão encerrada', 'info');
+        }
+
+        function openLoginModal() {
+            document.getElementById('tasksPassword').value = '';
+            document.getElementById('loginModal').classList.add('active');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.remove('active');
+        }
 
         function getInitials(name) {
             return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
@@ -773,17 +1125,37 @@
             return avatarColors[Math.abs(hash) % avatarColors.length];
         }
 
-        function generateId() {
-            return 'CRC-' + String(tasks.length + 1).padStart(3, '0');
+        function generateId(parentId = null) {
+            if (!parentId) {
+                const rootTasks = tasks.filter(t => !t.parentId);
+                const maxId = rootTasks.reduce((max, t) => {
+                    const parts = t.id.split('-');
+                    if (parts.length < 2) return max;
+                    const idNum = parseInt(parts[1]);
+                    return isNaN(idNum) ? max : (idNum > max ? idNum : max);
+                }, 0);
+                return 'CRC-' + String(maxId + 1).padStart(3, '0');
+            } else {
+                const children = tasks.filter(t => t.parentId === parentId);
+                const maxSubId = children.reduce((max, t) => {
+                    const parts = t.id.split('.');
+                    const subId = parseInt(parts[parts.length - 1]);
+                    return isNaN(subId) ? max : (subId > max ? subId : max);
+                }, 0);
+                return `${parentId}.${maxSubId + 1}`;
+            }
         }
 
         function saveTasks() {
             localStorage.setItem('crc-tasks', JSON.stringify(tasks));
+            localStorage.setItem('crc-expanded-tasks', JSON.stringify([...expandedTasks]));
         }
 
-        function createTaskElement(task) {
+        function createTaskElement(task, depth = 0) {
             const initials = getInitials(task.member);
             const color = getAvatarColor(task.member);
+            const hasChildren = tasks.some(t => t.parentId === task.id);
+            const isExpanded = expandedTasks.has(task.id);
             
             const priorityLabels = {
                 critical: 'Crítica',
@@ -800,8 +1172,10 @@
                 blocked: 'Bloqueada'
             };
 
+            const indentation = Array(depth).fill('<div class="task-indent"></div>').join('');
+
             return `
-                <tr data-id="${task.id}">
+                <tr data-id="${task.id}" class="${task.parentId ? 'subtask-row' : ''}">
                     <td><span class="task-id">${task.id}</span></td>
                     <td>
                         <div class="member-cell">
@@ -810,23 +1184,48 @@
                         </div>
                     </td>
                     <td class="activity-cell">
-                        <div class="activity-title">${task.title}</div>
-                        ${task.description ? `<div class="activity-desc">${task.description}</div>` : ''}
+                        <div class="task-title-wrapper" style="padding-left: ${depth * 20}px">
+                            ${hasChildren ? 
+                                `<div class="toggle-btn ${isExpanded ? 'expanded' : ''}" onclick="toggleTask('${task.id}', event)">
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>` : 
+                                `<div class="toggle-btn empty"></div>`
+                            }
+                            <i class="fas ${hasChildren ? (isExpanded ? 'fa-folder-open' : 'fa-folder') : 'fa-file-alt'} directory-icon"></i>
+                            <div>
+                                <div class="activity-title">${task.title}</div>
+                                ${task.description ? `<div class="activity-desc">${task.description}</div>` : ''}
+                            </div>
+                        </div>
                     </td>
                     <td><span class="badge badge-priority ${task.priority}">${priorityLabels[task.priority]}</span></td>
                     <td><span class="badge badge-status ${task.status}">${statusLabels[task.status]}</span></td>
                     <td>
                         <div class="actions-cell">
-                            <button class="action-btn edit" onclick="editTask('${task.id}')" title="Editar">
+                            <button class="action-btn auth-only" onclick="addSubtask('${task.id}')" title="Adicionar Tarefa">
+                                <i class="fas fa-folder-plus"></i>
+                            </button>
+                            <button class="action-btn auth-only" onclick="editTask('${task.id}')" title="Editar">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="action-btn delete" onclick="deleteTask('${task.id}')" title="Excluir">
-                                <i class="fas fa-trash"></i>
+                            <button class="action-btn delete auth-only" onclick="deleteTask('${task.id}')" title="Excluir">
+                                <i class="fas fa-trash-alt"></i>
                             </button>
                         </div>
                     </td>
                 </tr>
             `;
+        }
+
+        function toggleTask(id, event) {
+            event.stopPropagation();
+            if (expandedTasks.has(id)) {
+                expandedTasks.delete(id);
+            } else {
+                expandedTasks.add(id);
+            }
+            saveTasks();
+            renderTasks();
         }
 
         function updateStats() {
@@ -865,50 +1264,96 @@
             const priorityFilter = document.getElementById('filterPriority').value;
             const statusFilter = document.getElementById('filterStatus').value;
 
-            let filteredTasks = tasks.filter(task => {
+            function buildTree(parentList, depth = 0) {
+                let html = '';
+                parentList.forEach(task => {
+                    const matchesSearch = !searchTerm || 
+                        task.title.toLowerCase().includes(searchTerm) || 
+                        task.member.toLowerCase().includes(searchTerm) ||
+                        (task.description && task.description.toLowerCase().includes(searchTerm));
+                    
+                    const matchesMember = !memberFilter || task.member === memberFilter;
+                    const matchesPriority = !priorityFilter || task.priority === priorityFilter;
+                    const matchesStatus = !statusFilter || task.status === statusFilter;
+
+                    const matchesFilters = matchesSearch && matchesMember && matchesPriority && matchesStatus;
+                    
+                    const children = tasks.filter(t => t.parentId === task.id);
+                    const hasMatchingChildren = children.some(c => matchesTaskRecursive(c));
+
+                    if (matchesFilters || hasMatchingChildren) {
+                        html += createTaskElement(task, depth);
+                        if (expandedTasks.has(task.id) || searchTerm) {
+                            html += buildTree(children, depth + 1);
+                        }
+                    }
+                });
+                return html;
+            }
+
+            function matchesTaskRecursive(task) {
                 const matchesSearch = !searchTerm || 
                     task.title.toLowerCase().includes(searchTerm) || 
-                    task.member.toLowerCase().includes(searchTerm) ||
-                    (task.description && task.description.toLowerCase().includes(searchTerm));
-                
-                const matchesMember = !memberFilter || task.member === memberFilter;
-                const matchesPriority = !priorityFilter || task.priority === priorityFilter;
-                const matchesStatus = !statusFilter || task.status === statusFilter;
+                    task.member.toLowerCase().includes(searchTerm);
+                if (matchesSearch) return true;
+                return tasks.filter(t => t.parentId === task.id).some(c => matchesTaskRecursive(c));
+            }
 
-                return matchesSearch && matchesMember && matchesPriority && matchesStatus;
-            });
+            const rootTasks = tasks.filter(t => !t.parentId);
+            const treeHtml = buildTree(rootTasks);
 
-            if (filteredTasks.length === 0) {
+            if (!treeHtml && tasks.length > 0 && (searchTerm || memberFilter || priorityFilter || statusFilter)) {
+                tbody.innerHTML = '';
+                emptyState.style.display = 'block';
+            } else if (tasks.length === 0) {
                 tbody.innerHTML = '';
                 emptyState.style.display = 'block';
             } else {
                 emptyState.style.display = 'none';
-                tbody.innerHTML = filteredTasks.map(task => createTaskElement(task)).join('');
+                tbody.innerHTML = treeHtml;
             }
 
             updateStats();
             updateMemberFilter();
         }
 
-        function openModal(taskId = null) {
+        function openModal(taskId = null, parentId = null) {
             const modal = document.getElementById('taskModal');
             const form = document.getElementById('taskForm');
+            const parentInfo = document.getElementById('parentInfo');
+            const parentTitleText = document.getElementById('parentTitleText');
+            const taskParentId = document.getElementById('taskParentId');
             
             editingTaskId = taskId;
             
             if (taskId) {
                 const task = tasks.find(t => t.id === taskId);
-                document.getElementById('modalTitle').textContent = 'Editar Tarefa';
+                document.getElementById('modalTitle').textContent = task.parentId ? 'Editar Tarefa' : 'Editar Atividade';
+                document.getElementById('taskTitleLabel').textContent = task.parentId ? 'Título da Tarefa' : 'Título da Atividade';
                 document.getElementById('taskId').value = task.id;
                 document.getElementById('taskMember').value = task.member;
                 document.getElementById('taskTitle').value = task.title;
                 document.getElementById('taskDescription').value = task.description || '';
                 document.getElementById('taskPriority').value = task.priority;
                 document.getElementById('taskStatus').value = task.status;
+                taskParentId.value = task.parentId || '';
+                parentInfo.style.display = 'none';
             } else {
-                document.getElementById('modalTitle').textContent = 'Nova Tarefa';
+                document.getElementById('modalTitle').textContent = parentId ? 'Nova Tarefa' : 'Nova Atividade';
+                document.getElementById('taskTitleLabel').textContent = parentId ? 'Título da Tarefa' : 'Título da Atividade';
                 form.reset();
                 document.getElementById('taskId').value = '';
+                taskParentId.value = parentId || '';
+                
+                if (parentId) {
+                    const parentTask = tasks.find(t => t.id === parentId);
+                    parentTitleText.textContent = parentTask.title;
+                    parentInfo.style.display = 'block';
+                    document.getElementById('taskMember').value = parentTask.member;
+                    document.getElementById('taskPriority').value = parentTask.priority;
+                } else {
+                    parentInfo.style.display = 'none';
+                }
             }
             
             modal.classList.add('active');
@@ -926,6 +1371,7 @@
             const description = document.getElementById('taskDescription').value;
             const priority = document.getElementById('taskPriority').value;
             const status = document.getElementById('taskStatus').value;
+            const parentId = document.getElementById('taskParentId').value;
 
             if (!member || !title || !priority || !status) {
                 showToast('Preencha todos os campos obrigatórios!', 'error');
@@ -942,19 +1388,26 @@
                     priority,
                     status
                 };
-                showToast('Tarefa atualizada com sucesso!', 'success');
+                showToast('Atualizado com sucesso!', 'success');
             } else {
+                const newId = generateId(parentId);
                 const newTask = {
-                    id: generateId(),
+                    id: newId,
                     member,
                     title,
                     description,
                     priority,
                     status,
+                    parentId: parentId || null,
                     createdAt: new Date().toISOString()
                 };
                 tasks.push(newTask);
-                showToast('Tarefa criada com sucesso!', 'success');
+                
+                if (parentId) {
+                    expandedTasks.add(parentId);
+                }
+                
+                showToast('Criado com sucesso!', 'success');
             }
 
             saveTasks();
@@ -962,17 +1415,55 @@
             closeModal();
         }
 
+        function addSubtask(parentId) {
+            openModal(null, parentId);
+        }
+
         function editTask(id) {
             openModal(id);
         }
 
         function deleteTask(id) {
-            if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
-                tasks = tasks.filter(t => t.id !== id);
-                saveTasks();
-                renderTasks();
-                showToast('Tarefa excluída!', 'success');
-            }
+            const task = tasks.find(t => t.id === id);
+            const isParent = tasks.some(t => t.parentId === id);
+            const type = task.parentId ? 'tarefa' : 'atividade';
+            
+            const message = isParent 
+                ? `Você está prestes a excluir a atividade <strong>"${task.title}"</strong> e TODAS as suas tarefas vinculadas. Esta ação é irreversível.`
+                : `Deseja realmente excluir a ${type} <strong>"${task.title}"</strong>?`;
+            
+            document.getElementById('confirmMessage').innerHTML = message;
+            deletingTaskId = id;
+            document.getElementById('confirmModal').classList.add('active');
+        }
+
+        function executeDelete() {
+            if (!deletingTaskId) return;
+            
+            const id = deletingTaskId;
+            const tasksToDelete = [id];
+            const findChildren = (pid) => {
+                tasks.forEach(t => {
+                    if (t.parentId === pid) {
+                        tasksToDelete.push(t.id);
+                        findChildren(t.id);
+                    }
+                });
+            };
+            findChildren(id);
+            
+            tasks = tasks.filter(t => !tasksToDelete.includes(t.id));
+            tasksToDelete.forEach(tid => expandedTasks.delete(tid));
+            
+            saveTasks();
+            renderTasks();
+            showToast('Excluído com sucesso!', 'success');
+            closeConfirm();
+        }
+
+        function closeConfirm() {
+            document.getElementById('confirmModal').classList.remove('active');
+            deletingTaskId = null;
         }
 
         function showToast(message, type = 'success') {
@@ -1019,15 +1510,36 @@
         document.getElementById('btnCancel').addEventListener('click', closeModal);
         document.getElementById('btnSave').addEventListener('click', saveTask);
         document.getElementById('btnExport').addEventListener('click', exportTasks);
+        document.getElementById('confirmCancel').addEventListener('click', closeConfirm);
+        document.getElementById('confirmOk').addEventListener('click', executeDelete);
+
+        document.getElementById('btnLogin').addEventListener('click', openLoginModal);
+        document.getElementById('btnLogout').addEventListener('click', handleLogout);
+        document.getElementById('btnCancelLogin').addEventListener('click', closeLoginModal);
+        document.getElementById('btnDoLogin').addEventListener('click', handleLogin);
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            handleLogin();
+        });
+
+        document.getElementById('taskModal').addEventListener('click', (e) => {
+            if (e.target.id === 'taskModal') closeModal();
+        });
+
+        document.getElementById('confirmModal').addEventListener('click', (e) => {
+            if (e.target.id === 'confirmModal') closeConfirm();
+        });
+
+        document.getElementById('loginModal').addEventListener('click', (e) => {
+            if (e.target.id === 'loginModal') closeLoginModal();
+        });
+
+        updateAuthState();
 
         document.getElementById('searchInput').addEventListener('input', renderTasks);
         document.getElementById('filterMember').addEventListener('change', renderTasks);
         document.getElementById('filterPriority').addEventListener('change', renderTasks);
         document.getElementById('filterStatus').addEventListener('change', renderTasks);
-
-        document.getElementById('taskModal').addEventListener('click', (e) => {
-            if (e.target.id === 'taskModal') closeModal();
-        });
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeModal();
