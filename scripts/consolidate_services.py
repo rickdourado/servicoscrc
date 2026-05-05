@@ -1,12 +1,16 @@
 import pandas as pd
+import os
+import sys
 from thefuzz import process
+
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def main():
     # Load the data
-    df_nivel3 = pd.read_excel('refs/planilhas/servicos/nivel3fica.xlsx')
+    df_nivel3 = pd.read_excel(os.path.join(PROJECT_ROOT, 'refs/planilhas/servicos/nivel3fica.xlsx'))
     col_n3 = 'titulo_servico' if 'titulo_servico' in df_nivel3.columns else df_nivel3.columns[0]
     
-    df_acompanhamento = pd.read_excel('refs/planilhas/servicos/acompanhamentoservicos.xlsx', header=1)
+    df_acompanhamento = pd.read_excel(os.path.join(PROJECT_ROOT, 'refs/planilhas/servicos/acompanhamentoservicos.xlsx'), header=1)
     
     col_acomp_title = 'titulo_servico'
     col_acomp_desc = 'descricao_completa'
@@ -43,7 +47,7 @@ def main():
         })
         
     df_results = pd.DataFrame(results)
-    df_results.to_excel('refs/planilhas/servicos/servicos3consolidada.xlsx', index=False)
+    df_results.to_excel(os.path.join(PROJECT_ROOT, 'refs/planilhas/servicos/servicos3consolidada.xlsx'), index=False)
     print("Consolidation complete! Saved to refs/planilhas/servicos/servicos3consolidada.xlsx")
     print(f"Total rows processed: {len(results)}")
     print(f"Matches found: {len(df_results[df_results['descricao_completa'] != ''])}")

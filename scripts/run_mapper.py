@@ -3,11 +3,12 @@ import os
 import sys
 import time
 
-sys.path.append(os.path.join(os.path.dirname(__file__), 'backend', 'scripts'))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(os.path.join(PROJECT_ROOT, 'backend', 'scripts'))
 from ai_utils import call_gemini
 
 def main():
-    with open('backend/data/servicos.json', 'r', encoding='utf-8') as f:
+    with open(os.path.join(PROJECT_ROOT, 'backend/data/servicos.json'), 'r', encoding='utf-8') as f:
         data = json.load(f)
 
     subthemes_info = []
@@ -19,7 +20,7 @@ def main():
                 "subtheme_id": sub['id']
             })
 
-    with open('temp_nivel3_titles.json', 'r', encoding='utf-8') as f:
+    with open(os.path.join(PROJECT_ROOT, 'temp_nivel3_titles.json'), 'r', encoding='utf-8') as f:
         titles = json.load(f)
 
     # Process in batches of 50 to avoid token limits or confused outputs
@@ -70,7 +71,7 @@ MUITO IMPORTANTE: A resposta deve ser estritamente JSON.
                 else:
                     print("Falha ao processar lote após várias tentativas.")
 
-    with open('temp_mapped_services.json', 'w', encoding='utf-8') as f:
+    with open(os.path.join(PROJECT_ROOT, 'temp_mapped_services.json'), 'w', encoding='utf-8') as f:
         json.dump(all_mappings, f, ensure_ascii=False, indent=4)
         
     print(f"Mapeamento concluído com {len(all_mappings)} serviços.")
