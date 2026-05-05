@@ -1,7 +1,11 @@
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, jsonify, request, send_from_directory, session
 from flask_cors import CORS
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from models import db, User, Activity
+from datetime import datetime
 import os
 import json
+import logging
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -13,6 +17,8 @@ VERSIONS_DIR  = BASE_DIR / "backend" / "data" / "versions"
 PROMPTS_DIR   = BASE_DIR / "backend" / "prompts"
 CONTRACTS_DIR = PROMPTS_DIR  # contratos .md ficam em prompts/<contrato_id>/
 TEMP_DIR      = BASE_DIR / "backend" / "temp"
+DB_PATH       = BASE_DIR / "backend" / "data" / "app.db"
+LOGS_DIR      = BASE_DIR / "backend" / "data" / "logs"
 
 # Carrega variáveis de ambiente do arquivo .env na raiz
 load_dotenv(BASE_DIR / ".env")
@@ -20,10 +26,32 @@ load_dotenv(BASE_DIR / ".env")
 # Cria pastas necessárias se não existirem
 os.makedirs(TEMP_DIR, exist_ok=True)
 os.makedirs(VERSIONS_DIR, exist_ok=True)
+os.makedirs(LOGS_DIR, exist_ok=True)
 
 # Inicializa Flask configurado para servir o frontend como estático
 app = Flask(__name__, static_folder=str(FRONTEND_DIR), static_url_path="")
-CORS(app)
+app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key-change-in-production")
+app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_PATH}"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+CORS(app, supports_credentials=True)
+
+# Inicializa banco de dados e login
+db.init_app(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = None
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+def log_user_action(action):
+    """Loga ações do usuário em arquivos separados."""
+    if current_user.is_authenticated:
+        user_log_file = LOGS_DIR / f"{current_user.username}.log"
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        with open(user_log_file, "a", encoding="utf-8") as f:
+            f.write(f"[{timestamp}] {action}\n")
 
 # Detecta se está em Modo Produção (para desabilitar IA pesada se necessário)
 IS_PRODUCTION = os.environ.get("IS_PRODUCTION", "false").lower() == "true"
@@ -460,16 +488,171 @@ def api_env():
     return jsonify({"is_production": IS_PRODUCTION})
 
 
-@app.route("/api/tasks-login", methods=["POST"])
-def tasks_login():
-    """Verifica a senha para edicao de tarefas."""
+# =======================
+# Autenticação e Usuários
+# =======================
+
+@app.route("/api/login", methods=["POST"])
+def login():
+    """Autentica usuário e inicia sessão."""
     data = request.get_json()
+    username = data.get("username")
     password = data.get("password")
-    env_password = os.environ.get("TASKS_PASSWORD", "admin")
+
+    user = User.query.filter_by(username=username, is_active=True).first()
+    if not user or not user.check_password(password):
+        return jsonify({"error": "Credenciais inválidas"}), 401
+
+    login_user(user)
+    log_user_action("Login realizado")
+    return jsonify({"user": {"id": user.id, "username": user.username, "name": user.name, "role": user.role}})
+
+@app.route("/api/logout", methods=["POST"])
+@login_required
+def logout():
+    """Encerra sessão do usuário."""
+    log_user_action("Logout realizado")
+    logout_user()
+    return jsonify({"message": "Sessão encerrada"})
+
+@app.route("/api/me")
+@login_required
+def me():
+    """Retorna dados do usuário autenticado."""
+    return jsonify({"user": {"id": current_user.id, "username": current_user.username, "name": current_user.name, "role": current_user.role}})
+
+# =======================
+# Atividades / Tarefas
+# =======================
+
+@app.route("/api/activities", methods=["GET"])
+@login_required
+def list_activities():
+    """Lista atividades. Admins veem todas, usuários veem apenas as suas."""
+    if current_user.role == 'admin':
+        activities = Activity.query.all()
+    else:
+        activities = Activity.query.filter_by(owner_id=current_user.id).all()
+
+    return jsonify([{
+        "id": a.id,
+        "title": a.title,
+        "description": a.description,
+        "priority": a.priority,
+        "status": a.status,
+        "owner_id": a.owner_id,
+        "owner_name": a.owner.name,
+        "parent_id": a.parent_id,
+        "created_at": a.created_at.isoformat()
+    } for a in activities])
+
+@app.route("/api/activities", methods=["POST"])
+@login_required
+def create_activity():
+    data = request.get_json()
+    title = data.get("title")
+    description = data.get("description", "")
+    priority = data.get("priority", "medium")
+    parent_id = data.get("parent_id")
     
-    if password == env_password:
-        return jsonify({"success": True})
-    return jsonify({"success": False, "message": "Senha incorreta"}), 401
+    if not title:
+        return jsonify({"error": "Título é obrigatório"}), 400
+
+    activity = Activity(
+        title=title, 
+        description=description, 
+        priority=priority,
+        parent_id=parent_id,
+        owner_id=current_user.id
+    )
+    db.session.add(activity)
+    db.session.commit()
+    
+    log_user_action(f"Criou atividade: {title} (ID: {activity.id})")
+    return jsonify({"message": "Atividade criada", "id": activity.id})
+
+@app.route("/api/activities/<int:activity_id>", methods=["PUT"])
+@login_required
+def update_activity(activity_id):
+    activity = Activity.query.get_or_404(activity_id)
+    if activity.owner_id != current_user.id and current_user.role != 'admin':
+        return jsonify({"error": "Sem permissão"}), 403
+        
+    data = request.get_json()
+    activity.title = data.get("title", activity.title)
+    activity.description = data.get("description", activity.description)
+    activity.status = data.get("status", activity.status)
+    activity.priority = data.get("priority", activity.priority)
+    
+    db.session.commit()
+    log_user_action(f"Atualizou atividade: {activity.title} (ID: {activity_id})")
+    return jsonify({"message": "Atividade atualizada"})
+
+@app.route("/api/activities/<int:activity_id>", methods=["DELETE"])
+@login_required
+def delete_activity(activity_id):
+    activity = Activity.query.get_or_404(activity_id)
+    if activity.owner_id != current_user.id and current_user.role != 'admin':
+        return jsonify({"error": "Sem permissão"}), 403
+        
+    title = activity.title
+    db.session.delete(activity)
+    db.session.commit()
+    
+    log_user_action(f"Removeu atividade: {title} (ID: {activity_id})")
+    return jsonify({"message": "Atividade removida"})
+
+# =======================
+# Inicialização do Banco
+# =======================
+
+@app.before_request
+def ensure_db():
+    if not hasattr(app, '_db_initialized'):
+        with app.app_context():
+            db.create_all()
+            # Admin
+            if not User.query.filter_by(username='admin').first():
+                admin = User(username='admin', name='Administrador', role='admin')
+                admin.set_password(os.environ.get("ADMIN_PASSWORD", "admin"))
+                db.session.add(admin)
+            
+            # Test Users and Jira Users
+            users_data = [
+                ('user1', 'Analista 1', 'user123'),
+                ('user2', 'Analista 2', 'user123'),
+                ('bruna.barros', 'Bruna Ferreira de Castro Barros', 'crc123'),
+                ('cynthia.bimbi', 'Cynthia Bimbi', 'crc123'),
+                ('egon.bemfica', 'Egon Magno Azevedo da Silva Bemfica', 'crc123'),
+                ('felipe.andrade', 'Felipe Costa de Andrade', 'crc123'),
+                ('gabriela.gervason', 'Gabriela Gervason', 'crc123'),
+                ('jose.silva', 'José Maurício Elias Da Silva', 'crc123'),
+                ('juliana.oggione', 'Juliana Oggione', 'crc123'),
+                ('patrick.ribeiro', 'Patrick Dourado Ribeiro', 'crc123'),
+                ('pedro.meireles', 'Pedro Meireles', 'crc123'),
+                ('rute.evangelista', 'Rute Gawantka Evangelista', 'crc123'),
+                ('samir.costa', 'Samir de Menezes Costa', 'crc123'),
+                ('gustavo.costa', 'Gustavo Costa', 'crc123'),
+            ]
+            for uname, name, pwd in users_data:
+                user = User.query.filter_by(username=uname).first()
+                if not user:
+                    user = User(username=uname, name=name, role='user')
+                    user.set_password(pwd)
+                    db.session.add(user)
+                    db.session.flush() # Get ID
+                    
+                    # Sample Tasks (only for user1/user2)
+                    if uname == 'user1':
+                        t1 = Activity(title="Revisar Documentação 1746", description="Verificar descrições de serviços", priority="high", owner_id=user.id)
+                        db.session.add(t1)
+                        db.session.flush()
+                        db.session.add(Activity(title="Validar URLs", description="Testar links de acesso", parent_id=t1.id, owner_id=user.id))
+                    elif uname == 'user2':
+                        db.session.add(Activity(title="Mapear Fluxos", description="Documentar processos de triagem", priority="medium", owner_id=user.id))
+            
+            db.session.commit()
+        app._db_initialized = True
 
 
 @app.route("/api/ping")

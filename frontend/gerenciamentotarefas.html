@@ -1008,6 +1008,10 @@
             </div>
             <div class="login-body">
                 <form id="loginForm">
+                    <div class="form-group">
+                        <label for="tasksUsername">Usuário</label>
+                        <input type="text" id="tasksUsername" placeholder="nome.usuario" required>
+                    </div>
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="tasksPassword">Senha Administrativa</label>
                         <input type="password" id="tasksPassword" placeholder="••••••••" required>
@@ -1054,54 +1058,67 @@
     <script>
         const avatarColors = ['#004a80', '#f59e0b', '#dc2626', '#16a34a', '#9333ea', '#2563eb'];
         
-        let tasks = JSON.parse(localStorage.getItem('crc-tasks') || '[]');
+        let tasks = [];
         let expandedTasks = new Set(JSON.parse(localStorage.getItem('crc-expanded-tasks') || '[]'));
         let editingTaskId = null;
         let deletingTaskId = null;
-        let isAuthenticated = sessionStorage.getItem('crc-auth') === 'true';
+        let currentUser = null;
 
-        function updateAuthState() {
-            if (isAuthenticated) {
-                document.body.classList.add('authenticated');
-                document.getElementById('authBadge').innerHTML = '<i class="fas fa-user-shield"></i> Modo Editor';
-                document.getElementById('btnLogin').style.display = 'none';
-                document.getElementById('btnLogout').style.display = 'inline-flex';
-            } else {
-                document.body.classList.remove('authenticated');
-                document.getElementById('authBadge').innerHTML = '<i class="fas fa-eye"></i> Modo Visualização';
-                document.getElementById('btnLogin').style.display = 'inline-flex';
-                document.getElementById('btnLogout').style.display = 'none';
+        async function updateAuthState() {
+            try {
+                const response = await fetch('/api/me');
+                if (response.ok) {
+                    const data = await response.json();
+                    currentUser = data.user;
+                    document.body.classList.add('authenticated');
+                    document.getElementById('authBadge').innerHTML = `<i class="fas fa-user-shield"></i> ${currentUser.name}`;
+                    document.getElementById('btnLogin').style.display = 'none';
+                    document.getElementById('btnLogout').style.display = 'inline-flex';
+                    loadTasks(); // Load from backend
+                } else {
+                    currentUser = null;
+                    document.body.classList.remove('authenticated');
+                    document.getElementById('authBadge').innerHTML = '<i class="fas fa-eye"></i> Modo Visualização';
+                    document.getElementById('btnLogin').style.display = 'inline-flex';
+                    document.getElementById('btnLogout').style.display = 'none';
+                    tasks = [];
+                    renderTasks();
+                }
+            } catch (error) {
+                console.error('Erro ao verificar auth:', error);
             }
         }
 
         async function handleLogin() {
+            const username = document.getElementById('tasksUsername').value;
             const password = document.getElementById('tasksPassword').value;
             try {
-                const response = await fetch('/api/tasks-login', {
+                const response = await fetch('/api/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ password })
+                    body: JSON.stringify({ username, password })
                 });
                 
                 if (response.ok) {
-                    isAuthenticated = true;
-                    sessionStorage.setItem('crc-auth', 'true');
-                    updateAuthState();
+                    await updateAuthState();
                     closeLoginModal();
                     showToast('Acesso concedido!', 'success');
                 } else {
-                    showToast('Senha incorreta!', 'error');
+                    showToast('Credenciais inválidas!', 'error');
                 }
             } catch (error) {
                 showToast('Erro ao conectar ao servidor', 'error');
             }
         }
 
-        function handleLogout() {
-            isAuthenticated = false;
-            sessionStorage.removeItem('crc-auth');
-            updateAuthState();
-            showToast('Sessão encerrada', 'info');
+        async function handleLogout() {
+            try {
+                await fetch('/api/logout', { method: 'POST' });
+                await updateAuthState();
+                showToast('Sessão encerrada', 'info');
+            } catch (error) {
+                showToast('Erro ao sair', 'error');
+            }
         }
 
         function openLoginModal() {
@@ -1146,9 +1163,20 @@
             }
         }
 
+        async function loadTasks() {
+            try {
+                const response = await fetch('/api/activities');
+                if (response.ok) {
+                    tasks = await response.json();
+                    renderTasks();
+                }
+            } catch (error) {
+                console.error('Erro ao carregar tarefas:', error);
+            }
+        }
+
         function saveTasks() {
-            localStorage.setItem('crc-tasks', JSON.stringify(tasks));
-            localStorage.setItem('crc-expanded-tasks', JSON.stringify([...expandedTasks]));
+            // Logic moved to saveTask via API
         }
 
         function createTaskElement(task, depth = 0) {
@@ -1180,18 +1208,21 @@
                     <td>
                         <div class="member-cell">
                             <div class="member-avatar" style="background: ${color}">${initials}</div>
-                            <span class="member-name">${task.member}</span>
+                            <div class="member-avatar" style="background: ${getAvatarColor(ownerName)}">
+                                ${getInitials(ownerName)}
+                            </div>
+                            <span class="member-name">${ownerName}</span>
                         </div>
                     </td>
                     <td class="activity-cell">
-                        <div class="task-title-wrapper" style="padding-left: ${depth * 20}px">
-                            ${hasChildren ? 
-                                `<div class="toggle-btn ${isExpanded ? 'expanded' : ''}" onclick="toggleTask('${task.id}', event)">
-                                    <i class="fas fa-chevron-right"></i>
-                                </div>` : 
-                                `<div class="toggle-btn empty"></div>`
-                            }
-                            <i class="fas ${hasChildren ? (isExpanded ? 'fa-folder-open' : 'fa-folder') : 'fa-file-alt'} directory-icon"></i>
+                        <div class="task-title-wrapper" style="padding-left: ${indent}px">
+                            <div class="toggle-btn ${hasChildren ? (isExpanded ? 'expanded' : '') : 'empty'}" 
+                                 onclick="toggleTask('${task.id}', event)">
+                                ${hasChildren ? '<i class="fas fa-chevron-right"></i>' : '<i class="fas fa-circle" style="font-size: 0.4rem; opacity: 0.3"></i>'}
+                            </div>
+                            <div class="directory-icon">
+                                <i class="fas ${task.parent_id ? 'fa-file-lines' : 'fa-folder'}"></i>
+                            </div>
                             <div>
                                 <div class="activity-title">${task.title}</div>
                                 ${task.description ? `<div class="activity-desc">${task.description}</div>` : ''}
@@ -1202,13 +1233,13 @@
                     <td><span class="badge badge-status ${task.status}">${statusLabels[task.status]}</span></td>
                     <td>
                         <div class="actions-cell">
-                            <button class="action-btn auth-only" onclick="addSubtask('${task.id}')" title="Adicionar Tarefa">
+                            <button class="action-btn auth-only" onclick="addSubtask(${task.id})" title="Adicionar Tarefa">
                                 <i class="fas fa-folder-plus"></i>
                             </button>
-                            <button class="action-btn auth-only" onclick="editTask('${task.id}')" title="Editar">
+                            <button class="action-btn auth-only" onclick="editTask(${task.id})" title="Editar">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="action-btn delete auth-only" onclick="deleteTask('${task.id}')" title="Excluir">
+                            <button class="action-btn delete auth-only" onclick="deleteTask(${task.id})" title="Excluir">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </div>
@@ -1218,13 +1249,13 @@
         }
 
         function toggleTask(id, event) {
-            event.stopPropagation();
+            id = parseInt(id);
             if (expandedTasks.has(id)) {
                 expandedTasks.delete(id);
             } else {
                 expandedTasks.add(id);
             }
-            saveTasks();
+            localStorage.setItem('crc-expanded-tasks', JSON.stringify([...expandedTasks]));
             renderTasks();
         }
 
@@ -1243,7 +1274,7 @@
         }
 
         function updateMemberFilter() {
-            const members = [...new Set(tasks.map(t => t.member))];
+            const members = [...new Set(tasks.map(t => t.owner_name || 'Sistema'))];
             const select = document.getElementById('filterMember');
             const currentValue = select.value;
             
@@ -1257,34 +1288,32 @@
 
         function renderTasks() {
             const tbody = document.getElementById('tasksTableBody');
-            const emptyState = document.getElementById('emptyState');
-            
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const memberFilter = document.getElementById('filterMember').value;
             const priorityFilter = document.getElementById('filterPriority').value;
             const statusFilter = document.getElementById('filterStatus').value;
+            const memberFilter = document.getElementById('filterMember').value;
 
-            function buildTree(parentList, depth = 0) {
+            function matchesTask(task) {
+                const matchesSearch = task.title.toLowerCase().includes(searchTerm) || 
+                                     (task.description && task.description.toLowerCase().includes(searchTerm));
+                const matchesPriority = !priorityFilter || task.priority === priorityFilter;
+                const matchesStatus = !statusFilter || task.status === statusFilter;
+                const matchesMember = !memberFilter || task.owner_name === memberFilter;
+                return matchesSearch && matchesPriority && matchesStatus && matchesMember;
+            }
+
+            function buildTree(parentId = null, depth = 0) {
                 let html = '';
-                parentList.forEach(task => {
-                    const matchesSearch = !searchTerm || 
-                        task.title.toLowerCase().includes(searchTerm) || 
-                        task.member.toLowerCase().includes(searchTerm) ||
-                        (task.description && task.description.toLowerCase().includes(searchTerm));
-                    
-                    const matchesMember = !memberFilter || task.member === memberFilter;
-                    const matchesPriority = !priorityFilter || task.priority === priorityFilter;
-                    const matchesStatus = !statusFilter || task.status === statusFilter;
+                const filtered = tasks.filter(t => t.parent_id === parentId);
+                
+                filtered.forEach(task => {
+                    const isDirectMatch = matchesTask(task);
+                    const hasMatchInChildren = tasks.filter(t => t.parent_id === task.id).some(c => matchesTaskRecursive(c));
 
-                    const matchesFilters = matchesSearch && matchesMember && matchesPriority && matchesStatus;
-                    
-                    const children = tasks.filter(t => t.parentId === task.id);
-                    const hasMatchingChildren = children.some(c => matchesTaskRecursive(c));
-
-                    if (matchesFilters || hasMatchingChildren) {
+                    if (isDirectMatch || hasMatchInChildren) {
                         html += createTaskElement(task, depth);
                         if (expandedTasks.has(task.id) || searchTerm) {
-                            html += buildTree(children, depth + 1);
+                            html += buildTree(task.id, depth + 1);
                         }
                     }
                 });
@@ -1292,26 +1321,22 @@
             }
 
             function matchesTaskRecursive(task) {
-                const matchesSearch = !searchTerm || 
-                    task.title.toLowerCase().includes(searchTerm) || 
-                    task.member.toLowerCase().includes(searchTerm);
-                if (matchesSearch) return true;
-                return tasks.filter(t => t.parentId === task.id).some(c => matchesTaskRecursive(c));
+                if (matchesTask(task)) return true;
+                return tasks.filter(t => t.parent_id === task.id).some(c => matchesTaskRecursive(c));
             }
 
-            const rootTasks = tasks.filter(t => !t.parentId);
-            const treeHtml = buildTree(rootTasks);
-
-            if (!treeHtml && tasks.length > 0 && (searchTerm || memberFilter || priorityFilter || statusFilter)) {
-                tbody.innerHTML = '';
-                emptyState.style.display = 'block';
-            } else if (tasks.length === 0) {
-                tbody.innerHTML = '';
-                emptyState.style.display = 'block';
-            } else {
-                emptyState.style.display = 'none';
-                tbody.innerHTML = treeHtml;
-            }
+            const treeHtml = buildTree(null);
+            tbody.innerHTML = treeHtml || `
+                <tr>
+                    <td colspan="6">
+                        <div class="empty-state">
+                            <i class="fas fa-clipboard-list"></i>
+                            <h3>Nenhuma atividade encontrada</h3>
+                            <p>Tente ajustar os filtros ou crie uma nova atividade.</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
 
             updateStats();
             updateMemberFilter();
@@ -1365,7 +1390,7 @@
             editingTaskId = null;
         }
 
-        function saveTask() {
+        async function saveTask() {
             const member = document.getElementById('taskMember').value;
             const title = document.getElementById('taskTitle').value;
             const description = document.getElementById('taskDescription').value;
@@ -1373,46 +1398,38 @@
             const status = document.getElementById('taskStatus').value;
             const parentId = document.getElementById('taskParentId').value;
 
-            if (!member || !title || !priority || !status) {
+            if (!title || !priority || !status) {
                 showToast('Preencha todos os campos obrigatórios!', 'error');
                 return;
             }
 
-            if (editingTaskId) {
-                const index = tasks.findIndex(t => t.id === editingTaskId);
-                tasks[index] = {
-                    ...tasks[index],
-                    member,
-                    title,
-                    description,
-                    priority,
-                    status
-                };
-                showToast('Atualizado com sucesso!', 'success');
-            } else {
-                const newId = generateId(parentId);
-                const newTask = {
-                    id: newId,
-                    member,
-                    title,
-                    description,
-                    priority,
-                    status,
-                    parentId: parentId || null,
-                    createdAt: new Date().toISOString()
-                };
-                tasks.push(newTask);
-                
-                if (parentId) {
-                    expandedTasks.add(parentId);
+            try {
+                let response;
+                if (editingTaskId) {
+                    response = await fetch(`/api/activities/${editingTaskId}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ title, description, priority, status })
+                    });
+                } else {
+                    response = await fetch('/api/activities', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ title, description, priority, parent_id: parentId || null })
+                    });
                 }
-                
-                showToast('Criado com sucesso!', 'success');
-            }
 
-            saveTasks();
-            renderTasks();
-            closeModal();
+                if (response.ok) {
+                    showToast(editingTaskId ? 'Atualizado!' : 'Criado!', 'success');
+                    await loadTasks();
+                    closeModal();
+                } else {
+                    const err = await response.json();
+                    showToast(err.error || 'Erro ao salvar', 'error');
+                }
+            } catch (error) {
+                showToast('Erro de conexão', 'error');
+            }
         }
 
         function addSubtask(parentId) {
@@ -1437,28 +1454,25 @@
             document.getElementById('confirmModal').classList.add('active');
         }
 
-        function executeDelete() {
+        async function executeDelete() {
             if (!deletingTaskId) return;
             
-            const id = deletingTaskId;
-            const tasksToDelete = [id];
-            const findChildren = (pid) => {
-                tasks.forEach(t => {
-                    if (t.parentId === pid) {
-                        tasksToDelete.push(t.id);
-                        findChildren(t.id);
-                    }
+            try {
+                const response = await fetch(`/api/activities/${deletingTaskId}`, {
+                    method: 'DELETE'
                 });
-            };
-            findChildren(id);
-            
-            tasks = tasks.filter(t => !tasksToDelete.includes(t.id));
-            tasksToDelete.forEach(tid => expandedTasks.delete(tid));
-            
-            saveTasks();
-            renderTasks();
-            showToast('Excluído com sucesso!', 'success');
-            closeConfirm();
+
+                if (response.ok) {
+                    showToast('Excluído com sucesso!', 'success');
+                    await loadTasks();
+                    closeConfirm();
+                } else {
+                    const err = await response.json();
+                    showToast(err.error || 'Erro ao excluir', 'error');
+                }
+            } catch (error) {
+                showToast('Erro de conexão', 'error');
+            }
         }
 
         function closeConfirm() {
@@ -1544,40 +1558,6 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeModal();
         });
-
-        if (tasks.length === 0) {
-            const sampleTasks = [
-                {
-                    id: 'CRC-001',
-                    member: 'Ana Silva',
-                    title: 'Revisar documentação do serviço 1746',
-                    description: 'Verificar e atualizar as descrições dos serviços de atendimento ao cidadão',
-                    priority: 'high',
-                    status: 'in-progress',
-                    createdAt: new Date().toISOString()
-                },
-                {
-                    id: 'CRC-002',
-                    member: 'Bruno Costa',
-                    title: 'Mapear fluxos de atendimento',
-                    description: 'Documentar os processos atuais de triagem e encaminhamento',
-                    priority: 'medium',
-                    status: 'todo',
-                    createdAt: new Date().toISOString()
-                },
-                {
-                    id: 'CRC-003',
-                    member: 'Carla Mendes',
-                    title: 'Análise de indicadores mensais',
-                    description: 'Compilar dados de performance do último mês',
-                    priority: 'critical',
-                    status: 'todo',
-                    createdAt: new Date().toISOString()
-                }
-            ];
-            tasks = sampleTasks;
-            saveTasks();
-        }
 
         renderTasks();
     </script>
