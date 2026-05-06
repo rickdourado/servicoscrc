@@ -18,3 +18,7 @@ refs/anonimizados/
 .env
 documentacao/
 refs/planilhas/
+
+# Logs do sistema e banco de dados local
+backend/data/logs/
+backend/data/app.db
