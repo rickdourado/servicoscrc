@@ -20,6 +20,8 @@ TEMP_DIR      = BASE_DIR / "backend" / "temp"
 DB_PATH       = BASE_DIR / "backend" / "data" / "app.db"
 LOGS_DIR      = BASE_DIR / "backend" / "data" / "logs"
 
+print(f"📂 DATABASE_PATH: {DB_PATH.absolute()}")
+
 # Carrega variáveis de ambiente do arquivo .env na raiz
 load_dotenv(BASE_DIR / ".env")
 
