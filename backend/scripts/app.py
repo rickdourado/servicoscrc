@@ -33,6 +33,7 @@ app = Flask(__name__, static_folder=str(FRONTEND_DIR), static_url_path="")
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key-change-in-production")
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_PATH}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["REMEMBER_COOKIE_DURATION"] = 30 * 24 * 60 * 60 # 30 dias em segundos
 CORS(app, supports_credentials=True)
 
 # Inicializa banco de dados e login
@@ -498,12 +499,13 @@ def login():
     data = request.get_json()
     username = data.get("username")
     password = data.get("password")
+    remember = data.get("remember", False)
 
     user = User.query.filter_by(username=username, is_active=True).first()
     if not user or not user.check_password(password):
         return jsonify({"error": "Credenciais inválidas"}), 401
 
-    login_user(user)
+    login_user(user, remember=remember)
     log_user_action("Login realizado")
     return jsonify({"user": {"id": user.id, "username": user.username, "name": user.name, "role": user.role}})
 
@@ -526,13 +528,11 @@ def me():
 # =======================
 
 @app.route("/api/activities", methods=["GET"])
-@login_required
 def list_activities():
-    """Lista atividades. Admins veem todas, usuários veem apenas as suas."""
-    if current_user.role == 'admin':
-        activities = Activity.query.all()
-    else:
-        activities = Activity.query.filter_by(owner_id=current_user.id).all()
+    """Lista atividades. Publicamente mostra todas. Se logado e não-admin, filtra? 
+    O usuário solicitou que qualquer um visualize tudo."""
+    # Para visualização pública total, buscamos todas sem filtro de owner
+    activities = Activity.query.all()
 
     return jsonify([{
         "id": a.id,
@@ -541,7 +541,7 @@ def list_activities():
         "priority": a.priority,
         "status": a.status,
         "owner_id": a.owner_id,
-        "owner_name": a.owner.name,
+        "owner_name": a.owner.name if a.owner else "Sem responsável",
         "parent_id": a.parent_id,
         "created_at": a.created_at.isoformat()
     } for a in activities])

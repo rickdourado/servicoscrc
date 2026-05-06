@@ -1012,9 +1012,13 @@
                         <label for="tasksUsername">Usuário</label>
                         <input type="text" id="tasksUsername" placeholder="nome.usuario" required>
                     </div>
-                    <div class="form-group" style="margin-bottom: 0;">
+                    <div class="form-group" style="margin-bottom: 1rem;">
                         <label for="tasksPassword">Senha Administrativa</label>
                         <input type="password" id="tasksPassword" placeholder="••••••••" required>
+                    </div>
+                    <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0;">
+                        <input type="checkbox" id="rememberMe" style="width: auto; cursor: pointer;">
+                        <label for="rememberMe" style="margin-bottom: 0; cursor: pointer; text-transform: none; font-weight: 500; font-size: 0.85rem;">Mantenha-me conectado</label>
                     </div>
                 </form>
             </div>
@@ -1074,29 +1078,30 @@
                     document.getElementById('authBadge').innerHTML = `<i class="fas fa-user-shield"></i> ${currentUser.name}`;
                     document.getElementById('btnLogin').style.display = 'none';
                     document.getElementById('btnLogout').style.display = 'inline-flex';
-                    loadTasks(); // Load from backend
                 } else {
                     currentUser = null;
                     document.body.classList.remove('authenticated');
                     document.getElementById('authBadge').innerHTML = '<i class="fas fa-eye"></i> Modo Visualização';
                     document.getElementById('btnLogin').style.display = 'inline-flex';
                     document.getElementById('btnLogout').style.display = 'none';
-                    tasks = [];
-                    renderTasks();
                 }
+                // Carrega tarefas independente de estar logado
+                loadTasks();
             } catch (error) {
                 console.error('Erro ao verificar auth:', error);
+                loadTasks();
             }
         }
 
         async function handleLogin() {
             const username = document.getElementById('tasksUsername').value;
             const password = document.getElementById('tasksPassword').value;
+            const remember = document.getElementById('rememberMe').checked;
             try {
                 const response = await fetch('/api/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
+                    body: JSON.stringify({ username, password, remember })
                 });
                 
                 if (response.ok) {
@@ -1175,14 +1180,11 @@
             }
         }
 
-        function saveTasks() {
-            // Logic moved to saveTask via API
-        }
-
-        function createTaskElement(task, depth = 0) {
-            const initials = getInitials(task.member);
-            const color = getAvatarColor(task.member);
-            const hasChildren = tasks.some(t => t.parentId === task.id);
+        function createTaskElement(task, depth = 0, displayId = "") {
+            const ownerName = task.owner_name || "Sem responsável";
+            const initials = getInitials(ownerName);
+            const color = getAvatarColor(ownerName);
+            const hasChildren = tasks.some(t => t.parent_id === task.id);
             const isExpanded = expandedTasks.has(task.id);
             
             const priorityLabels = {
@@ -1195,22 +1197,20 @@
             const statusLabels = {
                 todo: 'A Fazer',
                 'in-progress': 'Em Progresso',
+                'in_progress': 'Em Progresso',
                 review: 'Em Revisão',
                 done: 'Concluída',
                 blocked: 'Bloqueada'
             };
 
-            const indentation = Array(depth).fill('<div class="task-indent"></div>').join('');
+            const indent = depth * 24;
 
             return `
-                <tr data-id="${task.id}" class="${task.parentId ? 'subtask-row' : ''}">
-                    <td><span class="task-id">${task.id}</span></td>
+                <tr data-id="${task.id}" class="${task.parent_id ? 'subtask-row' : ''}">
+                    <td><span class="task-id">${displayId}</span></td>
                     <td>
                         <div class="member-cell">
                             <div class="member-avatar" style="background: ${color}">${initials}</div>
-                            <div class="member-avatar" style="background: ${getAvatarColor(ownerName)}">
-                                ${getInitials(ownerName)}
-                            </div>
                             <span class="member-name">${ownerName}</span>
                         </div>
                     </td>
@@ -1218,7 +1218,7 @@
                         <div class="task-title-wrapper" style="padding-left: ${indent}px">
                             <div class="toggle-btn ${hasChildren ? (isExpanded ? 'expanded' : '') : 'empty'}" 
                                  onclick="toggleTask('${task.id}', event)">
-                                ${hasChildren ? '<i class="fas fa-chevron-right"></i>' : '<i class="fas fa-circle" style="font-size: 0.4rem; opacity: 0.3"></i>'}
+                                 ${hasChildren ? '<i class="fas fa-chevron-right"></i>' : '<i class="fas fa-circle" style="font-size: 0.4rem; opacity: 0.3"></i>'}
                             </div>
                             <div class="directory-icon">
                                 <i class="fas ${task.parent_id ? 'fa-file-lines' : 'fa-folder'}"></i>
@@ -1229,8 +1229,8 @@
                             </div>
                         </div>
                     </td>
-                    <td><span class="badge badge-priority ${task.priority}">${priorityLabels[task.priority]}</span></td>
-                    <td><span class="badge badge-status ${task.status}">${statusLabels[task.status]}</span></td>
+                    <td><span class="badge badge-priority ${task.priority}">${priorityLabels[task.priority] || task.priority}</span></td>
+                    <td><span class="badge badge-status ${task.status.replace('_', '-')}">${statusLabels[task.status] || task.status}</span></td>
                     <td>
                         <div class="actions-cell">
                             <button class="action-btn auth-only" onclick="addSubtask(${task.id})" title="Adicionar Tarefa">
@@ -1302,18 +1302,23 @@
                 return matchesSearch && matchesPriority && matchesStatus && matchesMember;
             }
 
-            function buildTree(parentId = null, depth = 0) {
+            function buildTree(parentId = null, depth = 0, parentDisplayId = "") {
                 let html = '';
                 const filtered = tasks.filter(t => t.parent_id === parentId);
                 
-                filtered.forEach(task => {
+                filtered.forEach((task, index) => {
+                    // Gera o ID visual: CRC-1, CRC-1.1, etc.
+                    const currentDisplayId = parentId === null 
+                        ? `CRC-${index + 1}` 
+                        : `${parentDisplayId}.${index + 1}`;
+
                     const isDirectMatch = matchesTask(task);
                     const hasMatchInChildren = tasks.filter(t => t.parent_id === task.id).some(c => matchesTaskRecursive(c));
 
                     if (isDirectMatch || hasMatchInChildren) {
-                        html += createTaskElement(task, depth);
+                        html += createTaskElement(task, depth, currentDisplayId);
                         if (expandedTasks.has(task.id) || searchTerm) {
-                            html += buildTree(task.id, depth + 1);
+                            html += buildTree(task.id, depth + 1, currentDisplayId);
                         }
                     }
                 });
