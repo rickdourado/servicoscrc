@@ -1,25 +1,72 @@
-# Deploy PythonAnywhere - Instruções
+# Deploy PythonAnywhere - Instruções Completas
 
-## Problema: CSV não carrega
+## Passo 1: Clone/Pull do Repositório
 
-### Causa
-Path relativo falha se working dir differs ou app está em subpasta.
+```bash
+cd ~
+git clone https://github.com/SEU_USUARIO/servicoscrc.git
+# OU se já existe:
+cd ~/servicoscrc
+git pull origin main
+```
 
-### Solução: Configurar WSGI corretamente
+## Passo 2: Configure WSGI
 
-**Use o template:** [`wsgi_pythonanywhere_template.py`](./wsgi_pythonanywhere_template.py)
+No PythonAnywhere:
+1. Vá em **Web → WSGI configuration file**
+2. **DELETE todo conteúdo** do arquivo
+3. **Copie e cole** o conteúdo de [`pythonanywhere_wsgi.py`](./pythonanywhere_wsgi.py)
+4. Salve (Ctrl+S)
 
-1. Copie conteúdo do template
-2. Edite WSGI config no PythonAnywhere (`Web → WSGI configuration file`)
-3. Substitua `USERNAME` pelo seu username
-4. Salve e reload app
+**Importante:** Arquivo já auto-detecta paths. Sem edições manuais necessárias.
 
-### Solução 2: Verificar Estrutura
+## Passo 3: Configure .env
+
+Crie `.env` na raiz do projeto:
+
+```bash
+cd ~/servicoscrc
+nano .env
+```
+
+Conteúdo mínimo:
+
+```env
+GEMINI_API_KEY=sua-chave-aqui
+SECRET_KEY=chave-secreta-aleatoria
+ADMIN_PASSWORD=senha-admin-segura
+IS_PRODUCTION=true
+```
+
+## Passo 4: Instale Dependências
+
+```bash
+pip install -r requirements.txt --user
+```
+
+## Passo 5: Reload App
+
+No dashboard Web do PythonAnywhere:
+- Clique em **Reload**
+
+## Passo 6: Teste
+
+```bash
+curl https://SEU_USERNAME.pythonanywhere.com/api/prefrio-stats/summary
+```
+
+Deve retornar JSON com `total_registros`, `total_orgaos`, `total_servicos`.
+
+---
+
+## Troubleshooting
+
+### Verificar Estrutura de Arquivos
 
 Garanta que estrutura no servidor seja:
 
 ```
-/home/username/servicoscrc/
+~/servicoscrc/
   backend/
     data/
       prefrio_servicos.csv  <-- DEVE EXISTIR
@@ -29,12 +76,11 @@ Garanta que estrutura no servidor seja:
       prefrio_stats.py
   frontend/
     index.html
-    ...
+  pythonanywhere_wsgi.py
+  .env
 ```
 
-### Debug no Servidor
-
-**Método 1: Script diagnóstico**
+### Script Diagnóstico
 
 No console PythonAnywhere (Bash):
 
@@ -43,31 +89,41 @@ cd ~/servicoscrc
 python backend/scripts/check_paths.py
 ```
 
-Script mostra:
+Output mostra:
 - Paths calculados vs esperados
 - Arquivos críticos existem ou não
 - Env vars configuradas
 - Teste de importação e carregamento CSV
 
-**Método 2: Logs do servidor**
+### Logs de Erro
 
-Acesse logs de erro (`Files → /var/log/username.pythonanywhere.com.error.log`):
-- Busque linhas `[DEBUG] prefrio_stats.py`
-- Verifique paths impressos
-- Confira se CSV existe no caminho mostrado
+Acesse error log (`Files → /var/log/username.pythonanywhere.com.error.log`):
+- Busque `[WSGI]` - mostra config inicial
+- Busque `[DEBUG] prefrio_stats.py` - mostra path resolution
+- Busque `FileNotFoundError` - indica arquivo missing
 
-### Checklist
+### Checklist Completo
 
-- [ ] CSV `prefrio_servicos.csv` foi uploaded para `backend/data/`
-- [ ] WSGI file define `os.environ['BASE_DIR']` corretamente
-- [ ] Working directory no WSGI aponta para raiz do projeto
-- [ ] Logs mostram paths corretos
-- [ ] Endpoint `/api/prefrio-stats/summary` retorna dados (não erro 500)
+- [ ] Repo clonado/pulled com sucesso
+- [ ] WSGI file copiado de `pythonanywhere_wsgi.py`
+- [ ] `.env` criado com todas variáveis necessárias
+- [ ] Dependências instaladas (`pip install -r requirements.txt --user`)
+- [ ] CSV `prefrio_servicos.csv` existe em `backend/data/`
+- [ ] App reloaded no dashboard Web
+- [ ] Endpoint `/api/prefrio-stats/summary` retorna JSON (não erro 500)
+- [ ] Dashboard PrefRio carrega dados sem erros
 
-### Test Endpoint
+### Problemas Comuns
 
-```bash
-curl https://username.pythonanywhere.com/api/prefrio-stats/summary
-```
+**Erro: `ModuleNotFoundError: No module named 'flask'`**
+- Solução: `pip install -r requirements.txt --user`
 
-Deve retornar JSON com `total_registros`, `total_orgaos`, `total_servicos`.
+**Erro: `FileNotFoundError: CSV não encontrado`**
+- Rode: `python backend/scripts/check_paths.py`
+- Verifique se CSV existe no path mostrado
+- Confirme WSGI set `BASE_DIR` corretamente (veja logs)
+
+**Erro 500 genérico**
+- Check error log (`/var/log/username.pythonanywhere.com.error.log`)
+- Busque stack trace completo
+- Verifique se `.env` tem todas variáveis obrigatórias
