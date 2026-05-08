@@ -34,14 +34,28 @@ markupsafe==3.0.3
     #   flask
     #   jinja2
     #   werkzeug
+numpy==2.2.6 ; python_full_version < '3.11'
+    # via pandas
+numpy==2.4.4 ; python_full_version >= '3.11'
+    # via pandas
 openpyxl==3.1.5
+    # via servicoscrc
+pandas==2.3.3 ; python_full_version < '3.11'
+    # via servicoscrc
+pandas==3.0.2 ; python_full_version >= '3.11'
     # via servicoscrc
 pydantic==2.12.5
     # via servicoscrc
 pydantic-core==2.41.5
     # via pydantic
+python-dateutil==2.9.0.post0
+    # via pandas
 python-dotenv==1.2.2
     # via servicoscrc
+pytz==2026.2 ; python_full_version < '3.11'
+    # via pandas
+six==1.17.0
+    # via python-dateutil
 sqlalchemy==2.0.49
     # via flask-sqlalchemy
 typing-extensions==4.15.0
@@ -52,6 +66,8 @@ typing-extensions==4.15.0
     #   typing-inspection
 typing-inspection==0.4.2
     # via pydantic
+tzdata==2026.2 ; python_full_version < '3.11' or sys_platform == 'emscripten' or sys_platform == 'win32'
+    # via pandas
 werkzeug==3.1.8
     # via
     #   flask
