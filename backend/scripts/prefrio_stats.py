@@ -5,16 +5,32 @@ Lê dados do CSV pré-processado (mais leve que Excel).
 import pandas as pd
 from pathlib import Path
 from typing import Dict, List
+import os
 
+# Resolve base dir robustly for both local and PythonAnywhere
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+# Allow override via env var for production (PythonAnywhere)
+if os.environ.get("BASE_DIR"):
+    BASE_DIR = Path(os.environ.get("BASE_DIR"))
+
 CSV_PATH = BASE_DIR / "backend" / "data" / "prefrio_servicos.csv"
+
+print(f"[DEBUG] prefrio_stats.py - BASE_DIR: {BASE_DIR}")
+print(f"[DEBUG] prefrio_stats.py - CSV_PATH: {CSV_PATH}")
+print(f"[DEBUG] prefrio_stats.py - CSV exists: {CSV_PATH.exists()}")
 
 
 def load_data() -> pd.DataFrame:
     """Carrega dados do CSV."""
     if not CSV_PATH.exists():
+        # Debug info for troubleshooting
+        cwd = Path.cwd()
         raise FileNotFoundError(
             f"CSV não encontrado: {CSV_PATH}\n"
+            f"Working dir: {cwd}\n"
+            f"BASE_DIR: {BASE_DIR}\n"
+            f"Conteúdo de backend/data/: {list((BASE_DIR / 'backend' / 'data').glob('*')) if (BASE_DIR / 'backend' / 'data').exists() else 'diretório não existe'}\n"
             "Execute: python backend/scripts/export_prefrio_csv.py"
         )
 
