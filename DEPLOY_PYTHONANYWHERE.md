@@ -13,12 +13,15 @@ git pull origin main
 ## Passo 2: Configure WSGI
 
 No PythonAnywhere:
-1. Vá em **Web → WSGI configuration file**
+1. Vá em **Web → WSGI configuration file** (abre `/var/www/projetocrc_pythonanywhere_com_wsgi.py`)
 2. **DELETE todo conteúdo** do arquivo
-3. **Copie e cole** o conteúdo de [`pythonanywhere_wsgi.py`](./pythonanywhere_wsgi.py)
+3. **Copie e cole** o conteúdo de [`pythonanywhere_wsgi.py`](./pythonanywhere_wsgi.py) do repo
 4. Salve (Ctrl+S)
 
-**Importante:** Arquivo já auto-detecta paths. Sem edições manuais necessárias.
+**Importante:** 
+- WSGI config vive em `/var/www/`, não no projeto
+- Path `project_home` já está configurado: `/home/projetocrc/servicoscrc`
+- Sem edições manuais necessárias
 
 ## Passo 3: Configure .env
 
@@ -127,3 +130,24 @@ Acesse error log (`Files → /var/log/username.pythonanywhere.com.error.log`):
 - Check error log (`/var/log/username.pythonanywhere.com.error.log`)
 - Busque stack trace completo
 - Verifique se `.env` tem todas variáveis obrigatórias
+
+---
+
+## Quick Reference - Update After Git Pull
+
+```bash
+# 1. Pull latest code
+cd ~/servicoscrc
+git pull origin main
+
+# 2. Install new dependencies (if any)
+pip install -r requirements.txt --user
+
+# 3. Reload app
+#    Go to Web dashboard → click "Reload"
+
+# 4. Test
+curl https://projetocrc.pythonanywhere.com/api/prefrio-stats/summary
+```
+
+**WSGI config não precisa update** (vive em `/var/www/`, separado do repo).

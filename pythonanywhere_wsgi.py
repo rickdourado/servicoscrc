@@ -1,16 +1,15 @@
 """
 WSGI Configuration for PythonAnywhere
-Auto-detects project path - works after git pull without manual edits
+IMPORTANT: This file content should be copied to PythonAnywhere's WSGI config
+(not used directly from repo - WSGI file lives in /var/www/)
 """
 
 import sys
 import os
-from pathlib import Path
 
-# 1. Auto-detect project root from this file location
-# This file sits at: servicoscrc/pythonanywhere_wsgi.py
-# So parent is the project root
-project_home = str(Path(__file__).resolve().parent)
+# 1. Project path configuration
+# WSGI file on PythonAnywhere is at /var/www/, so hardcode project path
+project_home = '/home/projetocrc/servicoscrc'
 
 # 2. Set BASE_DIR env var for prefrio_stats.py and other modules
 os.environ['BASE_DIR'] = project_home
