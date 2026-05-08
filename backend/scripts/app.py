@@ -658,6 +658,52 @@ def ensure_db():
         app._db_initialized = True
 
 
+@app.route("/api/prefrio-stats/summary", methods=["GET"])
+def prefrio_summary():
+    """Retorna resumo geral dos dados PrefRio."""
+    import backend.scripts.prefrio_stats as prefrio
+    try:
+        summary = prefrio.get_summary()
+        return jsonify(summary)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/prefrio-stats/orgaos", methods=["GET"])
+def prefrio_orgaos():
+    """Retorna estatísticas de serviços por órgão."""
+    import backend.scripts.prefrio_stats as prefrio
+    try:
+        stats = prefrio.get_orgaos_stats()
+        return jsonify({"orgaos": stats})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/prefrio-stats/servicos", methods=["GET"])
+def prefrio_servicos():
+    """Busca serviços com filtros opcionais (órgão e relevância)."""
+    import backend.scripts.prefrio_stats as prefrio
+    try:
+        orgao = request.args.get("orgao")
+        relevancia = request.args.get("relevancia")
+        servicos = prefrio.search_services(orgao, relevancia)
+        return jsonify({"servicos": servicos})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/prefrio-stats/relevancia-options", methods=["GET"])
+def prefrio_relevancia_options():
+    """Retorna opções de análise de relevância."""
+    import backend.scripts.prefrio_stats as prefrio
+    try:
+        options = prefrio.get_relevancia_options()
+        return jsonify({"options": options})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 @app.route("/api/ping")
 def ping():
     return jsonify({"status": "ok"})

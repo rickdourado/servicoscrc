@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test API Integration</title>
+</head>
+<body>
+    <h1>Test PrefRio API</h1>
+    <div id="output"></div>
+
+    <script>
+        async function testAPIs() {
+            const output = document.getElementById('output');
+
+            try {
+                // Test 1: Summary
+                output.innerHTML += '<h2>1. Summary</h2>';
+                const res1 = await fetch('/api/prefrio-stats/summary');
+                const data1 = await res1.json();
+                output.innerHTML += `<pre>${JSON.stringify(data1, null, 2)}</pre>`;
+
+                // Test 2: Órgãos
+                output.innerHTML += '<h2>2. Órgãos (first 3)</h2>';
+                const res2 = await fetch('/api/prefrio-stats/orgaos');
+                const data2 = await res2.json();
+                output.innerHTML += `<pre>${JSON.stringify(data2.orgaos.slice(0, 3), null, 2)}</pre>`;
+
+                // Test 3: Serviços (first 3)
+                output.innerHTML += '<h2>3. Serviços (first 3)</h2>';
+                const res3 = await fetch('/api/prefrio-stats/servicos');
+                const data3 = await res3.json();
+                output.innerHTML += `<pre>${JSON.stringify(data3.servicos.slice(0, 3), null, 2)}</pre>`;
+
+                output.innerHTML += '<h2 style="color: green;">✓ All tests passed!</h2>';
+
+            } catch (error) {
+                output.innerHTML += `<h2 style="color: red;">✗ Error: ${error.message}</h2>`;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', testAPIs);
+    </script>
+</body>
+</html>

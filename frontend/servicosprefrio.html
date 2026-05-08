@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços do PrefRio | CRC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--surface-color);
+            border: var(--border-main);
+            box-shadow: var(--shadow-main);
+            border-radius: var(--radius-main);
+            padding: 2rem 1.75rem;
+            transition: var(--spring-transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent-color);
+            line-height: 1;
+        }
+
+        .filter-section {
+            background: var(--surface-color);
+            border: var(--border-main);
+            box-shadow: var(--shadow-main);
+            border-radius: var(--radius-main);
+            padding: 2rem;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+
+        .filter-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-transform: uppercase;
+        }
+
+        .filter-select {
+            appearance: none;
+            background: #ffffff;
+            border: 2px solid rgba(0, 74, 128, 0.2);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: var(--spring-transition);
+        }
+
+        .filter-select:hover {
+            border-color: var(--accent-color);
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(0, 74, 128, 0.1);
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--spring-transition);
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            background: var(--accent-hover);
+        }
+
+        .results-section {
+            background: var(--surface-color);
+            border: var(--border-main);
+            box-shadow: var(--shadow-main);
+            border-radius: var(--radius-main);
+            padding: 2rem;
+            min-height: 400px;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px dashed var(--accent-color);
+        }
+
+        .results-count {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .services-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .services-table thead {
+            background: #f8fafc;
+        }
+
+        .services-table th {
+            padding: 1rem;
+            text-align: left;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .services-table td {
+            padding: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .services-table tbody tr {
+            transition: var(--spring-transition);
+        }
+
+        .services-table tbody tr:hover {
+            background: var(--prefrio-bg);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .status-publicado {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-edicao {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-outro {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .relevancia-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .relevancia-fica {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .relevancia-nao-fica {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .filter-row {
+                flex-direction: column;
+            }
+
+            .services-table {
+                font-size: 0.75rem;
+            }
+
+            .services-table th, .services-table td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="gov-top-bar">
+        <div class="brand-text">
+            <strong>RIO</strong> <span>|</span> PREFEITURA
+        </div>
+        <a href="index.html" style="text-decoration: none; color: inherit; cursor: pointer;">← Voltar ao Início</a>
+    </div>
+
+    <header class="gov-header">
+        <div class="gov-branding">
+            <img class="gov-logo" src="https://www.1746.rio/hc/theming_assets/01K8VJ5HYS34A9B2Q0N4QR6CXJ" alt="Logo Prefeitura">
+            <div class="gov-separator"></div>
+            <div class="portal-name">
+                <span class="portal-title">Serviços do PrefRio</span>
+                <span class="portal-subtitle">Dashboard de Análise e Métricas</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <div class="dashboard-container">
+            <!-- Stats Summary -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total de Registros</div>
+                    <div class="stat-value" id="stat-registros">-</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Órgãos Cadastrados</div>
+                    <div class="stat-value" id="stat-orgaos">-</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Serviços Únicos</div>
+                    <div class="stat-value" id="stat-servicos">-</div>
+                </div>
+            </section>
+
+            <!-- Filter Section -->
+            <section class="filter-section">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label class="filter-label">Selecione um Órgão</label>
+                        <select id="orgao-select" class="filter-select">
+                            <option value="">Todos os Órgãos</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Análise de Relevância</label>
+                        <select id="relevancia-select" class="filter-select">
+                            <option value="">Todos</option>
+                        </select>
+                    </div>
+                    <button class="filter-btn" onclick="loadServices()">Filtrar</button>
+                </div>
+            </section>
+
+            <!-- Results Table -->
+            <section class="results-section">
+                <div class="results-header">
+                    <h2>Serviços Encontrados</h2>
+                    <span class="results-count" id="results-count">-</span>
+                </div>
+                <div id="table-container">
+                    <div class="loading">Carregando dados...</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-bottom">
+            <p class="footer-text">Desenvolvido por SUBTD/CRC</p>
+            <p class="footer-copyright">© 2026 Prefeitura do Rio de Janeiro</p>
+        </div>
+    </footer>
+
+    <script>
+        let orgaosData = [];
+
+        // Load summary stats
+        async function loadSummary() {
+            try {
+                const res = await fetch('/api/prefrio-stats/summary');
+                const data = await res.json();
+
+                document.getElementById('stat-registros').textContent = data.total_registros.toLocaleString('pt-BR');
+                document.getElementById('stat-orgaos').textContent = data.total_orgaos.toLocaleString('pt-BR');
+                document.getElementById('stat-servicos').textContent = data.total_servicos.toLocaleString('pt-BR');
+            } catch (error) {
+                console.error('Erro ao carregar resumo:', error);
+            }
+        }
+
+        // Load órgãos list
+        async function loadOrgaos() {
+            try {
+                const res = await fetch('/api/prefrio-stats/orgaos');
+                const data = await res.json();
+                orgaosData = data.orgaos;
+
+                const select = document.getElementById('orgao-select');
+                data.orgaos.forEach(orgao => {
+                    const option = document.createElement('option');
+                    option.value = orgao.nome_orgao;
+                    option.textContent = `${orgao.nome_orgao} (${orgao.total_servicos} serviços)`;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Erro ao carregar órgãos:', error);
+            }
+        }
+
+        // Load relevancia options
+        async function loadRelevanciaOptions() {
+            try {
+                const res = await fetch('/api/prefrio-stats/relevancia-options');
+                const data = await res.json();
+
+                const select = document.getElementById('relevancia-select');
+                data.options.forEach(opt => {
+                    const option = document.createElement('option');
+                    option.value = opt;
+                    option.textContent = opt;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Erro ao carregar opções de relevância:', error);
+            }
+        }
+
+        // Load services table
+        async function loadServices() {
+            const orgaoFilter = document.getElementById('orgao-select').value;
+            const relevanciaFilter = document.getElementById('relevancia-select').value;
+            const container = document.getElementById('table-container');
+
+            container.innerHTML = '<div class="loading">Carregando serviços...</div>';
+
+            try {
+                const params = new URLSearchParams();
+                if (orgaoFilter) params.append('orgao', orgaoFilter);
+                if (relevanciaFilter) params.append('relevancia', relevanciaFilter);
+
+                const url = `/api/prefrio-stats/servicos${params.toString() ? '?' + params.toString() : ''}`;
+
+                const res = await fetch(url);
+                const data = await res.json();
+                const servicos = data.servicos;
+
+                document.getElementById('results-count').textContent =
+                    `${servicos.length} serviço(s)`;
+
+                if (servicos.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📭</div>
+                            <p>Nenhum serviço encontrado para este filtro.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                function getStatusClass(status) {
+                    if (!status) return 'status-outro';
+                    const s = status.toLowerCase();
+                    if (s.includes('publicado')) return 'status-publicado';
+                    if (s.includes('edi')) return 'status-edicao';
+                    return 'status-outro';
+                }
+
+                function getRelevanciaClass(relevancia) {
+                    if (!relevancia) return '';
+                    const r = relevancia.toLowerCase();
+                    if (r.includes('fica')) return 'relevancia-fica';
+                    if (r.includes('não fica') || r.includes('nao fica')) return 'relevancia-nao-fica';
+                    return '';
+                }
+
+                const table = `
+                    <table class="services-table">
+                        <thead>
+                            <tr>
+                                <th>Serviço</th>
+                                <th>Órgão</th>
+                                <th>Categoria</th>
+                                <th>Status</th>
+                                <th>Análise</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${servicos.map(s => `
+                                <tr>
+                                    <td>${s.titulo_servico || '-'}</td>
+                                    <td>${s.nome_orgao || '-'}</td>
+                                    <td>${s.categoria || '-'}</td>
+                                    <td>
+                                        <span class="status-badge ${getStatusClass(s.status_do_servico)}">
+                                            ${s.status_do_servico || 'N/A'}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="relevancia-badge ${getRelevanciaClass(s.analise_relevancia)}">
+                                            ${s.analise_relevancia || 'Não definido'}
+                                        </span>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+
+                container.innerHTML = table;
+            } catch (error) {
+                console.error('Erro ao carregar serviços:', error);
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">⚠️</div>
+                        <p>Erro ao carregar dados. Tente novamente.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize
+        window.addEventListener('DOMContentLoaded', async () => {
+            await loadSummary();
+            await loadOrgaos();
+            await loadRelevanciaOptions();
+            await loadServices();
+        });
+    </script>
+</body>
+</html>
