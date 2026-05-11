@@ -64,12 +64,13 @@ python backend/scripts/export_prefrio_csv.py
 
 ## 🎯 Módulos Principais
 
-1. **Organizador de Serviços** - Reestrutura hierarquia SRGC/PrefRio.
-2. **Análise de Formulários** - Processa wireframes Excel.
-3. **Padronização de Serviços** - IA limpa descrições (Gemini).
-4. **Gerenciamento de Tarefas** - Sistema auth + atividades (SQLite).
-5. **Serviços do PrefRio** - Dashboard stats (CSV-based).
-6. **Análise de Contratos** - Anonimização + IA (OFFLINE ONLY).
+1. **Organizador de Serviços** - Reestrutura hierarquia SRGC/PrefRio (prefrio-domain-specialist).
+2. **Análise de Formulários** - Processa wireframes Excel (gemini-integration-specialist).
+3. **Padronização de Serviços** - IA limpa descrições Gemini (gemini-integration-specialist).
+4. **Gerenciamento de Tarefas** - Sistema auth + atividades SQLite (backend-specialist).
+5. **Serviços do PrefRio** - Dashboard stats CSV-based (prefrio-domain-specialist).
+6. **Análise de Contratos** - Anonimização + IA OFFLINE ONLY (security-auditor + gemini-integration-specialist).
+7. **Interface Premium** - Design Glassmorphism Azul Rio/Laranja 1746 (frontend-specialist).
 
 ---
 
@@ -78,7 +79,24 @@ python backend/scripts/export_prefrio_csv.py
 - Regras Mestre: [AGENTS.md](AGENTS.md)
 - Regras Operacionais: [.agent/rules/regrascontrato.md](.agent/rules/regrascontrato.md)
 - Agents especializados: [.agent/agents/](.agent/agents/)
+  - Core: frontend-specialist, backend-specialist, gemini-integration-specialist, prefrio-domain-specialist
+  - Support: orchestrator, debugger, database-architect, security-auditor, test-engineer, devops-engineer
 - Skills: [.agent/skills/](.agent/skills/)
+
+## 🚀 Quick Agent Reference
+
+| Tarefa | Agent Recomendado |
+|--------|-------------------|
+| Interface HTML/CSS | `frontend-specialist` |
+| API Flask/Gemini | `backend-specialist` |
+| Prompts IA/Validação JSON | `gemini-integration-specialist` |
+| Hierarquia servicos.json | `prefrio-domain-specialist` |
+| Bug complexo | `debugger` |
+| Schema SQLite | `database-architect` |
+| Segurança/PII | `security-auditor` |
+| Testes | `test-engineer` |
+| Deploy PythonAnywhere | `devops-engineer` |
+| Coordenação multi-tarefa | `orchestrator` |
 
 ---
 

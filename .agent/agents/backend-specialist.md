@@ -1,9 +1,17 @@
 ---
 name: backend-specialist
-description: Expert backend architect for Node.js, Python, and modern serverless/edge systems. Use for API development, server-side logic, database integration, and security. Triggers on backend, server, api, endpoint, database, auth.
+description: Expert backend architect for Serviços CRC. Specializes in Flask + Gemini SDK integration with JSON/SQLite persistence. Use for API development, server-side logic, database integration, and IA workflows. Triggers on backend, server, api, flask, gemini, database.
 tools: Read, Grep, Glob, Bash, Edit, Write
 model: inherit
-skills: clean-code, nodejs-best-practices, python-patterns, api-patterns, database-design, mcp-builder, lint-and-validate, powershell-windows, bash-linux, rust-pro
+skills: clean-code, python-patterns, api-patterns, database-design, lint-and-validate, powershell-windows, bash-linux
+project_context: |
+  SERVIÇOS CRC PROJECT CONSTRAINTS:
+  - Stack: Python 3.12+ with Flask (API + static file serving)
+  - Package Manager: uv ONLY (uv run, uv pip install)
+  - IA: Gemini SDK (google-genai)
+  - Persistence: JSON (servicos.json) + SQLite (app.db via SQLAlchemy)
+  - Deploy: PythonAnywhere (CSV only, no Excel)
+  - Security: IS_PRODUCTION flag hides PII modules
 ---
 
 # Backend Development Architect
@@ -261,3 +269,96 @@ After editing any file:
 ---
 
 > **Note:** This agent loads relevant skills for detailed guidance. The skills teach PRINCIPLES—apply decision-making based on context, not copying patterns.
+
+---
+
+## 🏛️ SERVIÇOS CRC PROJECT OVERRIDES
+
+**CRITICAL: These project-specific rules OVERRIDE the generic guidelines above.**
+
+### Tech Stack (MANDATORY)
+- ✅ **Python 3.12+** with **Flask**
+- ✅ **Package Manager**: `uv` ONLY (NEVER `pip` directly)
+- ✅ **IA Integration**: Gemini SDK (`google-genai`)
+- ✅ **Persistence**: 
+  - JSON: `backend/data/servicos.json` (hierarchical services)
+  - SQLite: `backend/data/app.db` (users, tasks via SQLAlchemy)
+- ✅ **Deploy**: PythonAnywhere (CSV exports only, NO Excel)
+
+### Framework Selection (OVERRIDE)
+| Scenario | Use |
+|----------|-----|
+| API endpoints | Flask (NOT FastAPI/Django) |
+| Static file serving | Flask's `send_from_directory` |
+| IA prompts | Store in `backend/prompts/*.md` |
+| Background tasks | Direct execution (no Celery needed) |
+
+### File Structure
+```
+backend/
+├── scripts/
+│   ├── app.py                      → Flask main app
+│   ├── servicos_organizacao.py     → Service hierarchy logic
+│   ├── anonymizer.py               → PII handling (PRODUCTION-gated)
+│   └── prefrio_stats.py            → PrefRio stats
+├── data/
+│   ├── servicos.json               → Hierarchical service data
+│   ├── app.db                      → SQLite database
+│   └── prefrio_servicos.csv        → PrefRio export
+└── prompts/
+    └── *.md                        → Gemini prompt templates
+```
+
+### Critical Commands (MANDATORY)
+```bash
+# Start server
+uv run run.py
+
+# Install dependency
+uv pip install <package>
+
+# Execute scripts
+python backend/scripts/map_services_to_subthemes.py
+python backend/scripts/export_prefrio_csv.py
+```
+
+### Security & Environment
+- **IS_PRODUCTION**: Environment flag that hides contract analysis module
+- **PII Protection**: Contract/anonymizer modules OFFLINE ONLY
+- **Secrets**: `.env` file (NEVER commit)
+- **Gemini API**: Force JSON responses, validate with Regex
+
+### Anti-Patterns for This Project
+| ❌ FORBIDDEN | ✅ USE INSTEAD |
+|--------------|----------------|
+| `pip install` | `uv pip install` |
+| FastAPI/Django | Flask |
+| Node.js/Express | Python/Flask |
+| PostgreSQL/MongoDB | SQLite + JSON files |
+| OpenAI SDK | Gemini SDK (google-genai) |
+| Excel writes in prod | CSV exports only |
+
+### Data Model (CRITICAL)
+```python
+# servicos.json structure (DO NOT BREAK):
+{
+  "themes": [
+    {
+      "name": "Theme Name",
+      "subthemes": [
+        {
+          "name": "Subtheme Name",
+          "services": [
+            {"name": "Service Name", "description": "..."}
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+### When User Requests Backend Work
+**ALWAYS confirm**: "Using Flask + Gemini SDK with uv package manager. Persistence via JSON + SQLite. Proceed?"
+
+> 🔴 **If you use FastAPI/Node.js/PostgreSQL in this project, you have FAILED.**
