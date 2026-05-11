@@ -104,6 +104,98 @@
             box-shadow: 0 0 0 3px rgba(0, 74, 128, 0.1);
         }
 
+        /* Searchable dropdown for órgão */
+        .searchable-dropdown {
+            position: relative;
+            width: 100%;
+        }
+
+        .searchable-input {
+            width: 100%;
+            background: #ffffff;
+            border: 2px solid rgba(0, 74, 128, 0.2);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: text;
+            transition: var(--spring-transition);
+        }
+
+        .searchable-input:hover {
+            border-color: var(--accent-color);
+        }
+
+        .searchable-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(0, 74, 128, 0.1);
+        }
+
+        .searchable-input::placeholder {
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .searchable-dropdown-panel {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border: 2px solid var(--accent-color);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 74, 128, 0.15);
+            z-index: 1000;
+            display: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .searchable-dropdown-panel.active {
+            display: block;
+        }
+
+        .searchable-option {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            border-bottom: 1px solid #f1f5f9;
+            transition: background 0.2s;
+        }
+
+        .searchable-option:last-child {
+            border-bottom: none;
+        }
+
+        .searchable-option:hover {
+            background: var(--prefrio-bg);
+        }
+
+        .searchable-option.selected {
+            background: rgba(0, 74, 128, 0.1);
+            color: var(--accent-color);
+            font-weight: 800;
+        }
+
+        .searchable-option-count {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-left: 0.25rem;
+        }
+
+        .searchable-empty {
+            padding: 1rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
         /* Multi-select dropdown */
         .multiselect-dropdown {
             position: relative;
@@ -414,9 +506,16 @@
                 <div class="filter-row">
                     <div class="filter-group">
                         <label class="filter-label">Selecione um Órgão</label>
-                        <select id="orgao-select" class="filter-select">
-                            <option value="">Todos os Órgãos</option>
-                        </select>
+                        <div class="searchable-dropdown" id="orgao-dropdown">
+                            <input
+                                type="text"
+                                id="orgao-search-input"
+                                class="searchable-input"
+                                placeholder="Digite para buscar ou clique para selecionar..."
+                                autocomplete="off"
+                            >
+                            <div class="searchable-dropdown-panel" id="orgao-dropdown-panel"></div>
+                        </div>
                     </div>
                     <div class="filter-group">
                         <label class="filter-label">Análise de Relevância</label>
@@ -460,6 +559,7 @@
     <script>
         let orgaosData = [];
         let selectedRelevancia = [];
+        let selectedOrgao = '';
 
         // Close dropdown when clicking outside
         document.addEventListener('click', function(e) {
@@ -468,6 +568,13 @@
             if (multiselect && !multiselect.contains(e.target)) {
                 panel.classList.remove('active');
                 document.querySelector('.multiselect-trigger').classList.remove('active');
+            }
+
+            // Close órgão dropdown
+            const orgaoDropdown = document.getElementById('orgao-dropdown');
+            const orgaoPanel = document.getElementById('orgao-dropdown-panel');
+            if (orgaoDropdown && !orgaoDropdown.contains(e.target)) {
+                orgaoPanel.classList.remove('active');
             }
         });
 
@@ -526,23 +633,80 @@
             }
         }
 
-        // Load órgãos list
+        // Load órgãos list and setup searchable dropdown
         async function loadOrgaos() {
             try {
                 const res = await fetch('/api/prefrio-stats/orgaos');
                 const data = await res.json();
                 orgaosData = data.orgaos;
 
-                const select = document.getElementById('orgao-select');
-                data.orgaos.forEach(orgao => {
-                    const option = document.createElement('option');
-                    option.value = orgao.nome_orgao;
-                    option.textContent = `${orgao.nome_orgao} (${orgao.total_servicos} serviços)`;
-                    select.appendChild(option);
+                // Setup search input events
+                const searchInput = document.getElementById('orgao-search-input');
+                const panel = document.getElementById('orgao-dropdown-panel');
+
+                searchInput.addEventListener('focus', () => {
+                    renderOrgaoOptions('');
+                    panel.classList.add('active');
                 });
+
+                searchInput.addEventListener('input', (e) => {
+                    renderOrgaoOptions(e.target.value);
+                    panel.classList.add('active');
+                });
+
+                // Initial render
+                renderOrgaoOptions('');
             } catch (error) {
                 console.error('Erro ao carregar órgãos:', error);
             }
+        }
+
+        // Render filtered órgão options
+        function renderOrgaoOptions(searchTerm) {
+            const panel = document.getElementById('orgao-dropdown-panel');
+            const filtered = orgaosData.filter(orgao =>
+                orgao.nome_orgao.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+
+            if (filtered.length === 0 && searchTerm) {
+                panel.innerHTML = '<div class="searchable-empty">Nenhum órgão encontrado</div>';
+                return;
+            }
+
+            // Add "Todos os Órgãos" option
+            let html = `
+                <div class="searchable-option ${selectedOrgao === '' ? 'selected' : ''}"
+                     onclick="selectOrgao('', 'Todos os Órgãos')">
+                    Todos os Órgãos
+                </div>
+            `;
+
+            // Add filtered options
+            filtered.forEach(orgao => {
+                const isSelected = selectedOrgao === orgao.nome_orgao;
+                html += `
+                    <div class="searchable-option ${isSelected ? 'selected' : ''}"
+                         onclick="selectOrgao('${orgao.nome_orgao.replace(/'/g, "\\'")}', '${orgao.nome_orgao.replace(/'/g, "\\'")}')">
+                        ${orgao.nome_orgao}
+                        <span class="searchable-option-count">(${orgao.total_servicos})</span>
+                    </div>
+                `;
+            });
+
+            panel.innerHTML = html;
+        }
+
+        // Select órgão
+        function selectOrgao(value, displayText) {
+            selectedOrgao = value;
+            const searchInput = document.getElementById('orgao-search-input');
+            const panel = document.getElementById('orgao-dropdown-panel');
+
+            searchInput.value = displayText === 'Todos os Órgãos' ? '' : displayText;
+            panel.classList.remove('active');
+
+            // Auto-apply filter
+            loadServices();
         }
 
         // Load relevancia options
@@ -579,7 +743,7 @@
 
         // Load services table
         async function loadServices() {
-            const orgaoFilter = document.getElementById('orgao-select').value;
+            const orgaoFilter = selectedOrgao;
             const container = document.getElementById('table-container');
 
             container.innerHTML = '<div class="loading">Carregando serviços...</div>';
