@@ -686,8 +686,8 @@ def prefrio_servicos():
     import backend.scripts.prefrio_stats as prefrio
     try:
         orgao = request.args.get("orgao")
-        relevancia = request.args.get("relevancia")
-        servicos = prefrio.search_services(orgao, relevancia)
+        relevancia = request.args.getlist("relevancia")  # Multi-select support
+        servicos = prefrio.search_services(orgao, relevancia if relevancia else None)
         return jsonify({"servicos": servicos})
     except Exception as e:
         return jsonify({"error": str(e)}), 500

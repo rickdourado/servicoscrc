@@ -74,13 +74,13 @@ def get_summary() -> Dict:
     }
 
 
-def search_services(orgao_filter: str = None, relevancia_filter: str = None) -> List[Dict]:
+def search_services(orgao_filter: str = None, relevancia_filter: List[str] = None) -> List[Dict]:
     """
     Busca serviços com filtros opcionais.
 
     Args:
         orgao_filter: Nome do órgão para filtrar (None retorna todos)
-        relevancia_filter: Filtro de análise de relevância (None retorna todos)
+        relevancia_filter: Lista de análises de relevância para filtrar (None retorna todos)
 
     Returns:
         Lista de dicts com: titulo_servico, nome_orgao, categoria, status_do_servico, analise_relevancia
@@ -90,8 +90,8 @@ def search_services(orgao_filter: str = None, relevancia_filter: str = None) -> 
     if orgao_filter:
         df = df[df['nome_orgao'] == orgao_filter]
 
-    if relevancia_filter:
-        df = df[df['analise_relevancia'] == relevancia_filter]
+    if relevancia_filter and len(relevancia_filter) > 0:
+        df = df[df['analise_relevancia'].isin(relevancia_filter)]
 
     # Seleciona colunas relevantes
     result = df[['titulo_servico', 'nome_orgao', 'categoria', 'status_do_servico', 'analise_relevancia']].copy()

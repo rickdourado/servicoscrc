@@ -104,6 +104,118 @@
             box-shadow: 0 0 0 3px rgba(0, 74, 128, 0.1);
         }
 
+        /* Multi-select dropdown */
+        .multiselect-dropdown {
+            position: relative;
+            width: 100%;
+        }
+
+        .multiselect-trigger {
+            background: #ffffff;
+            border: 2px solid rgba(0, 74, 128, 0.2);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: var(--spring-transition);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .multiselect-trigger:hover {
+            border-color: var(--accent-color);
+        }
+
+        .multiselect-trigger.active {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(0, 74, 128, 0.1);
+        }
+
+        .multiselect-count {
+            background: var(--accent-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 800;
+        }
+
+        .multiselect-panel {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border: 2px solid var(--accent-color);
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 74, 128, 0.15);
+            z-index: 1000;
+            display: none;
+        }
+
+        .multiselect-panel.active {
+            display: block;
+        }
+
+        .multiselect-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .multiselect-option:hover {
+            background: var(--prefrio-bg);
+        }
+
+        .multiselect-option input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .multiselect-option label {
+            flex: 1;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .multiselect-actions {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .multiselect-apply {
+            flex: 1;
+            padding: 0.5rem;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--spring-transition);
+        }
+
+        .multiselect-apply:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
         .filter-btn {
             padding: 0.75rem 1.5rem;
             background: var(--accent-color);
@@ -291,6 +403,10 @@
                     <div class="stat-label">Serviços Únicos</div>
                     <div class="stat-value" id="stat-servicos">-</div>
                 </div>
+                <div class="stat-card" id="stat-filtrados-card" style="display: none;">
+                    <div class="stat-label">Registros Filtrados</div>
+                    <div class="stat-value" id="stat-filtrados" style="color: #ff6600;">-</div>
+                </div>
             </section>
 
             <!-- Filter Section -->
@@ -304,9 +420,18 @@
                     </div>
                     <div class="filter-group">
                         <label class="filter-label">Análise de Relevância</label>
-                        <select id="relevancia-select" class="filter-select">
-                            <option value="">Todos</option>
-                        </select>
+                        <div class="multiselect-dropdown" id="relevancia-multiselect">
+                            <div class="multiselect-trigger" onclick="toggleRelevanciaDropdown()">
+                                <span id="relevancia-trigger-text">Selecione...</span>
+                                <span>▼</span>
+                            </div>
+                            <div class="multiselect-panel" id="relevancia-panel">
+                                <div id="relevancia-options-container"></div>
+                                <div class="multiselect-actions">
+                                    <button class="multiselect-apply" onclick="applyRelevanciaFilter()">Aplicar</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <button class="filter-btn" onclick="loadServices()">Filtrar</button>
                 </div>
@@ -334,6 +459,58 @@
 
     <script>
         let orgaosData = [];
+        let selectedRelevancia = [];
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const multiselect = document.getElementById('relevancia-multiselect');
+            const panel = document.getElementById('relevancia-panel');
+            if (multiselect && !multiselect.contains(e.target)) {
+                panel.classList.remove('active');
+                document.querySelector('.multiselect-trigger').classList.remove('active');
+            }
+        });
+
+        // Toggle relevancia dropdown
+        function toggleRelevanciaDropdown() {
+            const panel = document.getElementById('relevancia-panel');
+            const trigger = document.querySelector('.multiselect-trigger');
+            panel.classList.toggle('active');
+            trigger.classList.toggle('active');
+        }
+
+        // Update trigger text
+        function updateRelevanciaText() {
+            const trigger = document.getElementById('relevancia-trigger-text');
+            const count = selectedRelevancia.length;
+
+            if (count === 0) {
+                trigger.innerHTML = 'Selecione...';
+            } else {
+                trigger.innerHTML = `Selecionado <span class="multiselect-count">${count}</span>`;
+            }
+        }
+
+        // Handle checkbox change
+        function onRelevanciaChange(value, checked) {
+            if (checked) {
+                if (!selectedRelevancia.includes(value)) {
+                    selectedRelevancia.push(value);
+                }
+            } else {
+                selectedRelevancia = selectedRelevancia.filter(v => v !== value);
+            }
+            updateRelevanciaText();
+        }
+
+        // Apply filter and close dropdown
+        function applyRelevanciaFilter() {
+            const panel = document.getElementById('relevancia-panel');
+            const trigger = document.querySelector('.multiselect-trigger');
+            panel.classList.remove('active');
+            trigger.classList.remove('active');
+            loadServices();
+        }
 
         // Load summary stats
         async function loadSummary() {
@@ -374,12 +551,26 @@
                 const res = await fetch('/api/prefrio-stats/relevancia-options');
                 const data = await res.json();
 
-                const select = document.getElementById('relevancia-select');
+                const container = document.getElementById('relevancia-options-container');
+                container.innerHTML = '';
+
                 data.options.forEach(opt => {
-                    const option = document.createElement('option');
-                    option.value = opt;
-                    option.textContent = opt;
-                    select.appendChild(option);
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'multiselect-option';
+
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.id = `relevancia-${opt}`;
+                    checkbox.value = opt;
+                    checkbox.onchange = (e) => onRelevanciaChange(opt, e.target.checked);
+
+                    const label = document.createElement('label');
+                    label.htmlFor = `relevancia-${opt}`;
+                    label.textContent = opt;
+
+                    optionDiv.appendChild(checkbox);
+                    optionDiv.appendChild(label);
+                    container.appendChild(optionDiv);
                 });
             } catch (error) {
                 console.error('Erro ao carregar opções de relevância:', error);
@@ -389,7 +580,6 @@
         // Load services table
         async function loadServices() {
             const orgaoFilter = document.getElementById('orgao-select').value;
-            const relevanciaFilter = document.getElementById('relevancia-select').value;
             const container = document.getElementById('table-container');
 
             container.innerHTML = '<div class="loading">Carregando serviços...</div>';
@@ -397,7 +587,11 @@
             try {
                 const params = new URLSearchParams();
                 if (orgaoFilter) params.append('orgao', orgaoFilter);
-                if (relevanciaFilter) params.append('relevancia', relevanciaFilter);
+
+                // Add multiple relevancia values
+                selectedRelevancia.forEach(rel => {
+                    params.append('relevancia', rel);
+                });
 
                 const url = `/api/prefrio-stats/servicos${params.toString() ? '?' + params.toString() : ''}`;
 
@@ -407,6 +601,18 @@
 
                 document.getElementById('results-count').textContent =
                     `${servicos.length} serviço(s)`;
+
+                // Update filtered count stat card
+                const hasFilters = orgaoFilter || selectedRelevancia.length > 0;
+                const filtradosCard = document.getElementById('stat-filtrados-card');
+                const filtradosValue = document.getElementById('stat-filtrados');
+
+                if (hasFilters) {
+                    filtradosCard.style.display = 'block';
+                    filtradosValue.textContent = servicos.length.toLocaleString('pt-BR');
+                } else {
+                    filtradosCard.style.display = 'none';
+                }
 
                 if (servicos.length === 0) {
                     container.innerHTML = `
