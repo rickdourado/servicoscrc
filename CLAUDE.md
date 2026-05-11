@@ -6,7 +6,7 @@ Sistema de automação para Coordenadoria de Relacionamento com o Cidadão (CRC)
 
 ## 📋 Regras de Desenvolvimento (OBRIGATÓRIAS)
 
-As regras completas estão em [.agent/rules/regrascrc.md](.agent/rules/regrascrc.md).
+As regras mestre e arquitetura estão em [AGENTS.md](AGENTS.md).
 
 ### Stack Técnico
 
@@ -14,12 +14,12 @@ As regras completas estão em [.agent/rules/regrascrc.md](.agent/rules/regrascrc
 - Python + Flask (API + serve frontend estático)
 - Gerenciador: **uv** (NUNCA pip diretamente)
 - IA: Gemini SDK (`google-genai`)
-- Banco: SQLite (via SQLAlchemy)
+- Banco: SQLite (via SQLAlchemy) ou JSON (`servicos.json`)
 
 **Frontend:**
-- Vanilla HTML/CSS/JS (SEM frameworks)
-- Design: Premium Prefeitura (Azul Rio #004a80, Laranja 1746 #f59e0b)
-- CSS vars em `frontend/styles.css`
+- Vanilla HTML/CSS/JS (SEM frameworks ou Tailwind)
+- Design: **Premium Prefeitura** (Azul Rio #004a99, Laranja 1746 #ff6600)
+- Estética: Glassmorphism, bordas 12px+, micro-interações
 
 ### Estrutura Crítica
 
@@ -36,7 +36,7 @@ refs/             → Planilhas originais, wireframes
 
 ```bash
 # Iniciar servidor
-uv run run.py   # ou: python backend/scripts/app.py
+uv run run.py
 
 # Instalar dependência
 uv pip install <package>
@@ -45,8 +45,9 @@ uv pip install <package>
 python backend/scripts/export_prefrio_csv.py
 ```
 
-### Regras de Commit
+### Comportamento & Commits
 
+- **Caveman Mode**: Habilitado por padrão (respostas curtas e diretas).
 - **Conventional Commits**: `feat:`, `fix:`, `style:`, `refactor:`
 - **Changelogs**: Documentar em `changelogs/AAAA-MM-DD.md`
 
@@ -71,10 +72,11 @@ python backend/scripts/export_prefrio_csv.py
 
 ## 📚 Referências Importantes
 
-- Regras completas: [.agent/rules/regrascrc.md](.agent/rules/regrascrc.md)
+- Regras Mestre: [AGENTS.md](AGENTS.md)
+- Regras Operacionais: [.agent/rules/regrascrc.md](.agent/rules/regrascrc.md)
 - Agents especializados: [.agent/agents/](.agent/agents/)
 - Skills: [.agent/skills/](.agent/skills/)
 
 ---
 
-**Nota**: Este arquivo é lido automaticamente pelo Claude Code. Modificações nas regras devem ser feitas em `.agent/rules/regrascrc.md` primeiro.
+**Nota**: Este arquivo é lido automaticamente pelo Claude Code. Modificações nas regras devem ser feitas em `AGENTS.md` primeiro.
