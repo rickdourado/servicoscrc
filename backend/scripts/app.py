@@ -20,7 +20,7 @@ TEMP_DIR      = BASE_DIR / "backend" / "temp"
 DB_PATH       = BASE_DIR / "backend" / "data" / "app.db"
 LOGS_DIR      = BASE_DIR / "backend" / "data" / "logs"
 
-print(f"📂 DATABASE_PATH: {DB_PATH.absolute()}")
+print(f"DATABASE_PATH: {DB_PATH.absolute()}")
 
 # Carrega variáveis de ambiente do arquivo .env na raiz
 load_dotenv(BASE_DIR / ".env")
@@ -55,7 +55,7 @@ def log_user_action(action):
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         with open(user_log_file, "a", encoding="utf-8") as f:
             f.write(f"[{timestamp}] {action}\n")
-        print(f"📝 AUDITORIA: {current_user.username} -> {action}")
+        print(f"AUDITORIA: {current_user.username} -> {action}")
 
 # Detecta se está em Modo Produção (para desabilitar IA pesada se necessário)
 IS_PRODUCTION = os.environ.get("IS_PRODUCTION", "false").lower() == "true"

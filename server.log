@@ -1,0 +1,24 @@
+DATABASE_PATH: C:\Users\Patrick Ribeiro\Documents\dev\servicoscrc\backend\data\app.db
+ * Serving Flask app 'app'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.15.10:8000
+Press CTRL+C to quit
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 230-766-544
+127.0.0.1 - - [11/May/2026 09:14:48] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [11/May/2026 09:14:48] "GET /styles.css HTTP/1.1" 200 -
+127.0.0.1 - - [11/May/2026 09:14:48] "GET /api/env HTTP/1.1" 200 -
+127.0.0.1 - - [11/May/2026 09:14:53] "GET /api/ping HTTP/1.1" 200 -
+127.0.0.1 - - [11/May/2026 09:15:16] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [11/May/2026 09:15:17] "GET /styles.css HTTP/1.1" 304 -
+127.0.0.1 - - [11/May/2026 09:15:17] "GET /api/env HTTP/1.1" 200 -
+127.0.0.1 - - [11/May/2026 09:15:19] "GET /servicosprefrio.html HTTP/1.1" 304 -
+127.0.0.1 - - [11/May/2026 09:15:19] "GET /styles.css HTTP/1.1" 304 -
+127.0.0.1 - - [11/May/2026 09:15:20] "GET /api/prefrio-stats/summary HTTP/1.1" 200 -
+127.0.0.1 - - [11/May/2026 09:15:21] "GET /api/prefrio-stats/orgaos HTTP/1.1" 200 -
+127.0.0.1 - - [11/May/2026 09:15:21] "GET /api/prefrio-stats/relevancia-options HTTP/1.1" 200 -
+127.0.0.1 - - [11/May/2026 09:15:21] "GET /api/prefrio-stats/servicos HTTP/1.1" 200 -
