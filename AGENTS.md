@@ -21,26 +21,31 @@ Você é o assistente técnico do projeto **Serviços CRC**, focado em moderniza
 - **Frontend**: **Vanilla HTML5, CSS3 e JavaScript**.
     - *Regra de Ouro*: NUNCA use frameworks pesados ou Tailwind (a menos que solicitado explicitamente).
 - **IA**: Gemini via `google-genai` SDK.
-- **Persistência**: JSON estruturado (`backend/data/servicos.json`) seguindo o modelo `Theme -> Subtheme -> Service`.
+- **Persistência**: 
+    - JSON estruturado (`backend/data/servicos.json`) para a hierarquia de serviços.
+    - SQLite (`backend/data/app.db`) via SQLAlchemy para usuários e tarefas.
+
 
 ---
 
-## 📜 Regras Globais (via @regrascrc.md)
+## 📜 Regras Globais (via @regrascontrato.md)
 
 ### 🏗️ Arquitetura e Persistência
 1.  **Estrutura de Dados**: Modificações no `servicos.json` devem respeitar estritamente a hierarquia.
-2.  **Mapeamento**: Mantenha a rastreabilidade SRGC vs Prefrio nas extrações.
+2.  **Mapeamento**: Mantenha a rastreabilidade SRGC vs Prefrio nas extrações para evitar duplicidade.
 3.  **Prompts**: Instruções de IA devem residir em `backend/prompts/*.md`.
+4.  **Backend Unificado**: Flask serve API e arquivos estáticos integralmente.
 
 ### 🚨 Comportamento de Execução
-1.  **Segurança (PII)**: A variável `IS_PRODUCTION` deve ocultar módulos de Análise de Contratos e dados sensíveis.
+1.  **Segurança (PII)**: A variável `IS_PRODUCTION` deve ocultar módulos de Análise de Contratos e dados sensíveis (PII).
 2.  **Ambiente Local**: Inicie sempre via `uv run run.py` (localhost:8000).
-3.  **Respostas IA**: Forçar JSON estruturado e tratar com Regex no backend para estabilidade.
+3.  **Respostas IA**: Forçar JSON estruturado; tratar com Regex no backend para estabilidade.
+4.  **Erros**: Tratamento robusto (try/except) para evitar quedas do servidor Flask.
 
 ### 📝 Documentação e Commits
-1.  **Changelogs**: Registre mudanças em `changelogs/AAAA-MM-DD.md`.
+1.  **Changelogs**: Registre mudanças significativas em `changelogs/AAAA-MM-DD.md`.
 2.  **Commits**: Use **Conventional Commits** (`feat:`, `fix:`, `style:`, `refactor:`).
-3.  **Clean Code**: Código direto, robusto (try/except) e sem redundâncias.
+3.  **Clean Code**: Código direto, sem redundâncias, auto-explicativo.
 
 ---
 
@@ -70,10 +75,12 @@ O design deve causar um impacto visual imediato ("WOW factor").
 ---
 
 ## 📂 Organização de Pastas (Referência)
-- `/backend/scripts/`: Lógica de processamento e IA.
+- `/backend/scripts/`: Lógica de processamento, extração e IA (`anonymizer.py`, `servicos_organizacao.py`).
 - `/backend/data/`: Persistência JSON/CSV.
-- `/frontend/`: Interface Vanilla.
-- `/refs/`: Documentos base e wireframes.
+- `/backend/prompts/`: Instruções de IA (.md).
+- `/frontend/`: Interface Vanilla (`index.html`, `padronizacao.html`).
+- `/refs/`: Documentos base, planilhas originais e wireframes AS-IS.
+- `/changelogs/`: Registro histórico de alterações.
 
 ---
 *Última atualização: 2026-05-11*
