@@ -7,7 +7,7 @@
 - **LinkedIn:** [linkedin.com/rickribeiro](https://www.linkedin.com/in/rickribeiro/)
 - **GitHub:** [github.com/rickdourado](https://github.com/rickdourado)
 - **Localização:** Gamboa, Rio de Janeiro - RJ
-- **Idade:** 43 anos
+- **Idade:** 44 anos
 - **Nacionalidade:** Brasileiro
 - **Disponibilidade:** Disponível para viagens
 
@@ -23,6 +23,7 @@ Posição como **Desenvolvedor Python/React**, **Analista de Dados** e/ou **Arqu
 
 Doutor e Mestre em Ciência da Informação pelo IBICT/UFRJ. Especialista em Patrimônio Documental pela FIOCRUZ. Bacharel em Arquivologia pela UNIRIO e em Análise e Desenvolvimento de Sistemas pela Estácio de Sá.
 
+**06 anos de experiência** na área de programação, utilizando linguagem Python para análise de dados e também construção de aplicações backend (Flask, FastAPI).
 **17 anos de experiência** na área de Arquivo, com especialização em Gestão de Documentos Eletrônicos e Gestão da Informação. Perfil caracterizado por boa relação interpessoal, capacidade de pensamento rápido, apresentação de soluções e proatividade na realização de tarefas.
 
 ---
@@ -59,18 +60,21 @@ Fundação Oswaldo Cruz (FIOCRUZ)
 
 ### Desenvolvimento e Tecnologia
 - **Sistemas Operacionais:** Linux (Ubuntu, Mint, Fedora, entre outros), Windows 10, 11
-- **Linguagens de Programação:** Python, SQL (básico), JavaScript
-- **Frameworks:** Flask, FastAPI, React
+- **Linguagens de Programação:** Python 3.14, TypeScript 6, SQL, JavaScript
+- **Frameworks Backend:** Flask, FastAPI (REST APIs), SQLAlchemy, Pydantic
+- **Frameworks Frontend:** React 19, Vite 8, Tailwind CSS 3.4
 - **Tecnologias:** .NET Framework, HTML5, CSS3, JavaScript Vanilla
+- **Gerenciadores de Pacotes:** uv (Python moderno), npm, pip
 - **Análise de Dados:** Power BI, Python (Pandas)
-- **Banco de Dados:** Supabase, Firebase Realtime Database, SQL
+- **Banco de Dados:** SQLite, Supabase, Firebase Realtime Database, SQL
 - **Versionamento:** GitHub, Gitlab
-- **Bibliotecas Python:** PyPDF2, PyMuPDF, Tkinter, ReportLab, Jinja2, FuzzyWuzzy, SQLAlchemy, Alembic
+- **Bibliotecas Python:** PyPDF2, PyMuPDF, Tkinter, ReportLab, Jinja2, FuzzyWuzzy, SQLAlchemy, Alembic, Pydantic
 
 ### Inteligência Artificial
 - Automatização de tarefas
 - Programação e integração em Python/SQL
 - LLM's e MCP's.
+- Agents, Skills, Hooks, Tokens
 - RAG (Retrieval-Augmented Generation)
 - Criação de conteúdo artístico (Imagens e vídeos)
 
@@ -82,7 +86,6 @@ Fundação Oswaldo Cruz (FIOCRUZ)
 
 ### Ferramentas e Processos
 - Informática Avançada (Pacote Office)
-- BizAgi
 - Mapeamento de Processos de Negócios
 - Análise de Requisitos
 - Gestão de Projetos
@@ -107,6 +110,7 @@ Fundação Oswaldo Cruz (FIOCRUZ)
 - Criação de sistemas de curadoria e chatbots inteligentes
 
 **Produtos Desenvolvidos:**
+- Sistema de Gestão de Treinamentos - CRC (1746): Plataforma completa FastAPI + React para automação de turmas, distribuição de alunos e gestão de stakeholders
 - Aplicação para auxiliar na Curadoria de Cursos da Prefeitura da Cidade do Rio de Janeiro
 - Chatbot SEI (Fase de testes) (Sistema Eletrônico de Informações)
 - Padronização de Carta de Serviços - Aplicação para Padronização de Serviços com IA (1746)
@@ -575,6 +579,41 @@ Desenvolvimento de um sistema para análise automatizada de arquivos CSV, que de
 
 ---
 
+### Sistema de Gestão de Treinamentos - CRC (1746)
+
+**Tecnologias:**
+- **Backend:** Python 3.14, FastAPI, SQLite, SQLAlchemy, Pydantic, uv (gerenciador moderno de pacotes)
+- **Frontend:** React 19, TypeScript 6, Vite 8, Tailwind CSS 3.4, React Router DOM 7
+- **Autenticação:** JWT Bearer tokens com Flask-Login
+- **Banco de Dados:** SQLite com migrations automatizadas, arquitetura multi-tabela normalizada
+- **Arquitetura:** API RESTful com 10 routers modulares (auth, turmas, cursos, trilhas, salas, usuarios, inscricoes, automacao, stats, public)
+
+**Funcionalidades:**
+- Sistema CRUD completo para turmas, cursos, inscrições e presenças com validações de negócio críticas
+- Módulo de automação inteligente que cria turmas automaticamente e distribui alunos por vagas
+- Dashboard administrativo com estatísticas, filtros avançados (trilha, status, modalidade) e gestão em tempo real
+- Gestão de stakeholders com matriz de interesse × influência (16 entidades mapeadas)
+- Sistema de validações de negócio (VN-01 a VN-31): compatibilidade trilha × grupos, vagas disponíveis, duplicação, usuários ativos
+- Alocação automática de salas para cursos presenciais baseada em capacidade e disponibilidade
+- Interface pública responsiva com turmas abertas, filtros e visualização de vagas coloridas por disponibilidade
+- Modal de confirmação customizado com glassmorphism design pattern e suporte a ESC/click-outside
+- Sistema de deleção com validação em cascata (presencas → inscricoes → turma) e proteção contra exclusão de turmas ativas
+- Autenticação multinível (admin, multiplicador, aluno) com controle de acesso baseado em papéis
+
+**Resultados:**
+- Automação completa do fluxo de criação de turmas reduzindo tempo de setup de horas para minutos
+- Interface administrativa 100% responsiva com design system baseado em cores oficiais da Prefeitura
+- Zero dependências pesadas no frontend (bundle otimizado com Vite 8 e tree-shaking)
+- 11+ validações de negócio garantindo integridade dos dados e conformidade com regras CRC
+- Sistema de automação que processa 500+ usuários, cria múltiplas turmas e distribui inscrições automaticamente
+- Matriz de stakeholders permitindo gestão estratégica de engajamento de 16 entidades-chave
+- Arquitetura escalável com separação clara de responsabilidades (10 routers independentes)
+- Deploy dual-mode: backend em porta 8000 (FastAPI/uvicorn) e frontend em porta 5173 (Vite dev server)
+- Sistema de logs estruturados e auditoria completa de ações administrativas
+- Modal customizado substituindo popups nativos do navegador, melhorando UX e acessibilidade
+
+---
+
 ### Sistema ATS - Conversor de Currículos
 
 **Tecnologias:**
@@ -599,4 +638,4 @@ Desenvolvimento de um sistema para análise automatizada de arquivos CSV, que de
 
 ---
 
-*Currículo atualizado em maio de 2026*
+*Currículo atualizado em 15 de maio de 2026*
