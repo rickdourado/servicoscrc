@@ -17,7 +17,7 @@
             --surface: #ffffff;
             --surface-alt: #f1f5f9;
             --accent: #004a80; /* Azul Prefeitura */
-            --accent-hover: #00335;
+            --accent-hover: #003566;
             --accent-light: #e0f2fe;
             --orange: #f97316; /* Laranja CRC */
             --text-main: #0f172a;
@@ -88,7 +88,8 @@
         }
 
         .btn-primary { background: var(--accent); color: white; }
-        .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+        .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,74,128,0.35); }
+        .btn-primary:active { background: #002a52; transform: translateY(1px); box-shadow: 0 1px 4px rgba(0,74,128,0.25); }
         .btn-outline { background: white; border-color: var(--border); color: var(--text-sub); }
         .btn-outline:hover { background: var(--surface-alt); border-color: var(--accent); color: var(--accent); }
         .btn-success { background: #10b981; color: white; }
