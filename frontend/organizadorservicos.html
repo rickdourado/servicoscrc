@@ -264,6 +264,44 @@
         .toast.error { border-left-color: #ef4444; }
         @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
+        /* BUSCA N3 */
+        .services-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .search-services-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .search-services-icon {
+            position: absolute;
+            left: 0.55rem;
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            pointer-events: none;
+        }
+        .search-services-input {
+            padding: 0.3rem 0.6rem 0.3rem 1.75rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            font-family: inherit;
+            font-size: 0.8rem;
+            width: 150px;
+            transition: var(--transition);
+            background: var(--surface-alt);
+            color: var(--text-main);
+        }
+        .search-services-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: white;
+            box-shadow: 0 0 0 3px var(--accent-light);
+            width: 180px;
+        }
+        .search-services-input::placeholder { color: var(--text-sub); }
+
         /* MODAL MOVER SERVIÇO */
         #move-modal .modal-content { max-width: 460px; }
         .move-modal-service-name {
@@ -397,9 +435,15 @@
             <section class="column hidden" id="col-services">
                 <div class="col-header">
                     <h2><i class="fa-solid fa-circle-dot"></i> Nivel 3: Serviços</h2>
-                    <button class="btn btn-outline" style="padding: 0.3rem 0.6rem" onclick="addItem('service')">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
+                    <div class="services-header-actions">
+                        <div class="search-services-wrapper">
+                            <i class="fa-solid fa-magnifying-glass search-services-icon"></i>
+                            <input type="text" id="search-services" class="search-services-input" placeholder="Buscar serviço..." oninput="filterServices(this.value)">
+                        </div>
+                        <button class="btn btn-outline" style="padding: 0.3rem 0.6rem" onclick="addItem('service')">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="list-items" id="list-services"></div>
             </section>
@@ -609,6 +653,8 @@
         function selectSubtheme(id) {
             selectedSubthemeId = id;
             selectedServiceId = null;
+            const searchInput = document.getElementById('search-services');
+            if (searchInput) searchInput.value = '';
             const theme = appData.find(t => t.id === selectedThemeId);
             const sub = theme.subthemes.find(s => s.id === id);
             renderSubthemes();
@@ -968,6 +1014,14 @@
             toast.innerHTML = `<i class="fa-solid fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i> ${msg}`;
             container.appendChild(toast);
             setTimeout(() => toast.remove(), 3000);
+        }
+
+        function filterServices(query) {
+            const q = query.trim().toLowerCase();
+            document.querySelectorAll('#list-services .item').forEach(el => {
+                const name = el.querySelector('.item-name')?.textContent.toLowerCase() || '';
+                el.style.display = (!q || name.includes(q)) ? '' : 'none';
+            });
         }
 
         function showLoader(show) { document.getElementById('loader').classList.toggle('active', show); }
