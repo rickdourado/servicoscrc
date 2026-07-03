@@ -263,6 +263,57 @@
         .toast.error { border-left-color: #ef4444; }
         @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
+        /* MODAL MOVER SERVIÇO */
+        #move-modal .modal-content { max-width: 460px; }
+        .move-modal-service-name {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--text-main);
+            background: var(--surface-alt);
+            border-radius: var(--radius-md);
+            padding: 0.6rem 0.9rem;
+            border-left: 4px solid var(--orange);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .move-modal-arrow {
+            text-align: center;
+            font-size: 1.4rem;
+            color: var(--accent);
+            line-height: 1;
+        }
+        #move-theme-select, #move-subtheme-select {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            background: white;
+            cursor: pointer;
+        }
+        #move-theme-select:focus, #move-subtheme-select:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+        #move-subtheme-select:disabled { opacity: 0.5; cursor: not-allowed; }
+        .item-move {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0.4rem;
+            border-radius: var(--radius-md);
+            opacity: 0;
+        }
+        .item:hover .item-move { opacity: 1; }
+        .item-move:hover { background: var(--surface-alt); color: var(--orange); }
+        .item.active .item-move { color: rgba(255,255,255,0.8); }
+        .item.active .item-move:hover { background: rgba(255,255,255,0.2); color: white; }
+
         /* LOADING */
         .loading-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8);
@@ -384,6 +435,43 @@
                         <button onclick="closeEditModal()" class="btn btn-outline">Cancelar</button>
                         <button onclick="saveEditModal()" class="btn btn-primary">Salvar Alterações</button>
                     </div>
+                </div>
+            </div>
+        </div>
+        <!-- MODAL MOVER SERVIÇO (N3 → qualquer N2) -->
+        <div class="modal-overlay" id="move-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title"><i class="fa-solid fa-arrows-up-down-left-right" style="color: var(--orange); margin-right: 0.5rem;"></i> Mover Serviço</div>
+                    <button class="btn-close" onclick="closeMoveModal()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Serviço sendo movido</label>
+                    <div class="move-modal-service-name" id="move-service-name"></div>
+                </div>
+
+                <div class="move-modal-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+
+                <div class="form-group">
+                    <label class="form-label">Tema destino (N1)</label>
+                    <select id="move-theme-select" onchange="populateMoveSubthemes()">
+                        <option value="">— Selecione um Tema —</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Subtema destino (N2)</label>
+                    <select id="move-subtheme-select" disabled>
+                        <option value="">— Selecione um Subtema —</option>
+                    </select>
+                </div>
+
+                <div class="modal-actions">
+                    <button onclick="closeMoveModal()" class="btn btn-outline">Cancelar</button>
+                    <button onclick="confirmMove()" class="btn btn-primary">
+                        <i class="fa-solid fa-check"></i> Confirmar Movimentação
+                    </button>
                 </div>
             </div>
         </div>
@@ -578,9 +666,13 @@
             if (type === 'subtheme') icon = 'fa-folder-tree';
             if (type === 'service') icon = 'fa-circle-dot';
 
+            const moveBtnHtml = (type === 'service')
+                ? `<i class="fa-solid fa-arrows-up-down-left-right item-move" onclick="openMoveModal(event, '${item.id}')" title="Mover para outro subtema"></i>`
+                : '';
             div.innerHTML = `
                 <div class="item-icon"><i class="fa-solid ${icon}"></i></div>
                 <span class="item-name" title="${item.name || 'Sem nome'}">${item.name || 'Sem nome'}</span>
+                ${moveBtnHtml}
                 <i class="fa-solid fa-pen item-edit" onclick="openEditModal(event, '${item.id}', '${type}')" title="Editar"></i>
                 <i class="fa-solid fa-chevron-right item-arrow"></i>
             `;
@@ -878,6 +970,118 @@
         }
 
         function showLoader(show) { document.getElementById('loader').classList.toggle('active', show); }
+
+        // ── MODAL MOVER SERVIÇO (N3 → qualquer N2) ──────────────────────────
+        let moveServiceId = null;    // ID do serviço sendo movido
+        let moveFromThemeId = null;  // N1 de origem
+        let moveFromSubthemeId = null; // N2 de origem
+
+        function openMoveModal(event, serviceId) {
+            event.stopPropagation();
+
+            // Localiza o serviço na árvore completa
+            let foundService = null, foundTheme = null, foundSubtheme = null;
+            for (const theme of appData) {
+                for (const sub of theme.subthemes) {
+                    const srv = sub.services.find(s => s.id === serviceId);
+                    if (srv) {
+                        foundService = srv;
+                        foundTheme = theme;
+                        foundSubtheme = sub;
+                        break;
+                    }
+                }
+                if (foundService) break;
+            }
+            if (!foundService) return showToast('Serviço não encontrado', 'error');
+
+            moveServiceId = serviceId;
+            moveFromThemeId = foundTheme.id;
+            moveFromSubthemeId = foundSubtheme.id;
+
+            document.getElementById('move-service-name').textContent = foundService.name;
+
+            // Popula temas
+            const themeSelect = document.getElementById('move-theme-select');
+            themeSelect.innerHTML = '<option value="">— Selecione um Tema —</option>';
+            appData.forEach(t => {
+                const opt = document.createElement('option');
+                opt.value = t.id;
+                opt.textContent = t.name;
+                themeSelect.appendChild(opt);
+            });
+
+            // Reseta subtemas
+            const subSelect = document.getElementById('move-subtheme-select');
+            subSelect.innerHTML = '<option value="">— Selecione um Subtema —</option>';
+            subSelect.disabled = true;
+
+            document.getElementById('move-modal').classList.add('active');
+        }
+
+        function populateMoveSubthemes() {
+            const themeId = document.getElementById('move-theme-select').value;
+            const subSelect = document.getElementById('move-subtheme-select');
+            subSelect.innerHTML = '<option value="">— Selecione um Subtema —</option>';
+
+            if (!themeId) { subSelect.disabled = true; return; }
+
+            const theme = appData.find(t => t.id === themeId);
+            if (!theme || theme.subthemes.length === 0) {
+                subSelect.innerHTML = '<option value="">Nenhum subtema disponível</option>';
+                subSelect.disabled = true;
+                return;
+            }
+
+            theme.subthemes.forEach(sub => {
+                const opt = document.createElement('option');
+                opt.value = sub.id;
+                // Marca o subtema de origem para orientação
+                const isOrigin = (sub.id === moveFromSubthemeId && themeId === moveFromThemeId);
+                opt.textContent = sub.name + (isOrigin ? ' (origem atual)' : '');
+                subSelect.appendChild(opt);
+            });
+            subSelect.disabled = false;
+        }
+
+        function confirmMove() {
+            const targetThemeId = document.getElementById('move-theme-select').value;
+            const targetSubthemeId = document.getElementById('move-subtheme-select').value;
+
+            if (!targetThemeId) return showToast('Selecione um Tema destino', 'error');
+            if (!targetSubthemeId) return showToast('Selecione um Subtema destino', 'error');
+            if (targetSubthemeId === moveFromSubthemeId) {
+                return showToast('O serviço já está neste subtema', 'error');
+            }
+
+            // Localiza origem e remove o serviço
+            const fromTheme = appData.find(t => t.id === moveFromThemeId);
+            const fromSub = fromTheme.subthemes.find(s => s.id === moveFromSubthemeId);
+            const srvIdx = fromSub.services.findIndex(s => s.id === moveServiceId);
+            if (srvIdx === -1) return showToast('Erro: serviço não encontrado na origem', 'error');
+            const [serviceObj] = fromSub.services.splice(srvIdx, 1);
+
+            // Insere no destino
+            const targetTheme = appData.find(t => t.id === targetThemeId);
+            const targetSub = targetTheme.subthemes.find(s => s.id === targetSubthemeId);
+            targetSub.services.push(serviceObj);
+
+            showToast(`"${serviceObj.name}" movido para ${targetTheme.name} › ${targetSub.name}`, 'success');
+            closeMoveModal();
+
+            // Re-renderiza — atualiza a visão conforme o contexto atual
+            renderThemes();
+            renderSubthemes();
+            renderServices();
+        }
+
+        function closeMoveModal() {
+            document.getElementById('move-modal').classList.remove('active');
+            moveServiceId = null;
+            moveFromThemeId = null;
+            moveFromSubthemeId = null;
+        }
+        // ────────────────────────────────────────────────────────────────────
 
         document.addEventListener('DOMContentLoaded', loadData);
     </script>
